@@ -14,15 +14,19 @@ public class StockDAOImpl<E> extends BaseDAOImpl<E> implements StockDAO<E> {
 	public List<Stock> getproductcode(String code) {
 		Session session=sessionFactory.openSession();
 		session.beginTransaction();
-		List<Stock>list=new ArrayList<Stock>();
+		List<Object[]>results=new ArrayList<>();
 		StringBuilder stringquery=new StringBuilder();
-		stringquery.append("select {st.*} from stock st join product_info p on st.id_stock_pro = p.id_pro where p.pro_code= :code");
-		Query query=session.createSQLQuery(stringquery.toString()).addEntity("st",Stock.class).addJoin("p","st.productInfo")
+		stringquery.append("select st.*,pr.* FROM stock st JOIN product_info pr ON st.id_stock_pro = pr.id_pro where pr.pro_code= :code");
+		Query query=session.createSQLQuery(stringquery.toString()).addEntity("st",Stock.class).addJoin("pr","st.productInfo")
 							.setParameter("code", code);
-		list=query.list();
+		results=query.list();
+		List<Stock> list=new ArrayList<>();
+		for(Object[] row :results) {
+			Stock stock=(Stock) row[0];
+			list.add(stock);
+		}
 		session.flush();
 		session.close();
-		return null;
+		return list;
 	}
-
 }

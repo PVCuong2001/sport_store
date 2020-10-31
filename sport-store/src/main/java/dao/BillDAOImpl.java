@@ -1,5 +1,6 @@
 package dao;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,15 +10,15 @@ public class BillDAOImpl<E> extends BaseDAOImpl<E> implements BillDAO<E>{
 
 	@Override
 	public int getmaxbill() {
-		int result;
+		BigInteger result;
 		Session session=sessionFactory.openSession();
 		session.beginTransaction();
-		StringBuilder query=new StringBuilder();
-		query.append("select max(b.id) from ").append("Bill").append(" b  ");
-		result=(int) session.createQuery(query.toString()).uniqueResult();
+		StringBuilder stringquery=new StringBuilder();
+		stringquery.append("select auto_increment from information_schema.TABLES where TABLE_SCHEMA ='sport_store' and TABLE_NAME ='bill'");
+		result=(BigInteger) session.createSQLQuery(stringquery.toString()).uniqueResult();
 		session.flush();
 		session.close();
-		return result;
+		return result.intValue();
 	}
 	
 }

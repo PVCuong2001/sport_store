@@ -10,6 +10,7 @@
                 <column name="id_product_info"/>
             </key-property>
         </composite-id>
+        
         <many-to-one class="model.Bill" embed-xml="true" fetch="select" insert="false" name="bill" not-found="exception" optimistic-lock="true" unique="false" update="false">
             <column name="id_bill" not-null="true"/>
         </many-to-one>
