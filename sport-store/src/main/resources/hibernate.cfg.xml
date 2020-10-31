@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+		"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.password">Be@2patient</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/sport_store</property>
+        <property name="hibernate.connection.username">cuong</property>
+        <property name="show_sql">true</property>
+        <property name="format_sql">true</property>
+        <mapping resource="model/mapping/Bill.hbm.xml"/>
+        <mapping resource="model/mapping/BillProduct.hbm.xml"/>
+        <mapping resource="model/mapping/Branch.hbm.xml"/>
+        <mapping resource="model/mapping/BranchCategory.hbm.xml"/>
+        <mapping resource="model/mapping/Category.hbm.xml"/>
+        <mapping resource="model/mapping/Color.hbm.xml"/>
+        <mapping resource="model/mapping/ProductInfo.hbm.xml"/>
+        <mapping resource="model/mapping/Size.hbm.xml"/>
+        <mapping resource="model/mapping/Stock.hbm.xml"/>
+        <mapping resource="model/mapping/User.hbm.xml"/>
+        <mapping resource="model/mapping/UserWorkingshift.hbm.xml"/>
+        <mapping resource="model/mapping/WorkingShift.hbm.xml"/>
+    </session-factory>
+</hibernate-configuration>
