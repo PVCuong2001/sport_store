@@ -55,6 +55,7 @@ public class BillController {
 			bill.setUser(user);
 			bill.setBillProducts(billProducts);
 			bill.setDescription(description);
+			
 			BillController.billDAO.save(bill);
 		}
 		
@@ -73,6 +74,7 @@ public class BillController {
 //					Bill bill=new Bill();
 //					bill.setId(maxbill);
 //					billProduct.setBill(bill);
+					
 					BillProductId billProductId=new BillProductId();
 					billProductId.setIdBill(maxbill);
 					billProductId.setIdProductInfo(stocks.get(0).getId());
