@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated Nov 4, 2020, 9:15:16 PM by Hibernate Tools 5.4.18.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
+    <class catalog="sport_store" dynamic-insert="false" dynamic-update="false" mutable="true" name="test.Branch" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="branch">
+        <id name="idBra" type="int">
+            <column name="id_bra"/>
+            <generator class="assigned"/>
+        </id>
+        <property generated="never" lazy="false" name="braCode" optimistic-lock="true" type="string" unique="false">
+            <column length="45" name="bra_code"/>
+        </property>
+        <property generated="never" lazy="false" name="braName" optimistic-lock="true" type="string" unique="false">
+            <column length="45" name="bra_name"/>
+        </property>
+        <property generated="never" lazy="false" name="braDescription" optimistic-lock="true" type="string" unique="false">
+            <column length="200" name="bra_description"/>
+        </property>
+        <set embed-xml="true" fetch="select" inverse="true" lazy="true" mutable="true" name="branchCategories" optimistic-lock="true" sort="unsorted" table="branch_category">
+            <key on-delete="noaction">
+                <column name="id_bracate_bra" not-null="true"/>
+            </key>
+            <one-to-many class="test.BranchCategory" embed-xml="true" not-found="exception"/>
+        </set>
+    </class>
+</hibernate-mapping>

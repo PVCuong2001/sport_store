@@ -65,7 +65,7 @@ public class ProductController {
 			result[i][3]=list.get(i).getProductInfo().getCurrentPrice();
 			result[i][4]=list.get(i).getProductInfo().getBranchCategory().getCategory().getName();
 			result[i][5]=list.get(i).getSize().getName();
-			result[i][6]=list.get(i).getColor().getName();
+//			result[i][6]=list.get(i).getColor().getName();
 			result[i][7]=list.get(i).getQuantity();
 		}
 		return result;
@@ -120,26 +120,6 @@ public class ProductController {
 		}
 		return listpage;
 	}
-//	public Stock showdetailproduct(int page,int rowcount,int checknum) {
-//		int pos=
-//	}
-//	public Object[][] hello(int cot ,int hang,int page) throws InstanceNotFoundException{
-//		productService=(ProductService) Injector.getInstance("ProductService");
-//		List<Object[]>rows=new ArrayList<>();
-//		rows=productService.findbypage(2, 3, "name");
-//		Object [][] data=(Object[][]) new Object();
-//		for(int i=0;i<cot;i++) {
-//			for(int j=0;j<hang;j++) {
-//				if(i==0) {
-//					data[j][i]=(page-1)*cot+1+j;
-//				}else {
-//					Object row[]=rows.get(i-1);
-//					
-//					data[j][i]=(ProductInfo)row[1];
-//				}
-//			}
-//		}
-//		return data;
-//	}
+
 	
 }

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated Nov 4, 2020, 9:15:16 PM by Hibernate Tools 5.4.18.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
+    <class catalog="sport_store" dynamic-insert="false" dynamic-update="false" mutable="true" name="test.Bill" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="bill">
+        <id name="idBill" type="java.lang.Integer">
+            <column name="id_bill"/>
+            <generator class="identity"/>
+        </id>
+        <many-to-one class="test.User" embed-xml="true" fetch="select" insert="true" name="user" not-found="exception" optimistic-lock="true" unique="false" update="true">
+            <column name="id_bill_user" not-null="true"/>
+        </many-to-one>
+        <property generated="never" lazy="false" name="billCode" optimistic-lock="true" type="string" unique="false">
+            <column length="45" name="bill_code" not-null="true" unique="true"/>
+        </property>
+        <property generated="never" lazy="false" name="billCreateDate" optimistic-lock="true" type="date" unique="false">
+            <column length="10" name="bill_create_date" not-null="true"/>
+        </property>
+        <property generated="never" lazy="false" name="billDescription" optimistic-lock="true" type="string" unique="false">
+            <column length="200" name="bill_description"/>
+        </property>
+        <set embed-xml="true" fetch="select" inverse="true" lazy="true" mutable="true" name="billProducts" optimistic-lock="true" sort="unsorted" table="bill_product">
+            <key on-delete="noaction">
+                <column name="id_bipro_bill" not-null="true"/>
+            </key>
+            <one-to-many class="test.BillProduct" embed-xml="true" not-found="exception"/>
+        </set>
+    </class>
+</hibernate-mapping>

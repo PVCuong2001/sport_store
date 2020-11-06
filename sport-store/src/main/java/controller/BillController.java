@@ -1,5 +1,6 @@
 package controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Date;
@@ -19,11 +20,13 @@ import model.BillProductId;
 import model.ProductInfo;
 import model.Stock;
 import model.User;
+import validate.DateValidator;
 
 public class BillController {
 	private static BillDAO<Bill>billDAO;
 	private static StockDAO<Stock>stockDAO;
 	private static Set<BillProduct>billProducts=new HashSet<BillProduct>();
+	private static List<Object[]> showlist=new ArrayList<Object[]>();
 	private static int maxbill=0;
 	@SuppressWarnings("unchecked")
 	public BillController() throws InstanceNotFoundException {
@@ -33,9 +36,9 @@ public class BillController {
 	}
 	public static void main(String[] args) throws InstanceNotFoundException {
 		BillController billController=new BillController();
-		billController.addproduct();
-		billController.savebill();
-		System.out.println(maxbill);
+//		billController.addproduct();
+//		billController.savebill();
+//		System.out.println(maxbill);
 //		Iterator<BillProduct> it = billProducts.iterator();
 //	     while(it.hasNext()){
 //	        System.out.println(it.next().getId().getIdBill());
@@ -55,7 +58,6 @@ public class BillController {
 			bill.setUser(user);
 			bill.setBillProducts(billProducts);
 			bill.setDescription(description);
-			
 			BillController.billDAO.save(bill);
 		}
 		
@@ -68,16 +70,17 @@ public class BillController {
 			if(stocks!=null && !stocks.isEmpty()) {
 				if(quantity>0 && quantity<= stocks.get(0).getQuantity()) {
 					BillProduct billProduct=new BillProduct();
-//					billProduct.setProductInfo(stocks.get(0).getProductInfo());
+					billProduct.setProductInfo(stocks.get(0).getProductInfo());
 					billProduct.setQuantity(quantity);
 					billProduct.setPrice(price);
 //					Bill bill=new Bill();
 //					bill.setId(maxbill);
-//					billProduct.setBill(bill);
+	//				billProduct.setBill(bill);
 					
 					BillProductId billProductId=new BillProductId();
 					billProductId.setIdBill(maxbill);
 					billProductId.setIdProductInfo(stocks.get(0).getId());
+					
 					billProduct.setId(billProductId);
 					billProducts.add(billProduct);
 				}else {
@@ -89,6 +92,32 @@ public class BillController {
 		}
 		
 		public void cancel() {
+			//xoa toan bo product ra khoi list billproduct
+			//tren view thi xoa het nx gi user da ghi
+		}
+		public void showbill() {
+			Date date=new Date();
+			SimpleDateFormat formater=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			DateValidator dateValidator=new DateValidator();
+			boolean check=false;
+			//Gan gia tri mac dinh 
+			String mindate="2020-01-01 00:00:00";
+			String maxdate=formater.format(date);
+			int mintotal=0;
+			int maxtotal=999999999;
+			// doan nay la de lay du lieu tren view
+			
+//			do {
+//				//cho nhap ngay thang vo
+//				dateValidator.isValid(maxdate);
+//			}while(!check);
+			
+			showlist =billDAO.findbytotal(mintotal,maxtotal,mindate,maxdate);
+			System.out.println(showlist.get(0)[5].toString());
+		}
 		
+		public void showbilldetail() {
+			List<Object[]>billdetails=billDAO.findbilldetail(1);
+			System.out.println(billdetails.get(0)[0].toString()+" "+billdetails.get(0)[3].toString());
 		}
 }
