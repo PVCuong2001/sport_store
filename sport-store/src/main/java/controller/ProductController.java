@@ -65,7 +65,7 @@ public class ProductController {
 			result[i][3]=list.get(i).getProductInfo().getCurrentPrice();
 			result[i][4]=list.get(i).getProductInfo().getBranchCategory().getCategory().getName();
 			result[i][5]=list.get(i).getSize().getName();
-//			result[i][6]=list.get(i).getColor().getName();
+			result[i][6]=list.get(i).getColor().getName();
 			result[i][7]=list.get(i).getQuantity();
 		}
 		return result;

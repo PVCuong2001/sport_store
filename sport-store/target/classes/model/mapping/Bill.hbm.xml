@@ -18,7 +18,7 @@
         <property generated="never" lazy="false" name="description" optimistic-lock="true" type="string" unique="false">
             <column length="100" name="bill_description"/>
         </property>
-        <set cascade="save-update" embed-xml="true" fetch="select" inverse="true" lazy="true" mutable="true" name="billProducts" optimistic-lock="true" sort="unsorted" table="bill_product" >
+        <set cascade="save-update ,delete"  embed-xml="true" fetch="select" inverse="true" lazy="true" mutable="true" name="billProducts" optimistic-lock="true" sort="unsorted" table="bill_product" >
             <key on-delete="noaction">
                 <column name="id_bipro_bill" not-null="true"/>
             </key>

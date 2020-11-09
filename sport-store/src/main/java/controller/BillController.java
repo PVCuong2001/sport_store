@@ -43,6 +43,8 @@ public class BillController {
 //	     while(it.hasNext()){
 //	        System.out.println(it.next().getId().getIdBill());
 //	     }
+		
+		billController.deletebill();
 	}
 		public void savebill() {
 			Bill bill=new Bill();
@@ -119,5 +121,10 @@ public class BillController {
 		public void showbilldetail() {
 			List<Object[]>billdetails=billDAO.findbilldetail(1);
 			System.out.println(billdetails.get(0)[0].toString()+" "+billdetails.get(0)[3].toString());
+		}
+		
+		public void deletebill() {
+			Bill bill=billDAO.findbyId(Bill.class, 5, "Bill");
+			billDAO.delete(bill);
 		}
 }

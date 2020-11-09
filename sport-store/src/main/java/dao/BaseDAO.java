@@ -10,4 +10,5 @@ public interface BaseDAO <E> {
 	public void save(E instance);
 	public void update(E instance);
 	public long total(String clazz);
+	public void delete (E instance );
 }

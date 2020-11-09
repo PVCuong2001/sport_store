@@ -29,15 +29,9 @@ public class BaseDAOImpl<E> implements BaseDAO<E> {
 	@Override
 	public E findbyId(Class<E> instance, Serializable id,String clazz) {
 		Session session=sessionFactory.openSession();
-		try {
-			Class Cls=Class.forName(clazz);
-			Class cls=session.get(Cls.getClass(), id);
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return null;
+		E result =session.get(instance ,id);
+		session.close();
+		return result;
 	}
 
 	@Override
@@ -100,5 +94,25 @@ public class BaseDAOImpl<E> implements BaseDAO<E> {
 		query.append("select count (e.id) from ").append(clazz).append(" e");
 		long result=(long) session.createQuery(query.toString()).uniqueResult();
 		return result;
+	}
+
+	@Override
+	public void delete(E instance) {
+		Session session=sessionFactory.openSession();
+		try {
+			//start transaction
+			session.beginTransaction();
+			//save object to DB
+			session.delete(instance);
+			//commit transaction
+			session.getTransaction().commit();
+		}catch(Exception e) {
+			//rollback
+			session.getTransaction().rollback();
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}	
+		
 	}
 }
