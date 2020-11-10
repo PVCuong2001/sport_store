@@ -42,7 +42,6 @@ public class ProductController {
 	}
 	public static void main(String[] args) throws InstanceNotFoundException  {
 		ProductController controller=new ProductController();
-		
 		Object [][] data=controller.showproduct(1, 6, 2);
 		for(Object[] i :data) {
 			for(Object j :i) {
@@ -110,6 +109,11 @@ public class ProductController {
 		productInfo.setCreateDate(new Date());
 		productInfo.setUpdateDate(new Date());
 		ProductController.productDAO.save(productInfo);
+	}
+	public void deleteproduct() {
+		ProductInfo productInfo=productDAO.findbyId(ProductInfo.class,3);
+		productInfo.setActiveFlag(0);
+		productDAO.update(productInfo);
 	}
 	public int[] listpage() {
 		long result =ProductController.productDAO.total("ProductInfo");

@@ -32,30 +32,25 @@ public class BillController {
 	public BillController() throws InstanceNotFoundException {
 		billDAO=(BillDAO<Bill>) Injector.getInstance("BillImpl");
 		stockDAO=(StockDAO<Stock>) Injector.getInstance("StockDAOImpl");
-		maxbill=billDAO.getmaxbill();
+		maxbill=billDAO.nextid("bill");
 	}
 	public static void main(String[] args) throws InstanceNotFoundException {
 		BillController billController=new BillController();
-//		billController.addproduct();
-//		billController.savebill();
-//		System.out.println(maxbill);
-//		Iterator<BillProduct> it = billProducts.iterator();
-//	     while(it.hasNext()){
-//	        System.out.println(it.next().getId().getIdBill());
-//	     }
-		
-		billController.deletebill();
+		billController.addproduct();
+		billController.savebill();
+		System.out.println(maxbill);
 	}
 		public void savebill() {
 			Bill bill=new Bill();
 			Date date=new Date();
 			//User user=LoginController.storeuser;
 			User user=new User();
-			user.setId(1);
+			user.setId(2);
 			// code vs des lay tu view.gettext
-			String code="cuongpro";
-			String description ="Ghi dai cai chi cx dc";
+			String code="cuongprolt";
+			String description ="Ghi dai cai chi cx dctrt";
 			bill.setCode(code);
+			bill.setId(6);
 			bill.setCreateDate(date);
 			bill.setUser(user);
 			bill.setBillProducts(billProducts);
@@ -65,7 +60,7 @@ public class BillController {
 		
 		
 		public void addproduct() {
-			String code="AoBayer" ;
+			String code="AoJuve" ;
 			int quantity=10;
 			long price=100000;
 			List<Stock>stocks=BillController.stockDAO.getproductcode(code);
@@ -75,21 +70,20 @@ public class BillController {
 					billProduct.setProductInfo(stocks.get(0).getProductInfo());
 					billProduct.setQuantity(quantity);
 					billProduct.setPrice(price);
-//					Bill bill=new Bill();
-//					bill.setId(maxbill);
+	//				Bill bill=new Bill();
+	//				bill.setId(maxbill);
 	//				billProduct.setBill(bill);
 					
 					BillProductId billProductId=new BillProductId();
 					billProductId.setIdBill(maxbill);
 					billProductId.setIdProductInfo(stocks.get(0).getId());
-					
 					billProduct.setId(billProductId);
 					billProducts.add(billProduct);
 				}else {
 					System.out.println("So luong mat hang khong hop le \n");
 				}
 			}else {
-				System.out.println("MA CODE SAI . XIN MOI NHAP LAI \n");
+				System.out.println("MA CODE SAI HOAC SAN PHAM KHONG CON DUOC BAN . XIN MOI NHAP LAI \n");
 			}
 		}
 		
@@ -124,7 +118,8 @@ public class BillController {
 		}
 		
 		public void deletebill() {
-			Bill bill=billDAO.findbyId(Bill.class, 5, "Bill");
+			//tk loi dua cai id cua bill 
+			Bill bill=billDAO.findbyId(Bill.class, 48);
 			billDAO.delete(bill);
 		}
 }

@@ -16,7 +16,7 @@ public class StockDAOImpl<E> extends BaseDAOImpl<E> implements StockDAO<E> {
 		session.beginTransaction();
 		List<Object[]>results=new ArrayList<>();
 		StringBuilder stringquery=new StringBuilder();
-		stringquery.append("select st.*,pr.* FROM stock st JOIN product_info pr ON st.id_stock_pro = pr.id_pro where pr.pro_code= :code");
+		stringquery.append("select st.*,pro.* FROM stock st JOIN product_info pro ON st.id_stock_pro = pro.id_pro where pro.pro_code= :code && pro.id_pro=1");
 		Query query=session.createSQLQuery(stringquery.toString()).addEntity("st",Stock.class).addJoin("pr","st.productInfo")
 							.setParameter("code", code);
 		results=query.list();

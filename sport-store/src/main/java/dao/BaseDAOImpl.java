@@ -1,6 +1,7 @@
 package dao;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +28,7 @@ public class BaseDAOImpl<E> implements BaseDAO<E> {
 	}
 
 	@Override
-	public E findbyId(Class<E> instance, Serializable id,String clazz) {
+	public E findbyId(Class<E> instance, Serializable id) {
 		Session session=sessionFactory.openSession();
 		E result =session.get(instance ,id);
 		session.close();
@@ -81,7 +82,7 @@ public class BaseDAOImpl<E> implements BaseDAO<E> {
 			session.getTransaction().rollback();
 			e.printStackTrace();
 		}finally {
-			session.flush();
+//			session.flush();
 			session.close();
 		}		
 	}
@@ -114,5 +115,18 @@ public class BaseDAOImpl<E> implements BaseDAO<E> {
 			session.close();
 		}	
 		
+	}
+
+	@Override
+	public int nextid(String tablename) {
+		BigInteger result=BigInteger.valueOf(0);
+		Session session=sessionFactory.openSession();
+		session.beginTransaction();
+		StringBuilder stringquery=new StringBuilder();
+		stringquery.append("call nextid(:tablename)");
+		result=(BigInteger) session.createSQLQuery(stringquery.toString()).setParameter("tablename", tablename).uniqueResult();
+		session.flush();
+		session.close();
+		return result.intValue();
 	}
 }
