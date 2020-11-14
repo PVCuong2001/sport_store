@@ -36,8 +36,8 @@ public class BillController {
 	}
 	public static void main(String[] args) throws InstanceNotFoundException {
 		BillController billController=new BillController();
-		billController.addproduct();
-		billController.savebill();
+//		billController.addproduct();
+//		billController.savebill();
 		System.out.println(maxbill);
 	}
 		public void savebill() {

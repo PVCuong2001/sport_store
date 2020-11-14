@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated Nov 13, 2020, 9:48:28 PM by Hibernate Tools 5.4.18.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
+    <class catalog="sport_store" dynamic-insert="false" dynamic-update="false" mutable="true" name="model.UserRole" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="user_role">
+        <composite-id class="model.UserRoleId" mapped="false" name="id" unsaved-value="undefined">
+            <key-property name="userid" type="int">
+                <column name="userid"/>
+            </key-property>
+            <key-property name="roleid" type="int">
+                <column name="roleid"/>
+            </key-property>
+        </composite-id>
+        <many-to-one class="model.Role" embed-xml="true" fetch="join" insert="false" name="role" not-found="exception" optimistic-lock="true" unique="false" update="false">
+            <column name="roleid" not-null="true"/>
+        </many-to-one>
+        <many-to-one class="model.User" embed-xml="true" fetch="join" insert="false" name="user" not-found="exception" optimistic-lock="true" unique="false" update="false">
+            <column name="userid" not-null="true"/>
+        </many-to-one>
+        <property generated="never" lazy="false" name="activeflag" optimistic-lock="true" type="int" unique="false">
+            <column name="activeflag" not-null="true"/>
+        </property>
+        <property generated="never" lazy="false" name="createdate" optimistic-lock="true" type="timestamp" unique="false">
+            <column length="19" name="createdate" not-null="true"/>
+        </property>
+        <property generated="never" lazy="false" name="updatedate" optimistic-lock="true" type="timestamp" unique="false">
+            <column length="19" name="updatedate" not-null="true"/>
+        </property>
+    </class>
+</hibernate-mapping>

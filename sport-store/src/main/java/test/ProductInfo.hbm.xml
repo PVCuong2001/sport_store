@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated Nov 13, 2020, 9:48:28 PM by Hibernate Tools 5.4.18.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
+    <class catalog="sport_store" dynamic-insert="false" dynamic-update="false" mutable="true" name="test.ProductInfo" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="product_info">
+        <id name="idPro" type="java.lang.Integer">
+            <column name="id_pro"/>
+            <generator class="identity"/>
+        </id>
+        <many-to-one class="test.BranchCategory" embed-xml="true" fetch="select" insert="true" name="branchCategory" not-found="exception" optimistic-lock="true" unique="false" update="true">
+            <column name="id_pro_bracate" not-null="true"/>
+        </many-to-one>
+        <property generated="never" lazy="false" name="proName" optimistic-lock="true" type="string" unique="false">
+            <column length="45" name="pro_name" not-null="true"/>
+        </property>
+        <property generated="never" lazy="false" name="proDescription" optimistic-lock="true" type="string" unique="false">
+            <column length="45" name="pro_description"/>
+        </property>
+        <property generated="never" lazy="false" name="proCode" optimistic-lock="true" type="string" unique="false">
+            <column length="45" name="pro_code" not-null="true" unique="true"/>
+        </property>
+        <property generated="never" lazy="false" name="proImgUrl" optimistic-lock="true" type="string" unique="false">
+            <column length="45" name="pro_img_url"/>
+        </property>
+        <property generated="never" lazy="false" name="proCurrentPrice" optimistic-lock="true" type="int" unique="false">
+            <column name="pro_current_price" not-null="true"/>
+        </property>
+        <property generated="never" lazy="false" name="proCreateDate" optimistic-lock="true" type="date" unique="false">
+            <column length="10" name="pro_create_date" not-null="true"/>
+        </property>
+        <property generated="never" lazy="false" name="proUpdateDate" optimistic-lock="true" type="date" unique="false">
+            <column length="10" name="pro_update_date" not-null="true"/>
+        </property>
+        <property generated="never" lazy="false" name="proActiveFlag" optimistic-lock="true" type="int" unique="false">
+            <column name="pro_active_flag" not-null="true"/>
+        </property>
+        <set embed-xml="true" fetch="select" inverse="true" lazy="true" mutable="true" name="billProducts" optimistic-lock="true" sort="unsorted" table="bill_product">
+            <key on-delete="noaction">
+                <column name="id_bipro_productinfo" not-null="true"/>
+            </key>
+            <one-to-many class="test.BillProduct" embed-xml="true" not-found="exception"/>
+        </set>
+        <set embed-xml="true" fetch="select" inverse="true" lazy="true" mutable="true" name="stocks" optimistic-lock="true" sort="unsorted" table="stock">
+            <key on-delete="noaction">
+                <column name="id_stock_pro" not-null="true"/>
+            </key>
+            <one-to-many class="test.Stock" embed-xml="true" not-found="exception"/>
+        </set>
+    </class>
+</hibernate-mapping>

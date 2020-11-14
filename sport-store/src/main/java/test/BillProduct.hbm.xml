@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated Nov 13, 2020, 9:48:28 PM by Hibernate Tools 5.4.18.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
+    <class catalog="sport_store" dynamic-insert="false" dynamic-update="false" mutable="true" name="test.BillProduct" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="bill_product">
+        <composite-id class="test.BillProductId" mapped="false" name="id" unsaved-value="undefined">
+            <key-property name="idBiproBill" type="int">
+                <column name="id_bipro_bill"/>
+            </key-property>
+            <key-property name="idBiproProductinfo" type="int">
+                <column name="id_bipro_productinfo"/>
+            </key-property>
+        </composite-id>
+        <many-to-one class="test.Bill" embed-xml="true" fetch="select" insert="false" name="bill" not-found="exception" optimistic-lock="true" unique="false" update="false">
+            <column name="id_bipro_bill" not-null="true"/>
+        </many-to-one>
+        <many-to-one class="test.ProductInfo" embed-xml="true" fetch="select" insert="false" name="productInfo" not-found="exception" optimistic-lock="true" unique="false" update="false">
+            <column name="id_bipro_productinfo" not-null="true"/>
+        </many-to-one>
+        <property generated="never" lazy="false" name="quantity" optimistic-lock="true" type="int" unique="false">
+            <column name="quantity" not-null="true"/>
+        </property>
+        <property generated="never" lazy="false" name="price" optimistic-lock="true" type="int" unique="false">
+            <column name="price" not-null="true"/>
+        </property>
+    </class>
+</hibernate-mapping>

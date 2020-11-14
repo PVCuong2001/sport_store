@@ -8,7 +8,9 @@ import java.awt.event.ActionListener;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Logger;
 
 import javax.swing.ImageIcon;
@@ -24,7 +26,9 @@ import javax.swing.border.EmptyBorder;
 import config.Injector;
 import config.Serializable_user;
 import controller.LoginController;
+import model.Role;
 import model.User;
+import model.UserRole;
 import service.UserService;
 
 import java.awt.Color;
@@ -99,6 +103,11 @@ public class JFrameLogin extends JFrame {
 						List<User>users=loginController.finduser("code",code);
 						if(users.size()!=0 && users.get(0).getPassword().equals(password)) {
 							loginController.storeuser=users.get(0);
+							System.out.println(loginController.storeuser.getName());
+							UserRole userRole=(UserRole) loginController.storeuser.getUserRoles().iterator().next();
+							System.out.println(userRole.getCreatedate());
+							Role role =userRole.getRole();
+							System.out.println(role.getRolename());
 							dispose();//close login page
 							MainView mainview = new MainView();
 							mainview.show();
