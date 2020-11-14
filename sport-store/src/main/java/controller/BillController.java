@@ -38,6 +38,7 @@ public class BillController {
 		BillController billController=new BillController();
 //		billController.addproduct();
 //		billController.savebill();
+		billController.showbill();
 		System.out.println(maxbill);
 	}
 		public void savebill() {
