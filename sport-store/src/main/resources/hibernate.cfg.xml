@@ -22,5 +22,7 @@
         <mapping resource="model/mapping/User.hbm.xml"/>
         <mapping resource="model/mapping/UserWorkingshift.hbm.xml"/>
         <mapping resource="model/mapping/WorkingShift.hbm.xml"/>
+        <mapping resource="model/mapping/UserRole.hbm.xml"/>
+		<mapping resource="model/mapping/Role.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>

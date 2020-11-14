@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Generated Nov 4, 2020, 9:15:16 PM by Hibernate Tools 5.4.18.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 13, 2020, 9:48:28 PM by Hibernate Tools 5.4.18.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
     <class catalog="sport_store" dynamic-insert="false" dynamic-update="false" mutable="true" name="test.Bill" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="bill">
         <id name="idBill" type="java.lang.Integer">
@@ -12,8 +12,8 @@
         <property generated="never" lazy="false" name="billCode" optimistic-lock="true" type="string" unique="false">
             <column length="45" name="bill_code" not-null="true" unique="true"/>
         </property>
-        <property generated="never" lazy="false" name="billCreateDate" optimistic-lock="true" type="date" unique="false">
-            <column length="10" name="bill_create_date" not-null="true"/>
+        <property generated="never" lazy="false" name="billCreatedate" optimistic-lock="true" type="timestamp" unique="false">
+            <column length="19" name="bill_createdate" not-null="true"/>
         </property>
         <property generated="never" lazy="false" name="billDescription" optimistic-lock="true" type="string" unique="false">
             <column length="200" name="bill_description"/>

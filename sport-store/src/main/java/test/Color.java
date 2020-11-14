@@ -1,5 +1,5 @@
 package test;
-// Generated Nov 4, 2020, 9:15:15 PM by Hibernate Tools 5.4.18.Final
+// Generated Nov 13, 2020, 9:48:28 PM by Hibernate Tools 5.4.18.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -9,27 +9,29 @@ import java.util.Set;
  */
 public class Color implements java.io.Serializable {
 
-	private Integer idColor;
+	private int idColor;
 	private String colorName;
 	private Set stocks = new HashSet(0);
 
 	public Color() {
 	}
 
-	public Color(String colorName) {
+	public Color(int idColor, String colorName) {
+		this.idColor = idColor;
 		this.colorName = colorName;
 	}
 
-	public Color(String colorName, Set stocks) {
+	public Color(int idColor, String colorName, Set stocks) {
+		this.idColor = idColor;
 		this.colorName = colorName;
 		this.stocks = stocks;
 	}
 
-	public Integer getIdColor() {
+	public int getIdColor() {
 		return this.idColor;
 	}
 
-	public void setIdColor(Integer idColor) {
+	public void setIdColor(int idColor) {
 		this.idColor = idColor;
 	}
 

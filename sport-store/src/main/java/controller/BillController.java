@@ -36,26 +36,32 @@ public class BillController {
 	}
 	public static void main(String[] args) throws InstanceNotFoundException {
 		BillController billController=new BillController();
-		billController.addproduct();
-		billController.savebill();
+//		billController.addproduct();
+//		billController.savebill();
 		System.out.println(maxbill);
 	}
 		public void savebill() {
-			Bill bill=new Bill();
-			Date date=new Date();
-			//User user=LoginController.storeuser;
-			User user=new User();
-			user.setId(2);
-			// code vs des lay tu view.gettext
 			String code="cuongprolt";
-			String description ="Ghi dai cai chi cx dctrt";
-			bill.setCode(code);
-			bill.setId(6);
-			bill.setCreateDate(date);
-			bill.setUser(user);
-			bill.setBillProducts(billProducts);
-			bill.setDescription(description);
-			BillController.billDAO.save(bill);
+			List<Bill>bills=billDAO.findbyproperty("code", code, "Bill");
+			if(bills.isEmpty()) {
+				Bill bill=new Bill();
+				Date date=new Date();
+				//User user=LoginController.storeuser;
+				User user=new User();
+				user.setId(2);
+				// code vs des lay tu view.gettext
+				
+				String description ="Ghi dai cai chi cx dctrt";
+				bill.setCode(code);
+				bill.setId(6);
+				bill.setCreateDate(date);
+				bill.setUser(user);
+				bill.setBillProducts(billProducts);
+				bill.setDescription(description);
+				BillController.billDAO.save(bill);
+			}else {
+				System.out.println("Ma bill da ton tai .Vui long nhap lai. \n");
+			}		
 		}
 		
 		

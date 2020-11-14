@@ -1,5 +1,5 @@
 package test;
-// Generated Nov 4, 2020, 9:15:15 PM by Hibernate Tools 5.4.18.Final
+// Generated Nov 13, 2020, 9:48:28 PM by Hibernate Tools 5.4.18.Final
 
 import java.util.Date;
 import java.util.HashSet;
@@ -13,23 +13,23 @@ public class Bill implements java.io.Serializable {
 	private Integer idBill;
 	private User user;
 	private String billCode;
-	private Date billCreateDate;
+	private Date billCreatedate;
 	private String billDescription;
 	private Set billProducts = new HashSet(0);
 
 	public Bill() {
 	}
 
-	public Bill(User user, String billCode, Date billCreateDate) {
+	public Bill(User user, String billCode, Date billCreatedate) {
 		this.user = user;
 		this.billCode = billCode;
-		this.billCreateDate = billCreateDate;
+		this.billCreatedate = billCreatedate;
 	}
 
-	public Bill(User user, String billCode, Date billCreateDate, String billDescription, Set billProducts) {
+	public Bill(User user, String billCode, Date billCreatedate, String billDescription, Set billProducts) {
 		this.user = user;
 		this.billCode = billCode;
-		this.billCreateDate = billCreateDate;
+		this.billCreatedate = billCreatedate;
 		this.billDescription = billDescription;
 		this.billProducts = billProducts;
 	}
@@ -58,12 +58,12 @@ public class Bill implements java.io.Serializable {
 		this.billCode = billCode;
 	}
 
-	public Date getBillCreateDate() {
-		return this.billCreateDate;
+	public Date getBillCreatedate() {
+		return this.billCreatedate;
 	}
 
-	public void setBillCreateDate(Date billCreateDate) {
-		this.billCreateDate = billCreateDate;
+	public void setBillCreatedate(Date billCreatedate) {
+		this.billCreatedate = billCreatedate;
 	}
 
 	public String getBillDescription() {
