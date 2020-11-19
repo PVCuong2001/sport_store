@@ -10,7 +10,7 @@
             <column length="45" name="cate_name" unique="true"/>
         </property>
         <property generated="never" lazy="false" name="measureUnit" optimistic-lock="true" type="string" unique="false">
-            <column length="45" name="measure_unit" not-null="true"/>
+            <column length="45" name="cate_measureunit" not-null="true"/>
         </property>
         <set embed-xml="true" fetch="select" inverse="true" lazy="true" mutable="true" name="branchCategories" optimistic-lock="true" sort="unsorted" table="branch_category">
             <key on-delete="noaction">

@@ -16,7 +16,7 @@
             <column name="id_stock_size" not-null="true"/>
         </many-to-one>
         <property generated="never" lazy="false" name="quantity" optimistic-lock="true" type="int" unique="false">
-            <column name="quantity" not-null="true"/>
+            <column name="stock_quantity" not-null="true"/>
         </property>
     </class>
 </hibernate-mapping>

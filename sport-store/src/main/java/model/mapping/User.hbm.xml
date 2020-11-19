@@ -45,7 +45,7 @@
         
        <set embed-xml="true" fetch="select" inverse="true" lazy="false" mutable="true" name="userRoles" optimistic-lock="true" sort="unsorted" table="user_role">
             <key on-delete="noaction">
-                <column name="userid" not-null="true"/>
+                <column name="id_usro_user" not-null="true"/>
             </key>
             <one-to-many class="model.UserRole" embed-xml="true" not-found="exception"/>
         </set>

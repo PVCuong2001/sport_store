@@ -4,26 +4,26 @@
     <class catalog="sport_store" dynamic-insert="false" dynamic-update="false" mutable="true" name="model.UserRole" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="user_role">
         <composite-id class="model.UserRoleId" mapped="false" name="id" unsaved-value="undefined">
             <key-property name="userid" type="int">
-                <column name="userid"/>
+                <column name="id_usro_user"/>
             </key-property>
             <key-property name="roleid" type="int">
-                <column name="roleid"/>
+                <column name="id_usro_role"/>
             </key-property>
         </composite-id>
         <many-to-one class="model.Role" embed-xml="true" fetch="join" insert="false" name="role" not-found="exception" optimistic-lock="true" unique="false" update="false">
-            <column name="roleid" not-null="true"/>
+            <column name="id_usro_role" not-null="true"/>
         </many-to-one>
         <many-to-one class="model.User" embed-xml="true" fetch="join" insert="false" name="user" not-found="exception" optimistic-lock="true" unique="false" update="false">
-            <column name="userid" not-null="true"/>
+            <column name="id_usro_user" not-null="true"/>
         </many-to-one>
         <property generated="never" lazy="false" name="activeflag" optimistic-lock="true" type="int" unique="false">
-            <column name="activeflag" not-null="true"/>
+            <column name="usro_activeflag" not-null="true"/>
         </property>
         <property generated="never" lazy="false" name="createdate" optimistic-lock="true" type="timestamp" unique="false">
-            <column length="19" name="createdate" not-null="true"/>
+            <column length="19" name="usro_createdate" not-null="true"/>
         </property>
         <property generated="never" lazy="false" name="updatedate" optimistic-lock="true" type="timestamp" unique="false">
-            <column length="19" name="updatedate" not-null="true"/>
+            <column length="19" name="usro_updatedate" not-null="true"/>
         </property>
     </class>
 </hibernate-mapping>
