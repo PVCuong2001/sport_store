@@ -30,12 +30,6 @@
         <property generated="never" lazy="false" name="gender" optimistic-lock="true" type="string" unique="false">
             <column length="10" name="user_gender" not-null="true"/>
         </property>
-        <set embed-xml="true" fetch="select" inverse="true" lazy="true" mutable="true" name="userWorkingshifts" optimistic-lock="true" sort="unsorted" table="user_workingshift">
-            <key on-delete="noaction">
-                <column name="user_id" not-null="true"/>
-            </key>
-            <one-to-many class="model.UserWorkingshift" embed-xml="true" not-found="exception"/>
-        </set>
         <set embed-xml="true" fetch="select" inverse="true" lazy="true" mutable="true" name="bills" optimistic-lock="true" sort="unsorted" table="bill">
             <key on-delete="noaction">
                 <column name="id_bill_user" not-null="true"/>

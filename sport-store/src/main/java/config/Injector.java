@@ -11,7 +11,6 @@ import javax.management.InstanceNotFoundException;
 
 public class Injector {
 	private static final String IOC_CONFIG_FILE_NAME="/home/cuong/git/java/sport_store/sport-store/src/main/resources/ioc.properties";
-	
 	private Injector() {
 		throw new UnsupportedOperationException();
 	}

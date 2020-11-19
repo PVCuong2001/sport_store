@@ -17,7 +17,6 @@ public class User implements java.io.Serializable {
 	private String password;
 	private int activeFlag;
 	private String gender;
-	private Set userWorkingshifts = new HashSet(0);
 	private Set bills = new HashSet(0);
 	private Set userRoles = new HashSet(0);
 	
@@ -40,7 +39,7 @@ public class User implements java.io.Serializable {
 	}
 
 	public User(int id, String code, String name, String phone, String gmail, String address, String password,
-			int activeFlag, String gender, Set userWorkingshifts, Set bills,Set userRoles) {
+			int activeFlag, String gender, Set bills,Set userRoles) {
 		this.id = id;
 		this.code = code;
 		this.name = name;
@@ -50,7 +49,6 @@ public class User implements java.io.Serializable {
 		this.password = password;
 		this.activeFlag = activeFlag;
 		this.gender = gender;
-		this.userWorkingshifts = userWorkingshifts;
 		this.bills = bills;
 		this.userRoles=userRoles;
 	}
@@ -127,13 +125,7 @@ public class User implements java.io.Serializable {
 		this.gender = gender;
 	}
 
-	public Set getUserWorkingshifts() {
-		return this.userWorkingshifts;
-	}
-
-	public void setUserWorkingshifts(Set userWorkingshifts) {
-		this.userWorkingshifts = userWorkingshifts;
-	}
+	
 
 	public Set getBills() {
 		return this.bills;
