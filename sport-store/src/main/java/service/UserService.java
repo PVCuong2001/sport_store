@@ -82,4 +82,7 @@ public class UserService  {
 		}
 		return result;
 	} 
+	public void saveuser(User user) {
+		
+	}
 }
