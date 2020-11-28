@@ -1,5 +1,5 @@
 package test;
-// Generated Nov 13, 2020, 9:48:28 PM by Hibernate Tools 5.4.18.Final
+// Generated Nov 26, 2020, 5:02:29 PM by Hibernate Tools 5.4.18.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -11,19 +11,22 @@ public class Category implements java.io.Serializable {
 
 	private Integer idCate;
 	private String cateName;
-	private String measureUnit;
+	private String cateMeasureunit;
+	private String cateCode;
 	private Set branchCategories = new HashSet(0);
 
 	public Category() {
 	}
 
-	public Category(String measureUnit) {
-		this.measureUnit = measureUnit;
+	public Category(String cateMeasureunit, String cateCode) {
+		this.cateMeasureunit = cateMeasureunit;
+		this.cateCode = cateCode;
 	}
 
-	public Category(String cateName, String measureUnit, Set branchCategories) {
+	public Category(String cateName, String cateMeasureunit, String cateCode, Set branchCategories) {
 		this.cateName = cateName;
-		this.measureUnit = measureUnit;
+		this.cateMeasureunit = cateMeasureunit;
+		this.cateCode = cateCode;
 		this.branchCategories = branchCategories;
 	}
 
@@ -43,12 +46,20 @@ public class Category implements java.io.Serializable {
 		this.cateName = cateName;
 	}
 
-	public String getMeasureUnit() {
-		return this.measureUnit;
+	public String getCateMeasureunit() {
+		return this.cateMeasureunit;
 	}
 
-	public void setMeasureUnit(String measureUnit) {
-		this.measureUnit = measureUnit;
+	public void setCateMeasureunit(String cateMeasureunit) {
+		this.cateMeasureunit = cateMeasureunit;
+	}
+
+	public String getCateCode() {
+		return this.cateCode;
+	}
+
+	public void setCateCode(String cateCode) {
+		this.cateCode = cateCode;
 	}
 
 	public Set getBranchCategories() {

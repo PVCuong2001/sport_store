@@ -1,5 +1,5 @@
 package test;
-// Generated Nov 13, 2020, 9:48:28 PM by Hibernate Tools 5.4.18.Final
+// Generated Nov 26, 2020, 5:02:29 PM by Hibernate Tools 5.4.18.Final
 
 import java.util.Date;
 import java.util.HashSet;
@@ -20,7 +20,6 @@ public class ProductInfo implements java.io.Serializable {
 	private Date proCreateDate;
 	private Date proUpdateDate;
 	private int proActiveFlag;
-	private Set billProducts = new HashSet(0);
 	private Set stocks = new HashSet(0);
 
 	public ProductInfo() {
@@ -39,7 +38,7 @@ public class ProductInfo implements java.io.Serializable {
 
 	public ProductInfo(BranchCategory branchCategory, String proName, String proDescription, String proCode,
 			String proImgUrl, int proCurrentPrice, Date proCreateDate, Date proUpdateDate, int proActiveFlag,
-			Set billProducts, Set stocks) {
+			Set stocks) {
 		this.branchCategory = branchCategory;
 		this.proName = proName;
 		this.proDescription = proDescription;
@@ -49,7 +48,6 @@ public class ProductInfo implements java.io.Serializable {
 		this.proCreateDate = proCreateDate;
 		this.proUpdateDate = proUpdateDate;
 		this.proActiveFlag = proActiveFlag;
-		this.billProducts = billProducts;
 		this.stocks = stocks;
 	}
 
@@ -131,14 +129,6 @@ public class ProductInfo implements java.io.Serializable {
 
 	public void setProActiveFlag(int proActiveFlag) {
 		this.proActiveFlag = proActiveFlag;
-	}
-
-	public Set getBillProducts() {
-		return this.billProducts;
-	}
-
-	public void setBillProducts(Set billProducts) {
-		this.billProducts = billProducts;
 	}
 
 	public Set getStocks() {

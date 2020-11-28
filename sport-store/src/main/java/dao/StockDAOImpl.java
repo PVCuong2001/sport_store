@@ -29,4 +29,51 @@ public class StockDAOImpl<E> extends BaseDAOImpl<E> implements StockDAO<E> {
 		session.close();
 		return list;
 	}
+
+	@Override
+	public boolean checkexiststockcompokey(int id_pro, int id_color, int id_size) {
+		Session session=sessionFactory.openSession();
+		session.beginTransaction();
+		int result;
+		StringBuilder stringquery=new StringBuilder();
+		stringquery.append("select count(*) from stock where id_stock_pro = :id_pro && id_stock_color = :id_color && id_stock_size = :id_size ");
+		result=(int) session.createSQLQuery(stringquery.toString())
+				.setParameter("id_pro",id_pro)
+				.setParameter("id_color",id_color)
+				.setParameter("id_size",id_size)
+				.uniqueResult();
+		session.flush();
+		session.close();
+		if(result!=0) return true;
+		return false;
+	}
+
+	@Override
+	public void savestock(int id_pro, int id_color, int id_size, int quantity) {
+		Session session =sessionFactory.openSession();
+		session.beginTransaction();
+		StringBuilder stringquery=new StringBuilder();
+		stringquery.append("insert into stock(stock_quantity,id_stock_size,id_stock_color,id_stock_pro) value(:quantity ,:id_size,:id_color,:id_pro)");
+		session.createSQLQuery(stringquery.toString())
+								.setParameter("quantity",quantity)
+								.setParameter("id_color", id_color)
+								.setParameter("id_size",id_size)
+								.setParameter("id_pro",id_pro)
+								.executeUpdate();
+		session.flush();
+		session.close();
+	}
+
+	@Override
+	public void deletestock(int id_pro) {
+		Session session =sessionFactory.openSession();
+		session.beginTransaction();
+		StringBuilder stringquery=new StringBuilder();
+		stringquery.append("delete from stock where id_stock_pro =:id_pro");
+		session.createNativeQuery(stringquery.toString())
+									.setParameter("id_pro",id_pro)
+									.executeUpdate();
+		session.flush();
+		session.close();
+	}
 }

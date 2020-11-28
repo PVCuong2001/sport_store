@@ -1,5 +1,5 @@
 package test;
-// Generated Nov 13, 2020, 9:48:28 PM by Hibernate Tools 5.4.18.Final
+// Generated Nov 26, 2020, 5:02:29 PM by Hibernate Tools 5.4.18.Final
 
 import java.util.Date;
 import java.util.HashSet;
@@ -10,82 +10,82 @@ import java.util.Set;
  */
 public class Role implements java.io.Serializable {
 
-	private int idrole;
-	private String rolename;
-	private String roledescription;
-	private int activeflag;
-	private Date createdate;
-	private Date updatedate;
+	private int idRole;
+	private String roleName;
+	private String roleDescription;
+	private int roleActiveflag;
+	private Date roleCreatedate;
+	private Date roleUpdatedate;
 	private Set userRoles = new HashSet(0);
 
 	public Role() {
 	}
 
-	public Role(int idrole, String rolename, int activeflag, Date createdate, Date updatedate) {
-		this.idrole = idrole;
-		this.rolename = rolename;
-		this.activeflag = activeflag;
-		this.createdate = createdate;
-		this.updatedate = updatedate;
+	public Role(int idRole, String roleName, int roleActiveflag, Date roleCreatedate, Date roleUpdatedate) {
+		this.idRole = idRole;
+		this.roleName = roleName;
+		this.roleActiveflag = roleActiveflag;
+		this.roleCreatedate = roleCreatedate;
+		this.roleUpdatedate = roleUpdatedate;
 	}
 
-	public Role(int idrole, String rolename, String roledescription, int activeflag, Date createdate, Date updatedate,
-			Set userRoles) {
-		this.idrole = idrole;
-		this.rolename = rolename;
-		this.roledescription = roledescription;
-		this.activeflag = activeflag;
-		this.createdate = createdate;
-		this.updatedate = updatedate;
+	public Role(int idRole, String roleName, String roleDescription, int roleActiveflag, Date roleCreatedate,
+			Date roleUpdatedate, Set userRoles) {
+		this.idRole = idRole;
+		this.roleName = roleName;
+		this.roleDescription = roleDescription;
+		this.roleActiveflag = roleActiveflag;
+		this.roleCreatedate = roleCreatedate;
+		this.roleUpdatedate = roleUpdatedate;
 		this.userRoles = userRoles;
 	}
 
-	public int getIdrole() {
-		return this.idrole;
+	public int getIdRole() {
+		return this.idRole;
 	}
 
-	public void setIdrole(int idrole) {
-		this.idrole = idrole;
+	public void setIdRole(int idRole) {
+		this.idRole = idRole;
 	}
 
-	public String getRolename() {
-		return this.rolename;
+	public String getRoleName() {
+		return this.roleName;
 	}
 
-	public void setRolename(String rolename) {
-		this.rolename = rolename;
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
 	}
 
-	public String getRoledescription() {
-		return this.roledescription;
+	public String getRoleDescription() {
+		return this.roleDescription;
 	}
 
-	public void setRoledescription(String roledescription) {
-		this.roledescription = roledescription;
+	public void setRoleDescription(String roleDescription) {
+		this.roleDescription = roleDescription;
 	}
 
-	public int getActiveflag() {
-		return this.activeflag;
+	public int getRoleActiveflag() {
+		return this.roleActiveflag;
 	}
 
-	public void setActiveflag(int activeflag) {
-		this.activeflag = activeflag;
+	public void setRoleActiveflag(int roleActiveflag) {
+		this.roleActiveflag = roleActiveflag;
 	}
 
-	public Date getCreatedate() {
-		return this.createdate;
+	public Date getRoleCreatedate() {
+		return this.roleCreatedate;
 	}
 
-	public void setCreatedate(Date createdate) {
-		this.createdate = createdate;
+	public void setRoleCreatedate(Date roleCreatedate) {
+		this.roleCreatedate = roleCreatedate;
 	}
 
-	public Date getUpdatedate() {
-		return this.updatedate;
+	public Date getRoleUpdatedate() {
+		return this.roleUpdatedate;
 	}
 
-	public void setUpdatedate(Date updatedate) {
-		this.updatedate = updatedate;
+	public void setRoleUpdatedate(Date roleUpdatedate) {
+		this.roleUpdatedate = roleUpdatedate;
 	}
 
 	public Set getUserRoles() {

@@ -13,7 +13,6 @@ public class User implements java.io.Serializable {
 	private String name;
 	private String phone;
 	private String gmail;
-	private String address;
 	private String password;
 	private int activeFlag;
 	private String gender;
@@ -25,27 +24,25 @@ public class User implements java.io.Serializable {
 	public User() {
 	}
 
-	public User(int id, String code, String name, String phone, String gmail, String address, String password,
+	public User(int id, String code, String name, String phone, String gmail,  String password,
 			int activeFlag, String gender) {
 		this.id = id;
 		this.code = code;
 		this.name = name;
 		this.phone = phone;
 		this.gmail = gmail;
-		this.address = address;
 		this.password = password;
 		this.activeFlag = activeFlag;
 		this.gender = gender;
 	}
 
-	public User(int id, String code, String name, String phone, String gmail, String address, String password,
+	public User(int id, String code, String name, String phone, String gmail, String password,
 			int activeFlag, String gender, Set bills,Set userRoles) {
 		this.id = id;
 		this.code = code;
 		this.name = name;
 		this.phone = phone;
 		this.gmail = gmail;
-		this.address = address;
 		this.password = password;
 		this.activeFlag = activeFlag;
 		this.gender = gender;
@@ -91,14 +88,6 @@ public class User implements java.io.Serializable {
 
 	public void setGmail(String gmail) {
 		this.gmail = gmail;
-	}
-
-	public String getAddress() {
-		return this.address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
 	}
 
 	public String getPassword() {

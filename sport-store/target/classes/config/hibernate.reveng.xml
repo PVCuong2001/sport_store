@@ -3,7 +3,7 @@
 
 <hibernate-reverse-engineering>
   <table-filter match-catalog="sport_store" match-name="bill"/>
-  <table-filter match-catalog="sport_store" match-name="bill_product"/>
+  <table-filter match-catalog="sport_store" match-name="billdetail"/>
   <table-filter match-catalog="sport_store" match-name="branch"/>
   <table-filter match-catalog="sport_store" match-name="branch_category"/>
   <table-filter match-catalog="sport_store" match-name="category"/>
@@ -14,6 +14,4 @@
   <table-filter match-catalog="sport_store" match-name="stock"/>
   <table-filter match-catalog="sport_store" match-name="user"/>
   <table-filter match-catalog="sport_store" match-name="user_role"/>
-  <table-filter match-catalog="sport_store" match-name="user_workingshift"/>
-  <table-filter match-catalog="sport_store" match-name="working_shift"/>
 </hibernate-reverse-engineering>

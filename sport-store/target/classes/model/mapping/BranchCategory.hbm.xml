@@ -6,10 +6,10 @@
             <column name="id_bracate"/>
             <generator class="identity"/>
         </id>
-        <many-to-one class="model.Branch" embed-xml="true" fetch="select" insert="true" name="branch" not-found="exception" optimistic-lock="true" unique="false" update="true">
+        <many-to-one class="model.Branch" embed-xml="true" fetch="join" insert="true" name="branch" not-found="exception" optimistic-lock="true" unique="false" update="true">
             <column name="id_bracate_bra" not-null="true"/>
         </many-to-one>
-        <many-to-one class="model.Category" embed-xml="true" fetch="select" insert="true" name="category" not-found="exception" optimistic-lock="true" unique="false" update="true">
+        <many-to-one class="model.Category" embed-xml="true" fetch="join" insert="true" name="category" not-found="exception" optimistic-lock="true" unique="false" update="true">
             <column name="id_bracate_cate" not-null="true"/>
         </many-to-one>
         <set embed-xml="true" fetch="select" inverse="true" lazy="true" mutable="true" name="productInfos" optimistic-lock="true" sort="unsorted" table="product_info">

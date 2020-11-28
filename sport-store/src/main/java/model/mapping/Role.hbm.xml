@@ -12,9 +12,6 @@
         <property generated="never" lazy="false" name="roledescription" optimistic-lock="true" type="string" unique="false">
             <column length="200" name="role_description"/>
         </property>
-        <property generated="never" lazy="false" name="activeflag" optimistic-lock="true" type="int" unique="false">
-            <column name="role_activeflag" not-null="true"/>
-        </property>
         <property generated="never" lazy="false" name="createdate" optimistic-lock="true" type="timestamp" unique="false">
             <column length="19" name="role_createdate" not-null="true"/>
         </property>

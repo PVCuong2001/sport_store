@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Generated Nov 13, 2020, 9:48:28 PM by Hibernate Tools 5.4.18.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 26, 2020, 5:02:30 PM by Hibernate Tools 5.4.18.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
     <class catalog="sport_store" dynamic-insert="false" dynamic-update="false" mutable="true" name="test.Role" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="role">
-        <id name="idrole" type="int">
-            <column name="idrole"/>
+        <id name="idRole" type="int">
+            <column name="id_role"/>
             <generator class="assigned"/>
         </id>
-        <property generated="never" lazy="false" name="rolename" optimistic-lock="true" type="string" unique="false">
-            <column length="100" name="rolename" not-null="true"/>
+        <property generated="never" lazy="false" name="roleName" optimistic-lock="true" type="string" unique="false">
+            <column length="100" name="role_name" not-null="true"/>
         </property>
-        <property generated="never" lazy="false" name="roledescription" optimistic-lock="true" type="string" unique="false">
-            <column length="200" name="roledescription"/>
+        <property generated="never" lazy="false" name="roleDescription" optimistic-lock="true" type="string" unique="false">
+            <column length="200" name="role_description"/>
         </property>
-        <property generated="never" lazy="false" name="activeflag" optimistic-lock="true" type="int" unique="false">
-            <column name="activeflag" not-null="true"/>
+        <property generated="never" lazy="false" name="roleActiveflag" optimistic-lock="true" type="int" unique="false">
+            <column name="role_activeflag" not-null="true"/>
         </property>
-        <property generated="never" lazy="false" name="createdate" optimistic-lock="true" type="timestamp" unique="false">
-            <column length="19" name="createdate" not-null="true"/>
+        <property generated="never" lazy="false" name="roleCreatedate" optimistic-lock="true" type="timestamp" unique="false">
+            <column length="19" name="role_createdate" not-null="true"/>
         </property>
-        <property generated="never" lazy="false" name="updatedate" optimistic-lock="true" type="timestamp" unique="false">
-            <column length="19" name="updatedate" not-null="true"/>
+        <property generated="never" lazy="false" name="roleUpdatedate" optimistic-lock="true" type="timestamp" unique="false">
+            <column length="19" name="role_updatedate" not-null="true"/>
         </property>
         <set embed-xml="true" fetch="select" inverse="true" lazy="true" mutable="true" name="userRoles" optimistic-lock="true" sort="unsorted" table="user_role">
             <key on-delete="noaction">
-                <column name="roleid" not-null="true"/>
+                <column name="id_usro_role" not-null="true"/>
             </key>
             <one-to-many class="test.UserRole" embed-xml="true" not-found="exception"/>
         </set>

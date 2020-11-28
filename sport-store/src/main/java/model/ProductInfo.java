@@ -21,7 +21,6 @@ public class ProductInfo implements java.io.Serializable {
 	private Date updateDate;
 	private int activeFlag;
 	private Set stocks = new HashSet(0);
-	private Set billProducts = new HashSet(0);
 
 	public ProductInfo() {
 	}
@@ -39,8 +38,8 @@ public class ProductInfo implements java.io.Serializable {
 	}
 
 	public ProductInfo(int id, BranchCategory branchCategory, String name, String description, String code,
-			String imgUrl, int currentPrice, Date createDate, Date updateDate, int activeFlag, Set stocks,
-			Set billProducts) {
+			String imgUrl, int currentPrice, Date createDate, Date updateDate, int activeFlag, Set stocks)
+			 {
 		this.id = id;
 		this.branchCategory = branchCategory;
 		this.name = name;
@@ -52,7 +51,6 @@ public class ProductInfo implements java.io.Serializable {
 		this.updateDate = updateDate;
 		this.activeFlag = activeFlag;
 		this.stocks = stocks;
-		this.billProducts = billProducts;
 	}
 
 	public int getId() {
@@ -142,13 +140,4 @@ public class ProductInfo implements java.io.Serializable {
 	public void setStocks(Set stocks) {
 		this.stocks = stocks;
 	}
-
-	public Set getBillProducts() {
-		return this.billProducts;
-	}
-
-	public void setBillProducts(Set billProducts) {
-		this.billProducts = billProducts;
-	}
-
 }

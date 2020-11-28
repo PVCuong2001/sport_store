@@ -15,7 +15,7 @@ public class Bill implements java.io.Serializable {
 	private String code;
 	private Date createDate;
 	private String description;
-	private Set billProducts = new HashSet(0);
+	private Set billdetails = new HashSet(0);
 
 	public Bill() {
 	}
@@ -27,13 +27,13 @@ public class Bill implements java.io.Serializable {
 		this.createDate = createDate;
 	}
 
-	public Bill(int id, User user, String code, Date createDate, String description, Set billProducts) {
+	public Bill(int id, User user, String code, Date createDate, String description, Set billdetails) {
 		this.id = id;
 		this.user = user;
 		this.code = code;
 		this.createDate = createDate;
 		this.description = description;
-		this.billProducts = billProducts;
+		this.billdetails = billdetails;
 	}
 
 	public int getId() {
@@ -76,12 +76,12 @@ public class Bill implements java.io.Serializable {
 		this.description = description;
 	}
 
-	public Set getBillProducts() {
-		return this.billProducts;
+	public Set getBilldetails() {
+		return this.billdetails;
 	}
 
-	public void setBillProducts(Set billProducts) {
-		this.billProducts = billProducts;
+	public void setBilldetails(Set billdetails) {
+		this.billdetails = billdetails;
 	}
 
 }

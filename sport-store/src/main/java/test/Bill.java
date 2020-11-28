@@ -1,5 +1,5 @@
 package test;
-// Generated Nov 13, 2020, 9:48:28 PM by Hibernate Tools 5.4.18.Final
+// Generated Nov 26, 2020, 5:02:29 PM by Hibernate Tools 5.4.18.Final
 
 import java.util.Date;
 import java.util.HashSet;
@@ -15,7 +15,7 @@ public class Bill implements java.io.Serializable {
 	private String billCode;
 	private Date billCreatedate;
 	private String billDescription;
-	private Set billProducts = new HashSet(0);
+	private Set billdetails = new HashSet(0);
 
 	public Bill() {
 	}
@@ -26,12 +26,12 @@ public class Bill implements java.io.Serializable {
 		this.billCreatedate = billCreatedate;
 	}
 
-	public Bill(User user, String billCode, Date billCreatedate, String billDescription, Set billProducts) {
+	public Bill(User user, String billCode, Date billCreatedate, String billDescription, Set billdetails) {
 		this.user = user;
 		this.billCode = billCode;
 		this.billCreatedate = billCreatedate;
 		this.billDescription = billDescription;
-		this.billProducts = billProducts;
+		this.billdetails = billdetails;
 	}
 
 	public Integer getIdBill() {
@@ -74,12 +74,12 @@ public class Bill implements java.io.Serializable {
 		this.billDescription = billDescription;
 	}
 
-	public Set getBillProducts() {
-		return this.billProducts;
+	public Set getBilldetails() {
+		return this.billdetails;
 	}
 
-	public void setBillProducts(Set billProducts) {
-		this.billProducts = billProducts;
+	public void setBilldetails(Set billdetails) {
+		this.billdetails = billdetails;
 	}
 
 }

@@ -15,7 +15,7 @@ import dao.BillDAO;
 import dao.ProductDAO;
 import dao.StockDAO;
 import model.Bill;
-import model.BillProduct;
+import model.Billdetail;
 import model.BillProductId;
 import model.ProductInfo;
 import model.Stock;
@@ -25,7 +25,7 @@ import validate.DateValidator;
 public class BillController {
 	private static BillDAO<Bill>billDAO;
 	private static StockDAO<Stock>stockDAO;
-	private static Set<BillProduct>billProducts=new HashSet<BillProduct>();
+	private static Set<Billdetail>billProducts=new HashSet<Billdetail>();
 	private static List<Object[]> showlist=new ArrayList<Object[]>();
 	private static int maxbill=0;
 	@SuppressWarnings("unchecked")
@@ -38,6 +38,7 @@ public class BillController {
 		BillController billController=new BillController();
 //		billController.addproduct();
 //		billController.savebill();
+		billController.showbill();
 		System.out.println(maxbill);
 	}
 		public void savebill() {
@@ -71,8 +72,8 @@ public class BillController {
 			long price=100000;
 			List<Stock>stocks=BillController.stockDAO.getproductcode(code);
 			if(stocks!=null && !stocks.isEmpty()) {
-				if(quantity>0 && quantity<= stocks.get(0).getQuantity()) {
-					BillProduct billProduct=new BillProduct();
+				if(quantity>0 && quantity<= stocks.get(0).getStockQuantity()) {
+					Billdetail billProduct=new Billdetail();
 					billProduct.setProductInfo(stocks.get(0).getProductInfo());
 					billProduct.setQuantity(quantity);
 					billProduct.setPrice(price);
@@ -82,7 +83,7 @@ public class BillController {
 					
 					BillProductId billProductId=new BillProductId();
 					billProductId.setIdBill(maxbill);
-					billProductId.setIdProductInfo(stocks.get(0).getId());
+		//de do lam sau			billProductId.setIdProductInfo(stocks.get(0).getId());
 					billProduct.setId(billProductId);
 					billProducts.add(billProduct);
 				}else {

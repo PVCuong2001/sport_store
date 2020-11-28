@@ -8,6 +8,7 @@ public class UploadProductComponent {
 	private List<Color> color;
 	private List<Size> size;
 	
+	public UploadProductComponent() {};
 	public UploadProductComponent(List<Branch> branch, List<Category> category, List<Color> color, List<Size> size) {
 		super();
 		this.branch = branch;

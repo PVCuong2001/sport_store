@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Generated Nov 13, 2020, 9:48:28 PM by Hibernate Tools 5.4.18.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 26, 2020, 5:02:30 PM by Hibernate Tools 5.4.18.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
     <class catalog="sport_store" dynamic-insert="false" dynamic-update="false" mutable="true" name="test.User" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="user">
-        <id name="idUser" type="java.lang.Integer">
+        <id name="idUser" type="int">
             <column name="id_user"/>
-            <generator class="identity"/>
+            <generator class="assigned"/>
         </id>
         <property generated="never" lazy="false" name="userCode" optimistic-lock="true" type="string" unique="false">
             <column length="45" name="user_code" not-null="true" unique="true"/>
@@ -36,15 +36,9 @@
             </key>
             <one-to-many class="test.Bill" embed-xml="true" not-found="exception"/>
         </set>
-        <set embed-xml="true" fetch="select" inverse="true" lazy="true" mutable="true" name="userWorkingshifts" optimistic-lock="true" sort="unsorted" table="user_workingshift">
-            <key on-delete="noaction">
-                <column name="user_id" not-null="true"/>
-            </key>
-            <one-to-many class="test.UserWorkingshift" embed-xml="true" not-found="exception"/>
-        </set>
         <set embed-xml="true" fetch="select" inverse="true" lazy="true" mutable="true" name="userRoles" optimistic-lock="true" sort="unsorted" table="user_role">
             <key on-delete="noaction">
-                <column name="userid" not-null="true"/>
+                <column name="id_usro_user" not-null="true"/>
             </key>
             <one-to-many class="test.UserRole" embed-xml="true" not-found="exception"/>
         </set>

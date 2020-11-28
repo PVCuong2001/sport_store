@@ -13,7 +13,6 @@ public class Role implements java.io.Serializable {
 	private int idrole;
 	private String rolename;
 	private String roledescription;
-	private int activeflag;
 	private Date createdate;
 	private Date updatedate;
 	private Set userRoles = new HashSet(0);
@@ -21,20 +20,18 @@ public class Role implements java.io.Serializable {
 	public Role() {
 	}
 
-	public Role(int idrole, String rolename, int activeflag, Date createdate, Date updatedate) {
+	public Role(int idrole, String rolename, Date createdate, Date updatedate) {
 		this.idrole = idrole;
 		this.rolename = rolename;
-		this.activeflag = activeflag;
 		this.createdate = createdate;
 		this.updatedate = updatedate;
 	}
 
-	public Role(int idrole, String rolename, String roledescription, int activeflag, Date createdate, Date updatedate,
+	public Role(int idrole, String rolename, String roledescription, Date createdate, Date updatedate,
 			Set userRoles) {
 		this.idrole = idrole;
 		this.rolename = rolename;
 		this.roledescription = roledescription;
-		this.activeflag = activeflag;
 		this.createdate = createdate;
 		this.updatedate = updatedate;
 		this.userRoles = userRoles;
@@ -62,14 +59,6 @@ public class Role implements java.io.Serializable {
 
 	public void setRoledescription(String roledescription) {
 		this.roledescription = roledescription;
-	}
-
-	public int getActiveflag() {
-		return this.activeflag;
-	}
-
-	public void setActiveflag(int activeflag) {
-		this.activeflag = activeflag;
 	}
 
 	public Date getCreatedate() {

@@ -33,17 +33,11 @@
         <property generated="never" lazy="false" name="activeFlag" optimistic-lock="true" type="int" unique="false">
             <column name="pro_active_flag" not-null="true"/>
         </property>
-        <set embed-xml="true" fetch="select" inverse="true" lazy="true" mutable="true" name="stocks" optimistic-lock="true" sort="unsorted" table="stock">
+        <set cascade="save-update ,delete" embed-xml="true" fetch="select" inverse="true" lazy="true" mutable="true" name="stocks" optimistic-lock="true" sort="unsorted" table="stock">
             <key on-delete="noaction">
                 <column name="id_stock_pro" not-null="true"/>
             </key>
             <one-to-many class="model.Stock" embed-xml="true" not-found="exception"/>
-        </set>
-        <set embed-xml="true" fetch="select" inverse="true" lazy="true" mutable="true" name="billProducts" optimistic-lock="true" sort="unsorted" table="bill_product">
-            <key on-delete="noaction">
-                <column name="id_product_info" not-null="true"/>
-            </key>
-            <one-to-many class="model.BillProduct" embed-xml="true" not-found="exception"/>
         </set>
     </class>
 </hibernate-mapping>

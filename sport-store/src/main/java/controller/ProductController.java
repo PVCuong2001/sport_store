@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import javax.management.InstanceNotFoundException;
+import javax.persistence.criteria.CriteriaBuilder.In;
 
 import config.Injector;
 import dao.BranchCategoryDAO;
@@ -14,6 +15,7 @@ import dao.CategoryDAO;
 import dao.ColorDAO;
 import dao.ProductDAO;
 import dao.SizeDAO;
+import dao.StockDAO;
 import model.Branch;
 import model.BranchCategory;
 import model.Category;
@@ -21,6 +23,7 @@ import model.Color;
 import model.ProductInfo;
 import model.Size;
 import model.Stock;
+import model.Checkstockproperty;
 import model.UploadProductComponent;
 import service.UserService;
 
@@ -31,6 +34,9 @@ public class ProductController {
 	private static ColorDAO<Color>colorDAO ;
 	private static SizeDAO<Size>sizeDAO;
 	private static BranchCategoryDAO<BranchCategory>bracateDAO;
+	private static StockDAO<Stock>stockDAO;
+	private static List<Stock>list=new ArrayList<Stock>();
+	
 	@SuppressWarnings("unchecked")
 	public ProductController() throws InstanceNotFoundException {
 		productDAO=(ProductDAO<ProductInfo>) Injector.getInstance("ProductDAOImpl");
@@ -39,25 +45,29 @@ public class ProductController {
 		colorDAO=(ColorDAO<Color>) Injector.getInstance("ColorImpl");
 		sizeDAO=(SizeDAO<Size>) Injector.getInstance("SizeImpl");
 		bracateDAO=(BranchCategoryDAO<BranchCategory>) Injector.getInstance("BranchCategoryImpl");
+		stockDAO=(StockDAO<Stock>) Injector.getInstance("StockDAOImpl");
 	}
-	public static void main(String[] args) throws InstanceNotFoundException  {
-		ProductController controller=new ProductController();
-		Object [][] data=controller.showproduct(1, 6, 2);
-		for(Object[] i :data) {
-			for(Object j :i) {
-				System.out.print(j+"         ");
-			}
-			System.out.println();
-		}
-		
-//		System.out.println(controller.totalproduct());
-		
-		//controller.saveproduct("Tatdabong","T001", "toẹt vời ko bk ns gi hon",420000, "none", 3, 2);
-	}
+//	public static void main(String[] args) throws InstanceNotFoundException  {
+//		ProductController controller=new ProductController();
+//		Object [][] data=controller.showproduct(1,10, 2);
+//		for(Object[] i :data) {
+//			for(Object j :i) {
+//				System.out.print(j+"         ");
+//			}
+//			System.out.println();
+//		}
+//		UploadProductComponent result=controller.uploadproduct();
+//		System.out.println(result.getBranch().get(0).getName());
+//		int id=ProductController.bracateDAO.findbybracate( 2, 3);
+//		System.out.println(id);
+////		System.out.println(controller.totalproduct());
+//		
+//		//controller.saveproduct("Tatdabong","T001", "toẹt vời ko bk ns gi hon",420000, "none", 3, 2);
+//	}
 	public Object[][] showproduct(int page,int rowcount,int sortoption) {
-		List<Stock>list=ProductController.productDAO.findbypage((page-1)*rowcount,rowcount,sortoption);
-		Object [][] result= new Object[rowcount][8];
-		for(int i=0;i<rowcount;i++) {
+		list=ProductController.productDAO.findbypage((page-1)*rowcount,rowcount,sortoption);
+		Object [][] result= new Object[list.size()][8];
+		for(int i=0;i<list.size();i++) {
 			result[i][0]=(page-1)*rowcount+i+1;
 			result[i][1]=list.get(i).getProductInfo().getName();
 			result[i][2]=list.get(i).getProductInfo().getCode();
@@ -65,7 +75,7 @@ public class ProductController {
 			result[i][4]=list.get(i).getProductInfo().getBranchCategory().getCategory().getName();
 			result[i][5]=list.get(i).getSize().getName();
 			result[i][6]=list.get(i).getColor().getName();
-			result[i][7]=list.get(i).getQuantity();
+			result[i][7]=list.get(i).getStockQuantity();
 		}
 		return result;
 	}
@@ -77,28 +87,32 @@ public class ProductController {
 		UploadProductComponent results =new UploadProductComponent(branches, categories, colors, sizes);
 		return results;
 	}
-	public void saveproduct(String name ,String code ,String description,int currentprice,String  imgURl,int id_branch,int id_category) {
-		List<BranchCategory>bracatelist=ProductController.bracateDAO.findall("BranchCategory");
+	//neu tk nay tra ra khac 0 thi chon san Branch va Category
+	public int checkexistproduct(String code) {
+		List<ProductInfo>list=productDAO.findbyproperty("code",code,"ProductInfo");
+		if(list.size()!=0 && !list.isEmpty()) {
+			return list.get(0).getId();
+		}
+		return 0;
+	}
+	public void saveproduct(String name ,String code ,String description,int currentprice,String  imgURl,int id_branch,int id_category,int id_color,int id_size,int id_pro) {
 		ProductInfo productInfo=new ProductInfo();
-		BranchCategory branchCategory=new BranchCategory();
-		int i=0;
-		int bracatesize=bracatelist.size();
-		while(i<bracatesize) {
-			if(bracatelist.get(i).getBranch().getId()==id_branch && bracatelist.get(i).getCategory().getId()==id_category) {
-				branchCategory.setId(bracatelist.get(i).getId());
-				break;
+		Checkstockproperty stockId=new Checkstockproperty();
+		if(id_pro!=0) {
+			stockId.setIdStockColor(id_color);
+			stockId.setIdStockPro(id_pro);
+			stockId.setIdStockSize(id_size);
+			boolean check=stockDAO.checkexiststockcompokey(id_pro, id_color, id_size);
+			if(check) {
+				
 			}
-			i++;
 		}
-		if(i==bracatesize) {
-			Branch branch= new Branch();
-			branch.setId(id_branch);
-			Category category=new Category();
-			category.setId(id_category);
-			branchCategory.setBranch(branch);
-			branchCategory.setCategory(category);
-			branchCategory.setId(bracatelist.get(bracatesize-1).getId());
-		}
+		
+		BranchCategory branchCategory=new BranchCategory();
+		
+		int id_bracate=ProductController.bracateDAO.findbybracate(id_branch, id_category);
+		branchCategory.setId(id_bracate);
+		
 		productInfo.setBranchCategory(branchCategory);
 		productInfo.setName(name);
 		productInfo.setCode(code);
@@ -111,19 +125,27 @@ public class ProductController {
 		ProductController.productDAO.save(productInfo);
 	}
 	public void deleteproduct() {
+		//click vo mot hang thi lay index hang do --->vo liststock kiem--->
 		ProductInfo productInfo=productDAO.findbyId(ProductInfo.class,3);
 		productInfo.setActiveFlag(0);
 		productDAO.update(productInfo);
 	}
-	public int[] listpage() {
+	public Integer[] listpage() {
 		long result =ProductController.productDAO.total("ProductInfo");
-		int totalpage=(int) (result/10+1);
-		int listpage[]=new int[totalpage+1];
-		for(int i=1;i<=totalpage;i++) {
-			listpage[i]=i;
+		int totalpage;
+		if(result%10==0) {
+			totalpage=(int)result/10;
+		}else {
+			totalpage=(int)result/10+1;
+		}
+		Integer listpage[]=new Integer[totalpage];
+		for(int i=0;i<totalpage;i++) {
+			listpage[i]=i+1;
 		}
 		return listpage;
 	}
-
-	
+	public long totaldata() {
+		long result =ProductController.productDAO.total("ProductInfo");
+		return result;
+	}
 }

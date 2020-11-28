@@ -9,7 +9,7 @@
         <property generated="never" lazy="false" name="name" optimistic-lock="true" type="string" unique="false">
             <column length="45" name="color_name" not-null="true"/>
         </property>
-        <set embed-xml="true" fetch="select" inverse="true" lazy="true" mutable="true" name="stocks" optimistic-lock="true" sort="unsorted" table="stock">
+        <set cascade="save-update ,delete" embed-xml="true" fetch="select" inverse="true" lazy="true" mutable="true" name="stocks" optimistic-lock="true" sort="unsorted" table="stock">
             <key on-delete="noaction">
                 <column name="id_stock_color" not-null="true"/>
             </key>

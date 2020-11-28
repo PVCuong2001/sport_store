@@ -15,7 +15,8 @@
         <property generated="never" lazy="false" name="description" optimistic-lock="true" type="string" unique="false">
             <column length="200" name="bra_description"/>
         </property>
-        <set embed-xml="true" fetch="select" inverse="true" lazy="true" mutable="true" name="branchCategories" optimistic-lock="true" sort="unsorted" table="branch_category">
+        
+        <set embed-xml="true" fetch="select" inverse="true" lazy="false" mutable="true" name="branchCategories" optimistic-lock="true" sort="unsorted" table="branch_category">
             <key on-delete="noaction">
                 <column name="id_bracate_bra" not-null="true"/>
             </key>

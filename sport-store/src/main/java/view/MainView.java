@@ -1,30 +1,44 @@
 package view;
 
 import java.awt.EventQueue;
-import java.io.IOException;
-import java.util.List;
 
+import javax.swing.JLabel;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JLayeredPane;
+import javax.swing.UIManager;
+import javax.swing.JTable;
 
-import config.Serializable_user;
-import model.User;
-
-import javax.swing.JTabbedPane;
-import javax.swing.JLabel;
+import java.awt.CardLayout;
+import java.awt.Font;
+import java.awt.Color;
+import javax.swing.border.MatteBorder;
+import javax.swing.JComboBox;
 
 public class MainView extends JFrame {
-
 	/**
 	 * 
 	 */
-
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-
-	/**
-	 * Launch the application.
-	 */
+	private JLayeredPane layeredPane;
+	private JPanel panelUser;
+	private PanelProduct panelProduct;
+	private JPanel panelBill;
+	private JPanel panelInformationUser;
+	private JButton ButtonNhanVien;
+	private JButton ButtonMatHang;
+	private JButton ButtonInforUser;
+	private JButton ButtonHoaDon;
+	private JButton ButtonLogOut;
+	private JTable tableStock;
+	private JLabel LabelTotalData;
+	private JLabel LabelStatus;
+	private JComboBox comboBoxSort;
+	private JComboBox comboBoxPage;
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -36,32 +50,118 @@ public class MainView extends JFrame {
 				}
 			}
 		});
-		
 	}
 
-	/**
-	 * Create the frame.
-	 */
 	public MainView() {
-		setTitle("C\u1EECA H\u00C0NG C\u01AF\u1EDCNG L\u1EE2I");
+		setTitle("       C\u1EECA H\u00C0NG B\u00D3NG \u0110\u00C1 C\u01AF\u1EDCNG L\u1EE2I");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 891, 528);
+		setBounds(100, 100, 1258, 613);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(112, 128, 144));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(0, 0, 875, 489);
-		contentPane.add(tabbedPane);
+		layeredPane = new JLayeredPane();
+		layeredPane.setBorder(new MatteBorder(4, 4, 4, 4, (Color) new Color(95, 158, 160)));
+		layeredPane.setBounds(29, 104, 1180, 406);
+		contentPane.add(layeredPane);
+		layeredPane.setLayout(new CardLayout(0, 0));
 		
-		JPanel mathang = new JPanel();
-		tabbedPane.addTab("M\u1EB7t h\u00E0ng", null, mathang, null);
+		panelUser = new JPanel();
+		layeredPane.add(panelUser, "name_29185430653000");
+		panelUser.setLayout(null);
 		
-		JPanel hoadon = new JPanel();
-		tabbedPane.addTab("Ho\u00E1 \u0111\u01A1n", null, hoadon, null);
+		panelProduct = new PanelProduct();
+		layeredPane.add(panelProduct, "name_29220497651800");
 		
-		JPanel nhanvien = new JPanel();
-		tabbedPane.addTab("Nh\u00E2n vi\u00EAn", null, nhanvien, null);
+		panelBill = new JPanel();
+		layeredPane.add(panelBill, "name_29254702838100");
+		
+		JLabel lblNewLabel_2 = new JLabel("Panel Ho\u00E1 \u0111\u01A1n");
+		panelBill.add(lblNewLabel_2);
+		
+		panelInformationUser = new JPanel();
+		layeredPane.add(panelInformationUser, "name_29268846766800");
+		
+		JLabel lblNewLabel_3 = new JLabel("Panel Th\u00F4ng tin ng\u01B0\u1EDDi d\u00F9ng");
+		panelInformationUser.add(lblNewLabel_3);
+		
+		ButtonNhanVien = new JButton("Nh\u00E2n vi\u00EAn");
+		ButtonNhanVien.setBackground(UIManager.getColor("Button.shadow"));
+		ButtonNhanVien.setFont(new Font("Tahoma", Font.BOLD, 15));
+		ButtonNhanVien.setBounds(119, 29, 124, 42);
+		contentPane.add(ButtonNhanVien);
+		
+		ButtonMatHang = new JButton("M\u1EB7t h\u00E0ng");
+		ButtonMatHang.setBackground(UIManager.getColor("Button.shadow"));
+		ButtonMatHang.setFont(new Font("Tahoma", Font.BOLD, 15));
+		ButtonMatHang.setBounds(307, 29, 111, 42);
+		contentPane.add(ButtonMatHang);
+		
+		ButtonHoaDon = new JButton("Ho\u00E1 \u0111\u01A1n");
+		ButtonHoaDon.setBackground(UIManager.getColor("Button.shadow"));
+		ButtonHoaDon.setFont(new Font("Tahoma", Font.BOLD, 15));
+		ButtonHoaDon.setBounds(489, 29, 111, 42);
+		contentPane.add(ButtonHoaDon);
+		
+		ButtonInforUser = new JButton("Information User");
+		ButtonInforUser.setBackground(UIManager.getColor("Button.shadow"));
+		ButtonInforUser.setFont(new Font("Tahoma", Font.BOLD, 14));
+		ButtonInforUser.setBounds(672, 29, 168, 43);
+		contentPane.add(ButtonInforUser);
+		
+		ButtonLogOut = new JButton("LogOut");
+		ButtonLogOut.setBackground(UIManager.getColor("Button.shadow"));
+		ButtonLogOut.setFont(new Font("Tahoma", Font.BOLD, 15));
+		ButtonLogOut.setBounds(901, 29, 89, 42);
+		contentPane.add(ButtonLogOut);
+		
+	}
+	public JButton getButtonNhanVien() {
+		return ButtonNhanVien;
+	}	
+	public JButton getButtonMatHang() {
+		return ButtonMatHang;
+	}
+	public JButton getButtonInforUser() {
+		return ButtonInforUser;
+	}
+	public JButton getButtonHoaDon() {
+		return ButtonHoaDon;
+	}
+	public JButton getButtonLogOut() {
+		return ButtonLogOut;
+	}
+	public JLayeredPane getLayeredPane() {
+		return layeredPane;
+	}
+	public JPanel getpanelUser() {
+		return panelUser;
+	}
+	public  PanelProduct getPanelProduct() {
+		return panelProduct;
+	}
+	public JPanel getPanelInformationUser() {
+		return panelInformationUser;
+	}
+	public JPanel getpanelBill() {
+		return panelBill;
+	}
+	public JLabel getLabelTotalData() {
+		return LabelTotalData;
+	}
+	public JLabel getLabelStatus() {
+		return LabelStatus;
+	}
+	public JComboBox getComboBoxSort() {
+		return comboBoxSort;
+	}
+	public JComboBox getComboBoxPage() {
+		return comboBoxPage;
+	}
+	public JTable getTableStock() {
+		return tableStock;
 	}
 }
+

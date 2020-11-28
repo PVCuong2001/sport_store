@@ -17,11 +17,11 @@ public class BillDAOImpl<E> extends BaseDAOImpl<E> implements BillDAO<E>{
 		Session session=sessionFactory.openSession();
 		session.beginTransaction();
 		StringBuilder stringquery=new StringBuilder();
-		stringquery.append("select bi.*,sum(bipro.quantity) as sumqty,sum(bipro.quantity*bipro.price) as sumtotal, us.user_name,us.user_code from bill bi \n" + 
-				"join bill_product bipro\n" + 
-				"on bi.id_bill=bipro.id_bipro_bill\n" + 
-				"join product_info pro\n" + 
-				"on bipro.id_bipro_productinfo=pro.id_pro\n" + 
+		stringquery.append("select bi.*,sum(bide.billdetail_quantity) as sumqty,sum(bide.billdetail_quantity*bide.billdetail_price) as sumtotal, us.user_name,us.user_code from bill bi \n" + 
+				"join billdetail bide\n" + 
+				"on bi.id_bill=bide.id_billdetail_bill\n" + 
+				"join stock sto\n" + 
+				"on bide.id_billdetail_stock=sto.id_stock\n" + 
 				"join user us\n" + 
 				"on bi.id_bill_user=us.id_user\n" + 
 				"group by bi.id_bill ")
@@ -42,10 +42,16 @@ public class BillDAOImpl<E> extends BaseDAOImpl<E> implements BillDAO<E>{
 		Session session=sessionFactory.openSession();
 		session.beginTransaction();
 		StringBuilder stringquery=new StringBuilder();
-		stringquery.append("SELECT pro.pro_code,pro.pro_name, bipro.quantity,bipro.price FROM bill_product bipro ") 
-				   .append("join product_info pro ") 
-				   .append("on bipro.id_bipro_productinfo=pro.id_pro ") 
-				   .append("where bipro.id_bipro_bill= :billid");
+		stringquery.append("SELECT pro.pro_code,pro.pro_name,color.color_name,size.size_name, bide.billdetail_quantity,bide.billdetail_price FROM billdetail bide ") 
+				   .append("join stock sto ") 
+				   .append("on bide.id_billdetail_stock=sto.id_stock ") 
+				   .append("join product_info pro ")
+				   .append("on sto.id_stock_pro=pro.id_pro ")
+				   .append("join color ")
+				   .append("on sto.id_stock_color=color.id_color ")
+				   .append("join size ")
+				   .append("on sto.id_stock_size=size.id_size ")
+				   .append("where bide.id_billdetail_bill= :billid");
 		Query query=session.createSQLQuery(stringquery.toString()).setParameter("billid", billid);
 		results=query.list();
 		return results;

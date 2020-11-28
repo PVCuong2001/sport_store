@@ -1,5 +1,5 @@
 package test;
-// Generated Nov 13, 2020, 9:48:28 PM by Hibernate Tools 5.4.18.Final
+// Generated Nov 26, 2020, 5:02:29 PM by Hibernate Tools 5.4.18.Final
 
 import java.util.Date;
 
@@ -11,20 +11,20 @@ public class UserRole implements java.io.Serializable {
 	private UserRoleId id;
 	private Role role;
 	private User user;
-	private int activeflag;
-	private Date createdate;
-	private Date updatedate;
+	private int usroActiveflag;
+	private Date usroCreatedate;
+	private Date usroUpdatedate;
 
 	public UserRole() {
 	}
 
-	public UserRole(UserRoleId id, Role role, User user, int activeflag, Date createdate, Date updatedate) {
+	public UserRole(UserRoleId id, Role role, User user, int usroActiveflag, Date usroCreatedate, Date usroUpdatedate) {
 		this.id = id;
 		this.role = role;
 		this.user = user;
-		this.activeflag = activeflag;
-		this.createdate = createdate;
-		this.updatedate = updatedate;
+		this.usroActiveflag = usroActiveflag;
+		this.usroCreatedate = usroCreatedate;
+		this.usroUpdatedate = usroUpdatedate;
 	}
 
 	public UserRoleId getId() {
@@ -51,28 +51,28 @@ public class UserRole implements java.io.Serializable {
 		this.user = user;
 	}
 
-	public int getActiveflag() {
-		return this.activeflag;
+	public int getUsroActiveflag() {
+		return this.usroActiveflag;
 	}
 
-	public void setActiveflag(int activeflag) {
-		this.activeflag = activeflag;
+	public void setUsroActiveflag(int usroActiveflag) {
+		this.usroActiveflag = usroActiveflag;
 	}
 
-	public Date getCreatedate() {
-		return this.createdate;
+	public Date getUsroCreatedate() {
+		return this.usroCreatedate;
 	}
 
-	public void setCreatedate(Date createdate) {
-		this.createdate = createdate;
+	public void setUsroCreatedate(Date usroCreatedate) {
+		this.usroCreatedate = usroCreatedate;
 	}
 
-	public Date getUpdatedate() {
-		return this.updatedate;
+	public Date getUsroUpdatedate() {
+		return this.usroUpdatedate;
 	}
 
-	public void setUpdatedate(Date updatedate) {
-		this.updatedate = updatedate;
+	public void setUsroUpdatedate(Date usroUpdatedate) {
+		this.usroUpdatedate = usroUpdatedate;
 	}
 
 }

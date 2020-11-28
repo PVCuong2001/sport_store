@@ -18,11 +18,11 @@
         <property generated="never" lazy="false" name="description" optimistic-lock="true" type="string" unique="false">
             <column length="100" name="bill_description"/>
         </property>
-        <set cascade="save-update ,delete"  embed-xml="true" fetch="select" inverse="true" lazy="true" mutable="true" name="billProducts" optimistic-lock="true" sort="unsorted" table="bill_product" >
+        <set cascade="save-update ,delete"  embed-xml="true" fetch="select" inverse="true" lazy="true" mutable="true" name="billdetails" optimistic-lock="true" sort="unsorted" table="billdetail" >
             <key on-delete="noaction">
-                <column name="id_bipro_bill" not-null="true"/>
+                <column name="id_billdetail_bill" not-null="true"/>
             </key>
-            <one-to-many class="model.BillProduct" embed-xml="true" not-found="exception"/>
+            <one-to-many class="model.Billdetail" embed-xml="true" not-found="exception"/>
         </set>
        
     </class>
