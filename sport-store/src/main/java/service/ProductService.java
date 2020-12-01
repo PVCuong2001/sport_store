@@ -106,11 +106,13 @@ public class ProductService {
 			
 			productInfo.setCreateDate(new Date());
 			productInfo.setId(20);
-			productService.deleteproduct(0);
+			
+	//		productService.deleteproduct(0);
 //			productService.editproduct(productInfo);
 			
-//			UploadProductComponent result=controller.uploadproduct();
-//			System.out.println(result.getBranch().get(0).getName());
+			UploadProductComponent result=productService.uploadproduct();
+			System.out.println(result.getSizenum().size()+" "+result.getSizechar().size());
+			System.out.println(result.getSizechar().get(3).getName());
 //			int id=ProductController.bracateDAO.findbybracate( 2, 3);
 //			System.out.println(id);
 //			System.out.println(controller.totalproduct());
@@ -154,9 +156,22 @@ public class ProductService {
 			List<Category>categories=categoryDAOImpl.findall("Category");
 			List<Color>colors=colorDAOImpl.findall("Color");
 			List<Size>sizes=sizeDAOImpl.findall("Size");
-			UploadProductComponent results =new UploadProductComponent(branches, categories, colors, sizes);
+			List<Size>sizesnum=new ArrayList<Size>();
+			List<Size>sizeschar=new ArrayList<Size>();
+			int check;
+			for(int i=0;i<sizes.size();i++) {
+				try {
+					check=Integer.parseInt(sizes.get(i).getName());
+					sizesnum.add(sizes.get(i));
+				}catch(NumberFormatException nfe) {
+					sizeschar.add(sizes.get(i));
+				}
+			}
+			UploadProductComponent results =new UploadProductComponent(branches, categories, colors, sizesnum,sizeschar);
 			return results;
 		}
+		
+		
 		//neu tk nay tra ra khac 0 thi chon san Branch va Category
 //		public int checkexistproduct(String code) {
 //			List<ProductInfo>list=productDAO.findbyproperty("code",code,"ProductInfo");

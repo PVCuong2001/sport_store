@@ -6,15 +6,17 @@ public class UploadProductComponent {
 	private List<Branch> branch;
 	private List<Category> category;
 	private List<Color> color;
-	private List<Size> size;
+	private List<Size> sizesnum;
+	private List<Size>sizeschar;
 	
 	public UploadProductComponent() {};
-	public UploadProductComponent(List<Branch> branch, List<Category> category, List<Color> color, List<Size> size) {
+	public UploadProductComponent(List<Branch> branch, List<Category> category, List<Color> color, List<Size> sizesnum,List<Size>sizeschar) {
 		super();
 		this.branch = branch;
 		this.category = category;
 		this.color = color;
-		this.size = size;
+		this.sizesnum = sizesnum;
+		this.sizeschar=sizeschar;
 	}
 	public List<Branch> getBranch() {
 		return branch;
@@ -35,13 +37,16 @@ public class UploadProductComponent {
 		this.color = color;
 	}
 	
-	public List<Size> getSize() {
-		return size;
+	public List<Size> getSizenum() {
+		return sizesnum;
 	}
-	public void setSize(List<Size> size) {
-		this.size = size;
+	public void setSizenum(List<Size> sizesnum) {
+		this.sizesnum = sizesnum;
 	}
-	
-	
-	
+	public List<Size> getSizechar() {
+		return sizeschar;
+	}
+	public void setSizechar(List<Size> sizeschar) {
+		this.sizeschar = sizeschar;
+	}
 }

@@ -10,6 +10,7 @@ import view.MainView;
 public class ControllerMainView {
 	
 	private MainView mainview;
+
 	
 	
 	public ControllerMainView(MainView m )
@@ -76,6 +77,8 @@ public class ControllerMainView {
 		});
 	}
 	private void ActionPanelMatHang() {
-		ControllerPagination cc = new ControllerPagination(mainview.getPanelProduct());
+		ControllerPagination controllerPagination = new ControllerPagination(mainview.getPanelProduct());
+	//	ControllerDeleteMatHang controllerDeleteMatHang = new ControllerDeleteMatHang(mainview.getPanelProduct());
+		ControllerAddProduct controllerAddProduct = new ControllerAddProduct(mainview.getPanelProduct() );
 	}
 }

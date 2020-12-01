@@ -12,27 +12,35 @@ import javax.management.InstanceNotFoundException;
 
 import config.Injector;
 import dao.BillDAO;
+import dao.BillDAOImpl;
 import dao.ProductDAO;
+import dao.ProductDAOImpl;
 import dao.StockDAO;
+import dao.StockDAOImpl;
 import model.Bill;
 import model.Billdetail;
+import model.BilldetailId;
+import model.Checkstockproperty;
 import model.BillProductId;
 import model.ProductInfo;
 import model.Stock;
 import model.User;
 import validate.DateValidator;
+import validate.Myexception;
 
 public class BillService {
-	private static BillDAO<Bill>billDAO;
-	private static StockDAO<Stock>stockDAO;
-	private static Set<Billdetail>billProducts=new HashSet<Billdetail>();
+	private static BillDAOImpl<Bill>billDAOImpl;
+	private static StockDAOImpl<Stock>stockDAOImpl;
+	private static ProductDAOImpl<ProductInfo>productDAOImpl;
+	private static Set<Billdetail>billdetails=new HashSet<Billdetail>();
 	private static List<Object[]> showlist=new ArrayList<Object[]>();
 	private static int maxbill=0;
 	@SuppressWarnings("unchecked")
 	public BillService() throws InstanceNotFoundException {
-		billDAO=(BillDAO<Bill>) Injector.getInstance("BillImpl");
-		stockDAO=(StockDAO<Stock>) Injector.getInstance("StockDAOImpl");
-		maxbill=billDAO.nextid("bill");
+		billDAOImpl=new BillDAOImpl<Bill>();
+		stockDAOImpl=new StockDAOImpl<Stock>();
+		productDAOImpl=new ProductDAOImpl<ProductInfo>();
+		maxbill=billDAOImpl.nextid("bill");
 	}
 	public static void main(String[] args) throws InstanceNotFoundException {
 		BillService BillService=new BillService();
@@ -40,17 +48,31 @@ public class BillService {
 //		BillService.savebill();
 	//	BillService.showbill();
 	//	BillService.showbilldetail();
-//		Object [][] data=BillService.showbilldetail();
-//		for(Object[] i :data) {
-//			for(Object j :i) {
-//				System.out.print(j+"         ");
-//			}
-//			System.out.println();
+		Object [][] data=BillService.showbilldetail();
+		for(Object[] i :data) {
+			for(Object j :i) {
+				System.out.print(j+"         ");
+			}
+			System.out.println();
+		}
+//		if(BillService.stockDAOImpl.checkexiststockcompokey(1,3,1,1)!=0) {
+//			System.out.println("Oke");
+//		}else {
+//			System.out.println("error");
 //		}
+		Checkstockproperty checkstockproperty=new Checkstockproperty(1,3,1,10);
+		try {
+			BillService.addproduct("AoJuve", checkstockproperty);
+			System.out.println(billdetails.size());
+		}catch(Myexception e) {
+			System.out.println(e);
+		}
+	
+		
 	}
 		public void savebill() {
 			String code="cuongprolt";
-			List<Bill>bills=billDAO.findbyproperty("code", code, "Bill");
+			List<Bill>bills=billDAOImpl.findbyproperty("code", code, "Bill");
 			if(bills.isEmpty()) {
 				Bill bill=new Bill();
 				Date date=new Date();
@@ -66,38 +88,33 @@ public class BillService {
 				bill.setUser(user);
 //loi				bill.setBillProducts(billProducts);
 				bill.setDescription(description);
-				BillService.billDAO.save(bill);
+				BillService.billDAOImpl.save(bill);
 			}else {
 				System.out.println("Ma bill da ton tai .Vui long nhap lai. \n");
 			}		
 		}
 		
 		
-		public void addproduct() {
-			String code="AoJuve" ;
-			int quantity=10;
-			long price=100000;
-			List<Stock>stocks=BillService.stockDAO.getproductcode(code);
-			if(stocks!=null && !stocks.isEmpty()) {
-				if(quantity>0 && quantity<= stocks.get(0).getStockQuantity()) {
-					Billdetail billProduct=new Billdetail();
-//loi					billProduct.setProductInfo(stocks.get(0).getProductInfo());
-//	loi				billProduct.setQuantity(quantity);
-//loi					billProduct.setPrice(price);
-	//				Bill bill=new Bill();
-	//				bill.setId(maxbill);
-	//				billProduct.setBill(bill);
-					
-					BillProductId billProductId=new BillProductId();
-					billProductId.setIdBill(maxbill);
-		//de do lam sau			billProductId.setIdProductInfo(stocks.get(0).getId());					
-//loi					billProduct.setId(billProductId);
-					billProducts.add(billProduct);
+		public void addproduct(String code,Checkstockproperty checksto) throws Myexception {
+			List<ProductInfo>products=productDAOImpl.findbyproperty("code", code, "ProductInfo");
+			if(products.size()!=0 && !products.isEmpty() ) {
+				int id_pro=products.get(0).getId();
+				checksto.setIdStockPro(id_pro);
+				int id_stock=stockDAOImpl.checkexiststockcompokey(id_pro,checksto.getIdStockColor(), checksto.getIdStockSize(),checksto.getStockQty());
+				if(id_stock!=0) {
+					Billdetail billdetail=new Billdetail();
+					BilldetailId billdetailId=new BilldetailId();
+					billdetailId.setBilldetailPrice(products.get(0).getCurrentPrice());
+					billdetailId.setBilldetailQuantity(checksto.getStockQty());
+					billdetailId.setIdBilldetailBill(maxbill);
+					billdetailId.setIdBilldetailStock(id_stock);
+					billdetail.setId(billdetailId);
+					billdetails.add(billdetail);
 				}else {
-					System.out.println("So luong mat hang khong hop le \n");
+					throw new Myexception("Product is not avalable in stock or your request quantity is too much \n");
 				}
 			}else {
-				System.out.println("MA CODE SAI HOAC SAN PHAM KHONG CON DUOC BAN . XIN MOI NHAP LAI \n");
+					throw new Myexception("Your product code is wrong");
 			}
 		}
 		
@@ -105,6 +122,7 @@ public class BillService {
 			//xoa toan bo product ra khoi list billproduct
 			//tren view thi xoa het nx gi user da ghi
 		}
+		
 		public Object[][] showbill(int page,int rowcount) {
 			Date date=new Date();
 			SimpleDateFormat formater=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -122,25 +140,24 @@ public class BillService {
 //				dateValidator.isValid(maxdate);
 //			}while(!check);
 			
-			showlist =billDAO.findbytotal(mintotal,maxtotal,mindate,maxdate);
-			System.out.println(showlist.get(1)[5].toString());
-			System.out.println(showlist.get(1)[6].toString());
+			showlist =billDAOImpl.findbytotal(mintotal,maxtotal,mindate,maxdate);
+//			System.out.println(showlist.get(1)[5].toString());
+//			System.out.println(showlist.get(1)[6].toString());
 			
-			Object [][] result= new Object[showlist.size()][7];
+			Object [][] result= new Object[showlist.size()][6];
 			for(int i=0;i<showlist.size();i++) {
 				result[i][0]=(page-1)*rowcount+i+1;
 				result[i][1]=showlist.get(i)[1].toString();
 				result[i][2]=showlist.get(i)[7].toString();
-				result[i][3]=showlist.get(i)[8].toString();
-				result[i][4]=showlist.get(i)[5].toString();
-				result[i][5]=showlist.get(i)[6].toString();
-				result[i][6]=showlist.get(i)[2].toString();
+				result[i][3]=showlist.get(i)[5].toString();
+				result[i][4]=showlist.get(i)[6].toString();
+				result[i][5]=showlist.get(i)[2].toString();
 				}
 			return result;
 		}
 		
 		public Object[][] showbilldetail() {
-			List<Object[]>billdetails=billDAO.findbilldetail(2);
+			List<Object[]>billdetails=billDAOImpl.findbilldetail(2);
 			Object [][] result= new Object[billdetails.size()][8];
 			for(int i=0;i<billdetails.size();i++) {
 				result[i][0]=i+1;
@@ -158,7 +175,7 @@ public class BillService {
 		
 		public void deletebill() {
 			//tk loi dua cai id cua bill 
-			Bill bill=billDAO.findbyId(Bill.class, 49);
-			billDAO.delete(bill);
+			Bill bill=billDAOImpl.findbyId(Bill.class, 49);
+			billDAOImpl.delete(bill);
 		}
 }

@@ -1,6 +1,7 @@
 package model;
 // Generated Oct 6, 2020, 4:08:13 PM by Hibernate Tools 5.4.18.Final
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,7 +19,8 @@ public class User implements java.io.Serializable {
 	private String gender;
 	private Set bills = new HashSet(0);
 	private Set userRoles = new HashSet(0);
-	
+	private Date createDate;
+	private Date updateDate;
 	
 
 	public User() {
@@ -130,4 +132,20 @@ public class User implements java.io.Serializable {
 	public void setUserRoles(Set userRoles) {
 		this.userRoles = userRoles;
 	}
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+
+	public Date getUpdateDate() {
+		return updateDate;
+	}
+
+	public void setUpdateDate(Date updateDate) {
+		this.updateDate = updateDate;
+	}
+
 }

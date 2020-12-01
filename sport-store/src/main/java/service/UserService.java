@@ -1,11 +1,14 @@
 package service;
 
 import config.Injector;
+import dao.RoleDAOImpl;
 import dao.UserDAO;
 import dao.UserDAOImpl;
+import model.Checkstockproperty;
 import model.Role;
 import model.User;
 import model.UserRole;
+import model.UserRoleId;
 
 import java.util.*;
 
@@ -17,12 +20,15 @@ import javax.management.InstanceNotFoundException;
 public class UserService  {
 	public static User storeuser=null;
 	private UserDAOImpl<User> userDAOImpl;
+	private RoleDAOImpl<Role>roleDAOImpl;
+	private int nextid;
 	public UserService() {
 		userDAOImpl=new UserDAOImpl<User>();
+		roleDAOImpl=new RoleDAOImpl<Role>();
+		nextid=userDAOImpl.nextid("user");
 	}
 	public static void main(String[] args) {
 			UserService userService=new UserService();
-			
 			Object [][] data=userService.showuser();
 			for(Object[] i :data) {
 				for(Object j :i) {
@@ -31,6 +37,26 @@ public class UserService  {
 				System.out.println();
 			}
 		
+			User user=new User();
+			user.setName("cuongpro");
+			user.setCode("pro001");
+			user.setGender("Nam");
+			user.setGmail("procuong");
+			user.setPassword("procuong001");
+			user.setPhone("09320302302");
+			user.setCreateDate(new Date());
+			user.setId(12);
+			List<Role> roles=new ArrayList<Role>();
+			Role role1=new Role();
+			Role role2=new Role();
+			role1.setIdrole(2);
+			role2.setIdrole(1);
+			roles.add(role2);
+			roles.add(role1);
+			System.out.println(userService.addrole(roles, role2));
+			userService.removerole(roles, role2);
+			System.out.println(roles.size());
+			userService.deleteuser(user);
 	}
 	public int checkuser(String code ,String password) {
 		if(!code.isEmpty()&&!password.isEmpty()) {
@@ -82,7 +108,52 @@ public class UserService  {
 		}
 		return result;
 	} 
-	public void saveuser(User user) {
+	public int addrole(List<Role>rolelist,Role role) {
+		if(rolelist.contains(role)) return 1008;
+		rolelist.add(role);
+		return 1000;
+	}
+	public int removerole(List<Role>rolelist,Role role) {
+		rolelist.remove(role);
+		return 1000;
+	}
+	
+	public List<Role>getrole(){
+		List<Role>result=roleDAOImpl.findall("Role");
+		return result;
+	}
+	public int adduser(User user,List<Role>rolelist) {
+		user.setActiveFlag(1);
+		user.setCreateDate(new Date());
+		user.setUpdateDate(new Date());
 		
+		Set<UserRole> userroleset=new HashSet<UserRole>();
+		for(int i=0;i<rolelist.size();i++) {
+			UserRole userRole=new UserRole();
+			userRole.setId(new UserRoleId(nextid,rolelist.get(i).getIdrole()));
+			userRole.setActiveflag(1);
+			userRole.setCreatedate(new Date());
+			userRole.setUpdatedate(new Date());
+			userroleset.add(userRole);
+		}
+		user.setUserRoles(userroleset);
+		try {
+			userDAOImpl.save(user);
+			return 1000;
+		}catch(Exception e) {
+			System.out.println("Error while saving user....");
+			return 1007;
+		}
+	}
+	public int deleteuser(User user) {
+		user.setActiveFlag(0);
+		user.setUpdateDate(new Date());
+		try {
+			userDAOImpl.update(user);
+			return 1000;
+		}catch (Exception e) {
+			System.out.println("Error while deleting user ....");
+			return 1009;
+		}
 	}
 }

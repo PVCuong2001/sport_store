@@ -16,7 +16,7 @@ public class ProductInfo implements java.io.Serializable {
 	private String description;
 	private String code;
 	private String imgUrl;
-	private int currentPrice;
+	private long currentPrice;
 	private Date createDate;
 	private Date updateDate;
 	private int activeFlag;
@@ -25,7 +25,7 @@ public class ProductInfo implements java.io.Serializable {
 	public ProductInfo() {
 	}
 
-	public ProductInfo(int id, BranchCategory branchCategory, String name, String code, int currentPrice,
+	public ProductInfo(int id, BranchCategory branchCategory, String name, String code, long currentPrice,
 			Date createDate, Date updateDate, int activeFlag) {
 		this.id = id;
 		this.branchCategory = branchCategory;
@@ -38,7 +38,7 @@ public class ProductInfo implements java.io.Serializable {
 	}
 
 	public ProductInfo(int id, BranchCategory branchCategory, String name, String description, String code,
-			String imgUrl, int currentPrice, Date createDate, Date updateDate, int activeFlag, Set stocks)
+			String imgUrl, long currentPrice, Date createDate, Date updateDate, int activeFlag, Set stocks)
 			 {
 		this.id = id;
 		this.branchCategory = branchCategory;
@@ -101,11 +101,11 @@ public class ProductInfo implements java.io.Serializable {
 		this.imgUrl = imgUrl;
 	}
 
-	public int getCurrentPrice() {
+	public long getCurrentPrice() {
 		return this.currentPrice;
 	}
 
-	public void setCurrentPrice(int currentPrice) {
+	public void setCurrentPrice(long currentPrice) {
 		this.currentPrice = currentPrice;
 	}
 

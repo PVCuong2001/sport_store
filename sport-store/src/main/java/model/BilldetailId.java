@@ -8,13 +8,13 @@ public class BilldetailId implements java.io.Serializable {
 
 	private int idBilldetailBill;
 	private int billdetailQuantity;
-	private int billdetailPrice;
+	private long billdetailPrice;
 	private int idBilldetailStock;
 
 	public BilldetailId() {
 	}
 
-	public BilldetailId(int idBilldetailBill, int billdetailQuantity, int billdetailPrice, int idBilldetailStock) {
+	public BilldetailId(int idBilldetailBill, int billdetailQuantity, long billdetailPrice, int idBilldetailStock) {
 		this.idBilldetailBill = idBilldetailBill;
 		this.billdetailQuantity = billdetailQuantity;
 		this.billdetailPrice = billdetailPrice;
@@ -37,11 +37,11 @@ public class BilldetailId implements java.io.Serializable {
 		this.billdetailQuantity = billdetailQuantity;
 	}
 
-	public int getBilldetailPrice() {
+	public long getBilldetailPrice() {
 		return this.billdetailPrice;
 	}
 
-	public void setBilldetailPrice(int billdetailPrice) {
+	public void setBilldetailPrice(long billdetailPrice) {
 		this.billdetailPrice = billdetailPrice;
 	}
 
@@ -70,10 +70,9 @@ public class BilldetailId implements java.io.Serializable {
 
 	public int hashCode() {
 		int result = 17;
-
 		result = 37 * result + this.getIdBilldetailBill();
 		result = 37 * result + this.getBilldetailQuantity();
-		result = 37 * result + this.getBilldetailPrice();
+		result = (int) (37 * result + this.getBilldetailPrice());
 		result = 37 * result + this.getIdBilldetailStock();
 		return result;
 	}

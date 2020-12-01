@@ -1,5 +1,6 @@
 package dao;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,21 +32,28 @@ public class StockDAOImpl<E> extends BaseDAOImpl<E> implements StockDAO<E> {
 	}
 
 	@Override
-	public boolean checkexiststockcompokey(int id_pro, int id_color, int id_size) {
+	public int checkexiststockcompokey(int id_pro, int id_color, int id_size,int qty) {
 		Session session=sessionFactory.openSession();
 		session.beginTransaction();
 		int result;
 		StringBuilder stringquery=new StringBuilder();
-		stringquery.append("select count(*) from stock where id_stock_pro = :id_pro && id_stock_color = :id_color && id_stock_size = :id_size ");
-		result=(int) session.createSQLQuery(stringquery.toString())
-				.setParameter("id_pro",id_pro)
-				.setParameter("id_color",id_color)
-				.setParameter("id_size",id_size)
-				.uniqueResult();
-		session.flush();
-		session.close();
-		if(result!=0) return true;
-		return false;
+		stringquery.append("select id_stock from stock where id_stock_pro = :id_pro && id_stock_color = :id_color && id_stock_size = :id_size && stock_quantity >= :qty && stock_activeflag=1");
+		try {
+			result= (int) session.createSQLQuery(stringquery.toString())
+					.setParameter("id_pro",id_pro)
+					.setParameter("id_color",id_color)
+					.setParameter("id_size",id_size)
+					.setParameter("qty", qty)
+					.uniqueResult();
+		}catch(Exception e) {
+			result=0;
+		}finally {
+			session.flush();
+			session.close();
+		}
+		return result;
+//		if(result.compareTo(BigInteger.ZERO)>0) return true;
+//		return false;
 	}
 
 	@Override
