@@ -9,18 +9,27 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-import  java.util.logging.Logger ;
 public class BaseDAOImpl<E> implements BaseDAO<E> {
-	static final Logger log=Logger.getLogger(BaseDAOImpl.class.getName());
 	SessionFactory sessionFactory=new Configuration().configure().buildSessionFactory();
+	
+	protected E obj;
+	 
+    public BaseDAOImpl(Class<E> aClazz) 
+        {
+        try {
+			this.obj = (E) aClazz.getDeclaredConstructor().newInstance();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+    }
+    
 	@Override
-	public List<E> findall(String clazz) {
-		log.info("find all start : ....");
+	public  List<E> findall() {
 		List<E> results=new ArrayList<E>();
 		Session session=sessionFactory.openSession();
 		session.beginTransaction();
-		StringBuilder query=new StringBuilder();
-		query.append(" from ").append(clazz);
+		StringBuilder query=new StringBuilder("");
+		query.append(" from ").append(obj.getClass().getSimpleName());
 		results=session.createQuery(query.toString()).list();
 		session.flush();
 		session.close();
@@ -36,14 +45,13 @@ public class BaseDAOImpl<E> implements BaseDAO<E> {
 	}
 
 	@Override
-	public List<E> findbyproperty(String property, Object value, String clazz) {
-		log.info("find by property from DAO : .......");
+	public List<E> findbyproperty(String property, Object value) {
 		List<E>results=new ArrayList<E>();
 		Session session =sessionFactory.openSession();
 		session.beginTransaction();
 		StringBuilder query=new StringBuilder();
-		query.append(" from ").append(clazz).append(" where ").append(property).append(" = '").append(value).append("'");
-		results=session.createQuery(query.toString()).list();
+		query.append(" from ").append(obj.getClass().getSimpleName()).append(" where ").append(property).append(" =:value");
+		results=session.createQuery(query.toString()).setParameter("value", value).list();
 		session.flush();
 		session.close();
 		return results;
@@ -88,12 +96,14 @@ public class BaseDAOImpl<E> implements BaseDAO<E> {
 	}
 
 	@Override
-	public long total(String clazz) {
+	public long total() {
 		Session session =sessionFactory.openSession();
 		session.beginTransaction();
 		StringBuilder query=new StringBuilder();
-		query.append("select count (e.id) from ").append(clazz).append(" e");
+		query.append("select count (e.id) from ").append(obj.getClass().getSimpleName()).append(" e");
 		long result=(long) session.createQuery(query.toString()).uniqueResult();
+		session.flush();
+		session.close();
 		return result;
 	}
 

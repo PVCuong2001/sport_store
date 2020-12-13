@@ -16,14 +16,5 @@
         <many-to-one class="model.User" embed-xml="true" fetch="join" insert="false" name="user" not-found="exception" optimistic-lock="true" unique="false" update="false">
             <column name="id_usro_user" not-null="true"/>
         </many-to-one>
-        <property generated="never" lazy="false" name="activeflag" optimistic-lock="true" type="int" unique="false">
-            <column name="usro_activeflag" not-null="true"/>
-        </property>
-        <property generated="never" lazy="false" name="createdate" optimistic-lock="true" type="timestamp" unique="false">
-            <column length="19" name="usro_createdate" not-null="true"/>
-        </property>
-        <property generated="never" lazy="false" name="updatedate" optimistic-lock="true" type="timestamp" unique="false">
-            <column length="19" name="usro_updatedate" not-null="true"/>
-        </property>
     </class>
 </hibernate-mapping>

@@ -1,5 +1,7 @@
 package dao;
 
-public interface UserRoleDAO<E> extends BaseDAO<E> {
+import model.UserRole;
+
+public interface UserRoleDAO extends BaseDAO<UserRole> {
 	
 }

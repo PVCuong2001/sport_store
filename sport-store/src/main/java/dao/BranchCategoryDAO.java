@@ -1,5 +1,7 @@
 package dao;
 
-public interface BranchCategoryDAO<E> extends BaseDAO<E>{
+import model.BranchCategory;
+
+public interface BranchCategoryDAO extends BaseDAO<BranchCategory>{
 	public int findbybracate(int idbra,int idcate);
 }

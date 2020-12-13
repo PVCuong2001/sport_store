@@ -26,7 +26,7 @@ public class MainView extends JFrame {
 	private JLayeredPane layeredPane;
 	private JPanel panelUser;
 	private PanelProduct panelProduct;
-	private JPanel panelBill;
+	private PanelBill panelBill;
 	private JPanel panelInformationUser;
 	private JButton ButtonNhanVien;
 	private JButton ButtonMatHang;
@@ -75,7 +75,7 @@ public class MainView extends JFrame {
 		panelProduct = new PanelProduct();
 		layeredPane.add(panelProduct, "name_29220497651800");
 		
-		panelBill = new JPanel();
+		panelBill = new PanelBill();
 		layeredPane.add(panelBill, "name_29254702838100");
 		
 		JLabel lblNewLabel_2 = new JLabel("Panel Ho\u00E1 \u0111\u01A1n");
@@ -145,7 +145,7 @@ public class MainView extends JFrame {
 	public JPanel getPanelInformationUser() {
 		return panelInformationUser;
 	}
-	public JPanel getpanelBill() {
+	public PanelBill getpanelBill() {
 		return panelBill;
 	}
 	public JLabel getLabelTotalData() {

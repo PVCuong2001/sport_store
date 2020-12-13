@@ -10,16 +10,17 @@ public class Checkstockproperty implements java.io.Serializable {
 	private int idStockColor;
 	private int idStockPro;
 	private int StockQty;
+	private int idStock;
 
 
 	public Checkstockproperty() {
 	}
 
-	public Checkstockproperty(int idStockSize, int idStockColor, int idStockPro,int StockQty ) {
+	public Checkstockproperty(int idStock,int idStockPro, int idStockSize, int idStockColor ) {
 		this.idStockSize = idStockSize;
 		this.idStockColor = idStockColor;
-		this.idStockPro = idStockPro;
-		this.StockQty=StockQty;
+		this.idStockPro=idStockPro;
+		this.idStock=idStock;
 	}
 
 	public int getStockQty() {
@@ -53,7 +54,13 @@ public class Checkstockproperty implements java.io.Serializable {
 	public void setIdStockPro(int idStockPro) {
 		this.idStockPro = idStockPro;
 	}
+	public int getIdStock() {
+		return idStock;
+	}
 
+	public void setIdStock(int idStock) {
+		this.idStock = idStock;
+	}
 	public boolean equals(Object other) {
 		if ((this == other))
 			return true;
@@ -67,6 +74,8 @@ public class Checkstockproperty implements java.io.Serializable {
 				&& (this.getIdStockColor() == castOther.getIdStockColor())
 				&& (this.getIdStockPro() == castOther.getIdStockPro());
 	}
+
+
 
 	public int hashCode() {
 		int result = 17;

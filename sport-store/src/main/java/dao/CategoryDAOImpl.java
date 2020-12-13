@@ -1,5 +1,12 @@
 package dao;
 
-public class CategoryDAOImpl<E> extends BaseDAOImpl<E> implements CategoryDAO<E> {
+import model.Category;
+
+public class CategoryDAOImpl extends BaseDAOImpl<Category> implements CategoryDAO {
+
+	public CategoryDAOImpl(Class<Category> aClazz) {
+		super(aClazz);
+		// TODO Auto-generated constructor stub
+	}
 
 }

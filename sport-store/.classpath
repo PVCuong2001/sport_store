@@ -36,5 +36,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="/home/cuong/.m2/repository/mysql/mysql-connector-java/8.0.21/mysql-connector-java-8.0.21.jar"/>
+	<classpathentry kind="lib" path="jcalendar-1.4.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

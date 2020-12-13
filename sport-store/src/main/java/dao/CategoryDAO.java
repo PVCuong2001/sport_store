@@ -1,5 +1,7 @@
 package dao;
 
-public interface CategoryDAO<E> extends BaseDAO<E>{
+import model.Category;
+
+public interface CategoryDAO extends BaseDAO<Category>{
 
 }

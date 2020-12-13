@@ -22,8 +22,9 @@ public class ControllerMainView {
 		ActionButtonLogOut();
 		ActionButtonInfor();
 		ActionPanelMatHang();
+		ActionPanelBill();
 	}
-	private void ActionButtonNhanVien() {
+	public void ActionButtonNhanVien() {
 		mainview.getButtonNhanVien().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				mainview.getLayeredPane().removeAll();
@@ -33,7 +34,7 @@ public class ControllerMainView {
 			}
 		});
 	}
-	private void ActionButtonMatHang() {
+	public void ActionButtonMatHang() {
 		mainview.getButtonMatHang().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				mainview.getLayeredPane().removeAll();
@@ -43,7 +44,7 @@ public class ControllerMainView {
 			}
 		});
 	}
-	private void ActionButtonHoaDon() {
+	public void ActionButtonHoaDon() {
 		mainview.getButtonHoaDon().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				mainview.getLayeredPane().removeAll();
@@ -53,10 +54,10 @@ public class ControllerMainView {
 			}
 		});
 	}
-	private void ActionButtonLogOut() {
+	public void ActionButtonLogOut() {
 		mainview.getButtonLogOut().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int a = JOptionPane.showConfirmDialog(mainview.getButtonLogOut(), "Are you sure?");
+				int a = JOptionPane.showConfirmDialog(mainview, "Are you sure?");
                 // JOptionPane.setRootFrame(null);
                 if (a == JOptionPane.YES_OPTION) {
                     mainview.dispose();
@@ -66,7 +67,7 @@ public class ControllerMainView {
 			}
 		});
 	}
-	private void ActionButtonInfor() {
+	public void ActionButtonInfor() {
 		mainview.getButtonInforUser().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				mainview.getLayeredPane().removeAll();
@@ -76,7 +77,10 @@ public class ControllerMainView {
 			}
 		});
 	}
-	private void ActionPanelMatHang() {
+	public void ActionPanelBill() {
+		ControllerBill controllerBill = new ControllerBill(mainview.getpanelBill());
+	}
+	public void ActionPanelMatHang() {
 		ControllerPagination controllerPagination = new ControllerPagination(mainview.getPanelProduct());
 	//	ControllerDeleteMatHang controllerDeleteMatHang = new ControllerDeleteMatHang(mainview.getPanelProduct());
 		ControllerAddProduct controllerAddProduct = new ControllerAddProduct(mainview.getPanelProduct() );

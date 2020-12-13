@@ -1,5 +1,7 @@
 package dao;
 
-public interface BranchDAO<E> extends BaseDAO<E>{
+import model.Branch;
+
+public interface BranchDAO extends BaseDAO<Branch>{
 
 }

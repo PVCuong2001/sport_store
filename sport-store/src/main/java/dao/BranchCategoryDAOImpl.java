@@ -4,7 +4,13 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-public class BranchCategoryDAOImpl<E> extends BaseDAOImpl<E> implements BranchCategoryDAO<E>{
+import model.BranchCategory;
+
+public class BranchCategoryDAOImpl extends BaseDAOImpl<BranchCategory> implements BranchCategoryDAO{
+	public BranchCategoryDAOImpl(Class<BranchCategory> aClazz) {
+		super(aClazz);
+		// TODO Auto-generated constructor stub
+	}
 	SessionFactory sessionFactory=new Configuration().configure().buildSessionFactory();
 	@Override
 	public int findbybracate(int idbra, int idcate) {

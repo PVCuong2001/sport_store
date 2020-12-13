@@ -11,20 +11,15 @@ public class UserRole implements java.io.Serializable {
 	private UserRoleId id;
 	private Role role;
 	private User user;
-	private int activeflag;
-	private Date createdate;
-	private Date updatedate;
 
 	public UserRole() {
 	}
 
-	public UserRole(UserRoleId id, Role role, User user, int activeflag, Date createdate, Date updatedate) {
+	public UserRole(UserRoleId id, Role role, User user) {
 		this.id = id;
 		this.role = role;
 		this.user = user;
-		this.activeflag = activeflag;
-		this.createdate = createdate;
-		this.updatedate = updatedate;
+
 	}
 
 	public UserRoleId getId() {
@@ -51,28 +46,5 @@ public class UserRole implements java.io.Serializable {
 		this.user = user;
 	}
 
-	public int getActiveflag() {
-		return this.activeflag;
-	}
-
-	public void setActiveflag(int activeflag) {
-		this.activeflag = activeflag;
-	}
-
-	public Date getCreatedate() {
-		return this.createdate;
-	}
-
-	public void setCreatedate(Date createdate) {
-		this.createdate = createdate;
-	}
-
-	public Date getUpdatedate() {
-		return this.updatedate;
-	}
-
-	public void setUpdatedate(Date updatedate) {
-		this.updatedate = updatedate;
-	}
 
 }

@@ -24,6 +24,8 @@ public class PanelProduct extends JPanel {
 	private JScrollPane scrollPane;
 	private JButton ButtonAddData;
 	private JButton ButtonDelete;
+	private JButton ButtonView;
+	private JButton ButtonRefreshData;
 	public PanelProduct() {
 		setLayout(null);
 		
@@ -80,7 +82,14 @@ public class PanelProduct extends JPanel {
 		LabelExample = new JLabel("New label");
 		LabelExample.setBounds(27, 305, 186, 36);
 		add(LabelExample);
-
+		
+		ButtonView = new JButton("VIEW");
+		ButtonView.setBounds(63, 243, 93, 25);
+		add(ButtonView);
+		
+		ButtonRefreshData = new JButton("Refresh");
+		ButtonRefreshData.setBounds(593, 340, 89, 23);
+		add(ButtonRefreshData);
 	}
 //	public JScrollPane getScrollPane() {
 //		return scrollPane;
@@ -111,5 +120,12 @@ public class PanelProduct extends JPanel {
 	}
 	public JLabel getLabelExample() {
 		return LabelExample;
+	}
+	public JButton getButtonView() {
+		return ButtonView;
+	}
+	public JButton getButtonRefreshData() {
+		System.out.println(5);
+		return ButtonRefreshData;
 	}
 }

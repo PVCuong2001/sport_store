@@ -10,7 +10,6 @@ import java.util.Set;
 
 import javax.management.InstanceNotFoundException;
 
-import config.Injector;
 import dao.BillDAO;
 import dao.BillDAOImpl;
 import dao.ProductDAO;
@@ -29,18 +28,19 @@ import validate.DateValidator;
 import validate.Myexception;
 
 public class BillService {
-	private static BillDAOImpl<Bill>billDAOImpl;
-	private static StockDAOImpl<Stock>stockDAOImpl;
-	private static ProductDAOImpl<ProductInfo>productDAOImpl;
-	private static Set<Billdetail>billdetails=new HashSet<Billdetail>();
+	private static BillDAOImpl billDAOImpl;
+	private static StockDAOImpl stockDAOImpl;
+	private static ProductDAOImpl productDAOImpl;
 	private static List<Object[]> showlist=new ArrayList<Object[]>();
-	private static int maxbill=0;
+	private static int nextidbill=0;
+	private Set<Billdetail> billdetails;
 	@SuppressWarnings("unchecked")
 	public BillService() throws InstanceNotFoundException {
-		billDAOImpl=new BillDAOImpl<Bill>();
-		stockDAOImpl=new StockDAOImpl<Stock>();
-		productDAOImpl=new ProductDAOImpl<ProductInfo>();
-		maxbill=billDAOImpl.nextid("bill");
+		billDAOImpl=new BillDAOImpl(Bill.class);
+		stockDAOImpl=new StockDAOImpl(Stock.class);
+		productDAOImpl=new ProductDAOImpl(ProductInfo.class);
+		nextidbill=billDAOImpl.nextid("bill");
+		billdetails=new HashSet<Billdetail>();
 	}
 	public static void main(String[] args) throws InstanceNotFoundException {
 		BillService BillService=new BillService();
@@ -48,56 +48,70 @@ public class BillService {
 //		BillService.savebill();
 	//	BillService.showbill();
 	//	BillService.showbilldetail();
-		Object [][] data=BillService.showbilldetail();
+		
+		
+		Object [][] data=BillService.showbill(0, 9999999, "2019/01/01", "2021/01/01");
 		for(Object[] i :data) {
 			for(Object j :i) {
 				System.out.print(j+"         ");
 			}
 			System.out.println();
 		}
-//		if(BillService.stockDAOImpl.checkexiststockcompokey(1,3,1,1)!=0) {
-//			System.out.println("Oke");
-//		}else {
-//			System.out.println("error");
-//		}
-		Checkstockproperty checkstockproperty=new Checkstockproperty(1,3,1,10);
+		Object [][] datas=BillService.showbilldetail(1);
+		for(Object[] i :datas) {
+			for(Object j :i) {
+				System.out.print(j+"         ");
+			}
+			System.out.println();
+		}
+		//add bill detail and save bill
+		Set<Billdetail>billdetails=new HashSet<Billdetail>();
+		Checkstockproperty checkstockproperty=new Checkstockproperty(1,3,1);
+		Checkstockproperty checkstockproperty2=new Checkstockproperty(1,3,2);
 		try {
 			BillService.addproduct("AoJuve", checkstockproperty);
+			BillService.addproduct("AoBayer", checkstockproperty2);
 			System.out.println(billdetails.size());
 		}catch(Myexception e) {
 			System.out.println(e);
 		}
-	
-		
+//		
+//		try {
+//			BillService.savebill("cuongprolt", billdetails);
+//		} catch (Myexception e) {
+//			System.out.println(e);
+//		
+//		}
+	//	BillService.deletebill();
 	}
-		public void savebill() {
-			String code="cuongprolt";
-			List<Bill>bills=billDAOImpl.findbyproperty("code", code, "Bill");
+		public void savebill(String code ) throws Myexception {
+			List<Bill>bills=billDAOImpl.findbyproperty("code", code);
 			if(bills.isEmpty()) {
 				Bill bill=new Bill();
-				Date date=new Date();
-				//User user=LoginController.storeuser;
 				User user=new User();
 				user.setId(2);
+			//	user.setId(UserService.storeuser.getId());
 				// code vs des lay tu view.gettext
 				
 				String description ="Ghi dai cai chi cx dctrt";
 				bill.setCode(code);
-				bill.setId(6);
-				bill.setCreateDate(date);
+				bill.setId(nextidbill);
+				bill.setCreateDate(new Date());
 				bill.setUser(user);
 //loi				bill.setBillProducts(billProducts);
 				bill.setDescription(description);
+				bill.setBilldetails(billdetails);
+			//	System.out.println(bill.getBilldetails().size());
 				BillService.billDAOImpl.save(bill);
 			}else {
-				System.out.println("Ma bill da ton tai .Vui long nhap lai. \n");
+				throw new Myexception("Ma bill da ton tai .Vui long nhap lai. \n");
 			}		
 		}
 		
 		
 		public void addproduct(String code,Checkstockproperty checksto) throws Myexception {
-			List<ProductInfo>products=productDAOImpl.findbyproperty("code", code, "ProductInfo");
-			if(products.size()!=0 && !products.isEmpty() ) {
+			List<ProductInfo>products=productDAOImpl.findbyproperty("code", code);
+			if(products.size()!=0 && !products.isEmpty() &&products.get(0).getActiveFlag()==1) {
 				int id_pro=products.get(0).getId();
 				checksto.setIdStockPro(id_pro);
 				int id_stock=stockDAOImpl.checkexiststockcompokey(id_pro,checksto.getIdStockColor(), checksto.getIdStockSize(),checksto.getStockQty());
@@ -106,7 +120,7 @@ public class BillService {
 					BilldetailId billdetailId=new BilldetailId();
 					billdetailId.setBilldetailPrice(products.get(0).getCurrentPrice());
 					billdetailId.setBilldetailQuantity(checksto.getStockQty());
-					billdetailId.setIdBilldetailBill(maxbill);
+					billdetailId.setIdBilldetailBill(nextidbill);
 					billdetailId.setIdBilldetailStock(id_stock);
 					billdetail.setId(billdetailId);
 					billdetails.add(billdetail);
@@ -123,16 +137,11 @@ public class BillService {
 			//tren view thi xoa het nx gi user da ghi
 		}
 		
-		public Object[][] showbill(int page,int rowcount) {
-			Date date=new Date();
-			SimpleDateFormat formater=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			DateValidator dateValidator=new DateValidator();
-			boolean check=false;
+		public Object[][] showbill(int mintotal,int maxtotal,String mindate,String maxdate) {
+//			Date date=new Date();
+//			SimpleDateFormat formater=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//			DateValidator dateValidator=new DateValidator();
 			//Gan gia tri mac dinh 
-			String mindate="2020-01-01 00:00:00";
-			String maxdate=formater.format(date);
-			int mintotal=0;
-			int maxtotal=999999999;
 			// doan nay la de lay du lieu tren view
 			
 //			do {
@@ -146,9 +155,9 @@ public class BillService {
 			
 			Object [][] result= new Object[showlist.size()][6];
 			for(int i=0;i<showlist.size();i++) {
-				result[i][0]=(page-1)*rowcount+i+1;
+				result[i][0]=i+1;
 				result[i][1]=showlist.get(i)[1].toString();
-				result[i][2]=showlist.get(i)[7].toString();
+				result[i][2]=showlist.get(i)[8].toString();
 				result[i][3]=showlist.get(i)[5].toString();
 				result[i][4]=showlist.get(i)[6].toString();
 				result[i][5]=showlist.get(i)[2].toString();
@@ -156,8 +165,9 @@ public class BillService {
 			return result;
 		}
 		
-		public Object[][] showbilldetail() {
-			List<Object[]>billdetails=billDAOImpl.findbilldetail(2);
+		public Object[][] showbilldetail(int index) {
+			int id_bill=(int) showlist.get(index)[0];
+			List<Object[]>billdetails=billDAOImpl.findbilldetail(id_bill);
 			Object [][] result= new Object[billdetails.size()][8];
 			for(int i=0;i<billdetails.size();i++) {
 				result[i][0]=i+1;
@@ -173,9 +183,17 @@ public class BillService {
 			return result;
 		}
 		
-		public void deletebill() {
-			//tk loi dua cai id cua bill 
-			Bill bill=billDAOImpl.findbyId(Bill.class, 49);
-			billDAOImpl.delete(bill);
+		public void deletebill(int index) throws Myexception {
+			int id_bill=(int)showlist.get(index)[0];
+			Bill bill=billDAOImpl.findbyId(Bill.class,id_bill);
+			try {
+				billDAOImpl.delete(bill);
+			}catch(Exception e) {
+				throw new Myexception("Error while deleting Bill!");
+			}
+			
+		}
+		public  List<Object[]> getshowbill(){
+			return showlist;
 		}
 }

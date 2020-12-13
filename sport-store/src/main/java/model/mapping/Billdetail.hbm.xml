@@ -9,7 +9,7 @@
             <key-property name="billdetailQuantity" type="int">
                 <column name="billdetail_quantity"/>
             </key-property>
-            <key-property name="billdetailPrice" type="int">
+            <key-property name="billdetailPrice" type="long">
                 <column name="billdetail_price"/>
             </key-property>
             <key-property name="idBilldetailStock" type="int">

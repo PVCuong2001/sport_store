@@ -2,8 +2,8 @@ package dao;
 
 import java.util.List;
 
-import model.Stock;
+import model.ProductInfo;
 
-public interface ProductDAO<E> extends BaseDAO<E>{
-	public List<Stock> findbypage(int offsett,int rowcount,int sortoption);
+public interface ProductDAO extends BaseDAO<ProductInfo>{
+	public List<ProductInfo> findbypage(int offsett,int rowcount,int sortoption);
 }

@@ -6,7 +6,7 @@
             <column name="id_pro"/>
             <generator class="identity"/>
         </id>
-        <many-to-one class="model.BranchCategory" embed-xml="true" fetch="select" insert="true" name="branchCategory" not-found="exception" optimistic-lock="true" unique="false" update="true">
+        <many-to-one class="model.BranchCategory" embed-xml="true" fetch="join" insert="true" name="branchCategory" not-found="exception" optimistic-lock="true" unique="false" update="true">
             <column name="id_pro_bracate" not-null="true"/>
         </many-to-one>
         <property generated="never" lazy="false" name="name" optimistic-lock="true" type="string" unique="false">
@@ -33,7 +33,7 @@
         <property generated="never" lazy="false" name="activeFlag" optimistic-lock="true" type="int" unique="false">
             <column name="pro_active_flag" not-null="true"/>
         </property>
-        <set cascade="save-update ,delete" embed-xml="true" fetch="select" inverse="true" lazy="true" mutable="true" name="stocks" optimistic-lock="true" sort="unsorted" table="stock">
+        <set cascade="save-update ,delete" embed-xml="true" fetch="select" inverse="true" lazy="false" mutable="true" name="stocks" optimistic-lock="true" sort="unsorted" table="stock">
             <key on-delete="noaction">
                 <column name="id_stock_pro" not-null="true"/>
             </key>

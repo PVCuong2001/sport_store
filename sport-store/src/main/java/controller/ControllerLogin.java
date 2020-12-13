@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.management.InstanceNotFoundException;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import config.Injector;
@@ -12,6 +13,7 @@ import dao.UserDAO;
 import model.User;
 import service.ProductService;
 import service.UserService;
+import validate.Myexception;
 import view.Login;
 import view.MainView;
 
@@ -20,10 +22,12 @@ public class ControllerLogin {
 	private UserDAO<User> userDAO;
 	private Login login;
 	private ProductService productService;
+	private JFrame f;
 	@SuppressWarnings("unchecked")
 	public ControllerLogin(Login l) throws InstanceNotFoundException {
 		login = l;
 		userDAO = (UserDAO<User>) Injector.getInstance("UserDAOImpl");
+		f=new JFrame();
 	}
 	
 	public void ActionButtonLogin() {
@@ -32,21 +36,18 @@ public class ControllerLogin {
 				String code=login.getTextFieldCode().getText();
 				String password=login.getTextFieldPassword().getText();
 				UserService userService=new UserService();
-				int check =userService.checkuser(code, password);
-				if(check==1000) {
+				try {
+					userService.checkuser(code, password);
 					MainView frame=new MainView();
 					frame.setVisible(true);
 					ControllerMainView controllerMainView=new ControllerMainView(frame);
 					login.dispose();
-				}else if(check==1001) {
-					JOptionPane.showInputDialog(this, "Please enter code and password");
-					login.getTextFieldCode().setText("");
-					login.getTextFieldPassword().setText("");
-				}else if(check==1002) {
-					JOptionPane.showInputDialog(this,"Code or password is wrong!");
+				}catch (Myexception e1) {
+					JOptionPane.showMessageDialog(f, e1,"Alert",JOptionPane.WARNING_MESSAGE);
 					login.getTextFieldCode().setText("");
 					login.getTextFieldPassword().setText("");
 				}
+				
 			}
 		});
 	}

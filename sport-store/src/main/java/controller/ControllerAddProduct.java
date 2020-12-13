@@ -2,27 +2,39 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import model.Branch;
 import model.BranchCategory;
 import model.Category;
+import model.Checkstockproperty;
 import model.ProductInfo;
 import service.ProductService;
+import validate.Myexception;
 import view.AddProduct;
 import view.PanelProduct;
 
 public class ControllerAddProduct {
 	private ProductService productService;
 	private PanelProduct panelProduct;
+	private JFrame f;
+	private List<Checkstockproperty> Checkstolist = new ArrayList<Checkstockproperty>();
+	
 	public ControllerAddProduct(PanelProduct p1) {
 		panelProduct = p1;
-		productService =new ProductService();
+		productService = new ProductService();
 		ActionButtonAdd(panelProduct);
+		f= new  JFrame();
 	}
+	
 	private void ActionButtonAdd(PanelProduct panelProduct) {
 		panelProduct.getButtonAddData().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -32,9 +44,23 @@ public class ControllerAddProduct {
 				ActionButtonRemove(addProduct);
 				ActionButtonAdd(addProduct);
 				ActionButtonSave(addProduct);
+				ActionButtonCancel(addProduct);
 			}
 		});
 	}
+	
+	private void ActionButtonCancel(AddProduct addProduct) {
+		addProduct.getButtonCancel().addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				productService.getcheckstolist().clear();
+				addProduct.dispose();
+			}
+		});
+	}
+	
 	private void ActionButtonSave(AddProduct addProduct) {
 		
 		addProduct.getButtonSave().addActionListener(new ActionListener() {
@@ -53,15 +79,18 @@ public class ControllerAddProduct {
 				branchCategory.setBranch(branch);
 				branchCategory.setCategory(category);
 				productInfo.setBranchCategory(branchCategory);
-				System.out.println(productInfo.getName()+" "+productInfo.getBranchCategory().getBranch().getId());
-//				if(addProduct.getComboBoxProduct().getSelectedIndex()>=1&&addProduct.getComboBoxProduct().getSelectedIndex()<=7)
-//				{
-//					
-//				}
-				addProduct.dispose();
+				try {
+					productService.saveproduct(productInfo);
+					productService.getcheckstolist().clear();
+					addProduct.dispose();
+					JOptionPane.showMessageDialog(f,"Successfully saved!");
+				} catch (Myexception e1) {
+					JOptionPane.showMessageDialog(f,e1,"Alert",JOptionPane.WARNING_MESSAGE);
+				}
 			}
 		});
 	}
+	
 	private void ActionComboBoxProduct(AddProduct addProduct) {
 		addProduct.getComboBoxProduct().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -91,47 +120,77 @@ public class ControllerAddProduct {
 			}
 		});
 	}
+	
 	private void ActionButtonRemove(AddProduct addProduct) {
 		addProduct.getButtonRemove().addActionListener(new ActionListener() {
 	         @Override
 	         public void actionPerformed(ActionEvent ae) {
-	        	 DefaultTableModel model1 = (DefaultTableModel) addProduct.getTable().getModel();
+	        	DefaultTableModel model1 = (DefaultTableModel) addProduct.getTable().getModel();
 	            if(addProduct.getTable().getSelectedRow() != -1) {
 	               model1.removeRow(addProduct.getTable().getSelectedRow());
+	               productService.deletestockproperty(addProduct.getTable().getSelectedRow()+1);
 	            }
 	         }
 	      });
 		addProduct.getButtonRemove1().addActionListener(new ActionListener() {
 	         @Override
 	         public void actionPerformed(ActionEvent ae) {
-	        	 DefaultTableModel model2 = (DefaultTableModel) addProduct.getTable_1().getModel();
+	        	DefaultTableModel model2 = (DefaultTableModel) addProduct.getTable_1().getModel();
 	            if(addProduct.getTable_1().getSelectedRow() != -1) {
 	               model2.removeRow(addProduct.getTable_1().getSelectedRow());
+	               productService.deletestockproperty(addProduct.getTable().getSelectedRow()+1);
 	            }
 	         }
 	      });
 	}
+	
 	private void ActionButtonAdd(AddProduct addProduct) {
 		addProduct.getButtonAdd().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				String a1 = (String) addProduct.getComboBoxSize().getSelectedItem();
-				String b1 = (String) addProduct.getComboBoxSize().getSelectedItem();
+				String b1 = (String) addProduct.getComboBoxColor().getSelectedItem();
 				String c1 = (String) addProduct.getTextFieldQuantity().getText();
-				String data1[] = {a1,b1,c1};
-				DefaultTableModel model1 = (DefaultTableModel) addProduct.getTable().getModel();
-				model1.addRow(data1);
-				addProduct.getTextFieldQuantity().setText("");
+				
+				Checkstockproperty checksto = new Checkstockproperty();
+				checksto.setIdStockColor(addProduct.getComboBoxSize().getSelectedIndex());
+				checksto.setIdStockSize(addProduct.getComboBoxColor().getSelectedIndex());
+				checksto.setStockQty(Integer.parseInt(addProduct.getTextFieldQuantity().getText()));
+				try {
+					productService.addstockproperty(checksto);
+					String data1[] = {a1,b1,c1};
+					DefaultTableModel model1 = (DefaultTableModel) addProduct.getTable().getModel();
+					model1.addRow(data1);
+					addProduct.getTextFieldQuantity().setText("");
+				} catch (Myexception e1) {
+					JOptionPane.showMessageDialog(f, e1);
+				}
+				
+				
+				
 			}
 		});
-		addProduct.getButtonAdd().addActionListener(new ActionListener() {
+		addProduct.getButtonAdd1().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String a2 = (String) addProduct.getcomboBoxSize1().getSelectedItem();
-				String b2 = (String) addProduct.getcomboBoxSize1().getSelectedItem();
-				String c2 = (String) addProduct.getTextFieldQuantity().getText();
-				String data2[] = {a2,b2,c2};
-				DefaultTableModel model2 = (DefaultTableModel) addProduct.getTable().getModel();
-				model2.addRow(data2);
-				addProduct.gettextFieldQuantity1().setText("");
+				String b2 = (String) addProduct.getcomboBoxColor1().getSelectedItem();
+				String c2 = (String) addProduct.gettextFieldQuantity1().getText();
+				
+				Checkstockproperty checksto = new Checkstockproperty();
+				checksto.setIdStockColor(addProduct.getcomboBoxSize1().getSelectedIndex());
+				checksto.setIdStockSize(addProduct.getcomboBoxColor1().getSelectedIndex());
+				checksto.setStockQty(Integer.parseInt(addProduct.gettextFieldQuantity1().getText()));
+				try {
+					productService.addstockproperty(checksto);
+					String data2[] = {a2,b2,c2};
+					DefaultTableModel model2 = (DefaultTableModel) addProduct.getTable_1().getModel();
+					model2.addRow(data2);
+					addProduct.gettextFieldQuantity1().setText("");
+				} catch (Myexception e1) {
+					JOptionPane.showMessageDialog(f, e1);
+				}
+				
+				
 			}
 		});
 	}

@@ -1,5 +1,7 @@
 package dao;
 
-public interface SizeDAO<E> extends BaseDAO<E>{
+import model.Size;
+
+public interface SizeDAO extends BaseDAO<Size>{
 
 }

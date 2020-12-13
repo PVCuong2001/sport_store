@@ -12,7 +12,7 @@
         <many-to-one class="model.Category" embed-xml="true" fetch="join" insert="true" name="category" not-found="exception" optimistic-lock="true" unique="false" update="true">
             <column name="id_bracate_cate" not-null="true"/>
         </many-to-one>
-        <set embed-xml="true" fetch="select" inverse="true" lazy="true" mutable="true" name="productInfos" optimistic-lock="true" sort="unsorted" table="product_info">
+        <set embed-xml="true" fetch="select" inverse="true" lazy="false" mutable="true" name="productInfos" optimistic-lock="true" sort="unsorted" table="product_info">
             <key on-delete="noaction">
                 <column name="id_pro_bracate" not-null="true"/>
             </key>

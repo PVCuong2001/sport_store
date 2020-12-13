@@ -10,7 +10,12 @@ import org.hibernate.query.Query;
 import model.Bill;
 import model.Stock;
 
-public class BillDAOImpl<E> extends BaseDAOImpl<E> implements BillDAO<E>{
+public class BillDAOImpl extends BaseDAOImpl<Bill> implements BillDAO{
+	public BillDAOImpl(Class<Bill> aClazz) {
+		super(aClazz);
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
 	public List<Object[]> findbytotal(int mintotal ,int maxtotal,String mindate,String maxdate) {
 		List<Object[]>results=new ArrayList<>();
@@ -54,6 +59,8 @@ public class BillDAOImpl<E> extends BaseDAOImpl<E> implements BillDAO<E>{
 				   .append("where bide.id_billdetail_bill= :billid");
 		Query query=session.createSQLQuery(stringquery.toString()).setParameter("billid", billid);
 		results=query.list();
+		session.flush();
+		session.close();
 		return results;
 	}
 }

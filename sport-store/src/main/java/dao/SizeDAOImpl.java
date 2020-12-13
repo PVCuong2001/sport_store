@@ -1,5 +1,12 @@
 package dao;
 
-public class SizeDAOImpl<E> extends BaseDAOImpl<E> implements SizeDAO<E> {
+import model.Size;
+
+public class SizeDAOImpl extends BaseDAOImpl<Size> implements SizeDAO{
+
+	public SizeDAOImpl(Class<Size> aClazz) {
+		super(aClazz);
+		// TODO Auto-generated constructor stub
+	}
 
 }

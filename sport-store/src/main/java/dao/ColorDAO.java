@@ -1,5 +1,7 @@
 package dao;
 
-public interface ColorDAO<E> extends BaseDAO<E> {
+import model.Color;
+
+public interface ColorDAO extends BaseDAO<Color> {
 
 }
