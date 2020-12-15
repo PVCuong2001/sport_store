@@ -6,6 +6,10 @@
             <column name="id_bracate"/>
             <generator class="identity"/>
         </id>
+        <property generated="never" lazy="false" name="activeFlag" optimistic-lock="true" type="int" unique="false">
+            <column name="bracate_activeflag" not-null="true"/>
+        </property>
+        
         <many-to-one class="model.Branch" embed-xml="true" fetch="join" insert="true" name="branch" not-found="exception" optimistic-lock="true" unique="false" update="true">
             <column name="id_bracate_bra" not-null="true"/>
         </many-to-one>

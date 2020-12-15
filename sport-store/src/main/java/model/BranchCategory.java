@@ -13,21 +13,32 @@ public class BranchCategory implements java.io.Serializable {
 	private Branch branch;
 	private Category category;
 	private Set productInfos = new HashSet(0);
+	private int activeFlag;
+
+	public int getActiveFlag() {
+		return activeFlag;
+	}
+
+	public void setActiveFlag(int activeFlag) {
+		this.activeFlag = activeFlag;
+	}
 
 	public BranchCategory() {
 	}
 
-	public BranchCategory(int id, Branch branch, Category category) {
+	public BranchCategory(int id, Branch branch, Category category,int activeflag) {
 		this.id = id;
 		this.branch = branch;
 		this.category = category;
+		this.activeFlag=activeflag;
 	}
 
-	public BranchCategory(int id, Branch branch, Category category, Set productInfos) {
+	public BranchCategory(int id, Branch branch, Category category, Set productInfos,int activeflag) {
 		this.id = id;
 		this.branch = branch;
 		this.category = category;
 		this.productInfos = productInfos;
+		this.activeFlag=activeflag;
 	}
 
 	public int getId() {

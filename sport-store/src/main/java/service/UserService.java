@@ -3,11 +3,14 @@ package service;
 
 import dao.BaseDAOImpl;
 import dao.RoleDAOImpl;
+import dao.StaffDAOImpl;
 import dao.UserDAOImpl;
 import dao.UserRoleDAO;
 import dao.UserRoleDAOImpl;
+import model.Bill;
 import model.Checkstockproperty;
 import model.Role;
+import model.Staff;
 import model.User;
 import model.UserRole;
 import model.UserRoleId;
@@ -20,6 +23,7 @@ public class UserService  {
 	private UserDAOImpl userDAOImpl;
 	private RoleDAOImpl roleDAOImpl;
 	private UserRoleDAOImpl userRoleDAOImpl;
+	private StaffDAOImpl staffDAOImpl;
 	private int nextid;
 	private List<Role>rolelist;
 	public UserService() {
@@ -28,16 +32,29 @@ public class UserService  {
 		userRoleDAOImpl=new UserRoleDAOImpl(UserRole.class);
 		nextid=userDAOImpl.nextid("user");
 		rolelist=new ArrayList<Role>();
+		staffDAOImpl=new StaffDAOImpl(Staff.class);
 	}
 	public static void main(String[] args) {
 			UserService userService=new UserService();
-			Object [][] data=userService.showuser();
-			for(Object[] i :data) {
-				for(Object j :i) {
-					System.out.print(j+"         ");
-				}
-				System.out.println();
-			}
+//			Object [][] data=userService.showuser();
+//			for(Object[] i :data) {
+//				for(Object j :i) {
+//					System.out.print(j+"         ");
+//				}
+//				System.out.println();
+//			}
+			
+//			User user=new Staff();
+//			user=userService.staffDAOImpl.findbyproperty("code", "NV0001").get(0);
+//			Bill bill=new Bill();
+//			bill.setId(2);
+//			Set<Bill>result=new HashSet<Bill>();
+//			result.add(bill);
+//			Staff staff=(Staff) user;
+//			staff.setBills(result);
+//			System.out.println(((Staff) staff).getBills().get(0).getId()+" "+staff.getId());
+			Staff staff=userService.staffDAOImpl.findstaff("NV0001");
+			System.out.println(staff.getCode());
 		/*
 			User user=new User();
 			user.setName("cuongpro");
