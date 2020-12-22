@@ -9,7 +9,7 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 
 import model.ProductInfo;
-import service.ProductService;
+import service.ProductServiceImpl;
 import validate.Myexception;
 
 import java.awt.event.ActionEvent;
@@ -29,12 +29,12 @@ public class ControllerPagination {
 	long totalData;
 	
 	private PanelProduct panelProduct;
-	private ProductService productService;
+	private ProductServiceImpl productService;
 	private JFrame f;
-	public ControllerPagination(PanelProduct m) {
+	public ControllerPagination(PanelProduct m,ProductServiceImpl productService) {
 		panelProduct = m;
 		f=new JFrame();
-		productService = new ProductService();
+		this.productService = productService;
 		initComponents();
 		panelProduct.getComboBoxPage().addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
@@ -48,7 +48,6 @@ public class ControllerPagination {
 		});
 
 		initPaginations();
-		ActionButtonDelete();
 		ActionButtonRefresh();
 		ActionButtonView();
 		
@@ -76,6 +75,7 @@ public class ControllerPagination {
 		DefaultComboBoxModel mod = new DefaultComboBoxModel(datapage);
 		panelProduct.getComboBoxPage().setModel(mod);
 	}
+	
 	public void ActionButtonView()
 	{
 		panelProduct.getButtonView().addActionListener(new ActionListener() {
@@ -95,11 +95,23 @@ public class ControllerPagination {
 				String[] col = {"Color","Size","Quantity"};
 				DefaultTableModel model = (DefaultTableModel) viewProduct.getTable().getModel();
 				model.setDataVector(data, col);
+				ActionButtonCancel( viewProduct);
+			}
+		});
+	}
+	public void ActionButtonCancel(ViewProduct viewProduct) {
+		viewProduct.getButtonCancel().addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				productService.getcheckstolist().clear();
+				productService.getstolist().clear();
+				viewProduct.dispose();
+				
 			}
 		});
 	}
 	public void ActionButtonRefresh(){
-		System.out.println(1);
 		panelProduct.getButtonRefreshData().addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -125,23 +137,7 @@ public class ControllerPagination {
 			}
 		});
 	}
-	public void ActionButtonDelete()
-	{
-		panelProduct.getButtonDelete().addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				int a=JOptionPane.showConfirmDialog(panelProduct.getButtonDelete(),"Are you sure?");
-				if(a==JOptionPane.YES_OPTION) {
-					try {
-						productService.deleteproduct(panelProduct.getTable().getSelectedRow());
-					} catch (Myexception e) {
-						JOptionPane.showMessageDialog(f, e);
-					}
-				}
-			}
-		});
-	}
+
     private void autoResizeColumn(JTable jTable1) {
         JTableHeader header = jTable1.getTableHeader();
         int rowCount = jTable1.getRowCount();

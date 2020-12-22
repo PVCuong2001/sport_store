@@ -6,7 +6,7 @@
             <column name="id_bill"/>
             <generator class="identity"/>
         </id>
-        <many-to-one class="model.Staff" embed-xml="true" fetch="select" insert="true" name="user" not-found="exception" optimistic-lock="true" unique="false" update="true">
+        <many-to-one class="model.User" embed-xml="true" fetch="select" insert="true" name="user" not-found="exception" optimistic-lock="true" unique="false" update="true">
             <column name="id_bill_user" not-null="true"/>
         </many-to-one>
         <property generated="never" lazy="false" name="code" optimistic-lock="true" type="string" unique="false">
@@ -17,6 +17,9 @@
         </property>
         <property generated="never" lazy="false" name="description" optimistic-lock="true" type="string" unique="false">
             <column length="100" name="bill_description"/>
+        </property>
+        <property generated="never" lazy="false" name="billStatus" optimistic-lock="true" type="int" unique="false">
+            <column name="bill_status" not-null="true"/>
         </property>
         <set cascade="save-update ,delete"  embed-xml="true" fetch="select" inverse="true" lazy="true" mutable="true" name="billdetails" optimistic-lock="true" sort="unsorted" table="billdetail" >
             <key on-delete="noaction">

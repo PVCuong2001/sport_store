@@ -16,31 +16,51 @@ import model.Branch;
 import model.BranchCategory;
 import model.Category;
 import model.Checkstockproperty;
+import model.Color;
 import model.ProductInfo;
-import service.ProductService;
+import model.Size;
+import model.UploadProductComponent;
+import service.ProductServiceImpl;
 import validate.Myexception;
 import view.AddProduct;
 import view.PanelProduct;
 
 public class ControllerAddProduct {
-	private ProductService productService;
+	private ProductServiceImpl productService;
 	private PanelProduct panelProduct;
 	private JFrame f;
 	private List<Checkstockproperty> Checkstolist = new ArrayList<Checkstockproperty>();
-	
+	private UploadProductComponent uploadProductComponent;
+	private int flagsize;
 	public ControllerAddProduct(PanelProduct p1) {
 		panelProduct = p1;
-		productService = new ProductService();
+		productService = new ProductServiceImpl();
 		ActionButtonAdd(panelProduct);
 		f= new  JFrame();
+		uploadProductComponent=productService.uploadproduct();
 	}
 	
 	private void ActionButtonAdd(PanelProduct panelProduct) {
 		panelProduct.getButtonAddData().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				AddProduct addProduct = new AddProduct(productService);
+				AddProduct addProduct = new AddProduct();
 				addProduct.setVisible(true);
-				ActionComboBoxProduct(addProduct);
+				addProduct.getComboBoxCategory().addItem("");
+				List<Category> data_cate = uploadProductComponent.getCategory();
+				for(Category c : data_cate) {
+					addProduct.getComboBoxCategory().addItem(c.getName());
+				}
+				addProduct.getComboBoxBranch().addItem("");
+				List<Branch> data_bra = uploadProductComponent.getBranch();
+				for(Branch c : data_bra) {
+					addProduct.getComboBoxBranch().addItem(c.getName());
+				}
+				addProduct.getComboBoxColor().addItem("");
+				List<Color> data_color = uploadProductComponent.getColor();
+				for(Color c : data_color) {
+					addProduct.getComboBoxColor().addItem(c.getName());
+				}
+				ActionComboBoxCategory(addProduct);
 				ActionButtonRemove(addProduct);
 				ActionButtonAdd(addProduct);
 				ActionButtonSave(addProduct);
@@ -74,7 +94,7 @@ public class ControllerAddProduct {
 				Branch branch = new  Branch();
 				branch.setId(addProduct.getComboBoxBranch().getSelectedIndex());
 				Category category = new Category();
-				category.setId(addProduct.getComboBoxProduct().getSelectedIndex());
+				category.setId(addProduct.getComboBoxCategory().getSelectedIndex());
 				BranchCategory branchCategory = new BranchCategory();
 				branchCategory.setBranch(branch);
 				branchCategory.setCategory(category);
@@ -91,105 +111,76 @@ public class ControllerAddProduct {
 		});
 	}
 	
-	private void ActionComboBoxProduct(AddProduct addProduct) {
-		addProduct.getComboBoxProduct().addActionListener(new ActionListener() {
+	private void ActionComboBoxCategory(AddProduct addProduct) {
+		addProduct.getComboBoxCategory().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				addProduct.getContentPane().add(addProduct.getLayeredPane());
-				if(addProduct.getComboBoxProduct().getSelectedIndex()>=1 && addProduct.getComboBoxProduct().getSelectedIndex()<=7) {
-					addProduct.getLayeredPane().removeAll();
-					addProduct.getLayeredPane().add(addProduct.getPanel());
-					addProduct.getLayeredPane().repaint();
-					addProduct.getLayeredPane().revalidate();
-					DefaultTableModel model1 = (DefaultTableModel) addProduct.getTable().getModel();
-					model1.setRowCount(0);
+				productService.getcheckstolist().clear();
+				addProduct.getComboBoxSize().removeAllItems();
+				((DefaultTableModel)addProduct.getTable().getModel()).setRowCount(0);
+				int index=addProduct.getComboBoxCategory().getSelectedIndex();
+				if(uploadProductComponent.getCategory().get(index).getGroupsize()==0 ){
+					flagsize=0;
+					List<Size> data_size_char = uploadProductComponent.getSizechar();
+					addProduct.getComboBoxSize().addItem("");
+					for(Size c : data_size_char) {
+						addProduct.getComboBoxSize().addItem(c.getName());		    
+					}
+					
+				
+				}else if(uploadProductComponent.getCategory().get(index).getGroupsize()==1 ){
+					flagsize=1;
+					List<Size> data_size_number = uploadProductComponent.getSizenum();
+					addProduct.getComboBoxSize().addItem("");
+					for(Size c : data_size_number) {
+						addProduct.getComboBoxSize().addItem(c.getName());
+					}
+					
 				}
-				else if(addProduct.getComboBoxProduct().getSelectedIndex()>7){
-					addProduct.getLayeredPane().removeAll();
-					addProduct.getLayeredPane().add(addProduct.getPanel_1());
-					addProduct.getLayeredPane().repaint();
-					addProduct.getLayeredPane().revalidate();
-					DefaultTableModel model2 = (DefaultTableModel) addProduct.getTable_1().getModel();
-					model2.setRowCount(0);
-				}
-				else if(addProduct.getComboBoxProduct().getSelectedIndex()==0){
-					addProduct.getLayeredPane().removeAll();
-					addProduct.getLayeredPane().add(addProduct.getPanel_2());
-					addProduct.getLayeredPane().repaint();
-					addProduct.getLayeredPane().revalidate();
-				}
-			}
-		});
+		}});
 	}
 	
 	private void ActionButtonRemove(AddProduct addProduct) {
 		addProduct.getButtonRemove().addActionListener(new ActionListener() {
-	         @Override
-	         public void actionPerformed(ActionEvent ae) {
-	        	DefaultTableModel model1 = (DefaultTableModel) addProduct.getTable().getModel();
-	            if(addProduct.getTable().getSelectedRow() != -1) {
-	               model1.removeRow(addProduct.getTable().getSelectedRow());
-	               productService.deletestockproperty(addProduct.getTable().getSelectedRow()+1);
-	            }
-	         }
-	      });
-		addProduct.getButtonRemove1().addActionListener(new ActionListener() {
-	         @Override
-	         public void actionPerformed(ActionEvent ae) {
-	        	DefaultTableModel model2 = (DefaultTableModel) addProduct.getTable_1().getModel();
-	            if(addProduct.getTable_1().getSelectedRow() != -1) {
-	               model2.removeRow(addProduct.getTable_1().getSelectedRow());
-	               productService.deletestockproperty(addProduct.getTable().getSelectedRow()+1);
-	            }
-	         }
-	      });
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				DefaultTableModel model = (DefaultTableModel) addProduct.getTable().getModel();
+				if(addProduct.getTable().getSelectedRow() != -1) {
+					model.removeRow(addProduct.getTable().getSelectedRow());
+					productService.deletestockproperty(addProduct.getTable().getSelectedRow()+1);
+				}
+			}
+		});
 	}
 	
 	private void ActionButtonAdd(AddProduct addProduct) {
 		addProduct.getButtonAdd().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				String a1 = (String) addProduct.getComboBoxSize().getSelectedItem();
-				String b1 = (String) addProduct.getComboBoxColor().getSelectedItem();
-				String c1 = (String) addProduct.getTextFieldQuantity().getText();
+				String a = (String) addProduct.getComboBoxSize().getSelectedItem();
+				String b = (String) addProduct.getComboBoxColor().getSelectedItem();
+				String c = (String) addProduct.getTextFieldQuantity().getText();
 				
 				Checkstockproperty checksto = new Checkstockproperty();
-				checksto.setIdStockColor(addProduct.getComboBoxSize().getSelectedIndex());
-				checksto.setIdStockSize(addProduct.getComboBoxColor().getSelectedIndex());
+				int indexcolor=addProduct.getComboBoxColor().getSelectedIndex();
+				int indexsize=addProduct.getComboBoxSize().getSelectedIndex();
+				checksto.setIdStockColor(uploadProductComponent.getColor().get(indexcolor).getId());
+				if(flagsize==0) {
+					checksto.setIdStockSize(uploadProductComponent.getSizechar().get(indexsize).getId());
+				}else if(flagsize==1) {
+					checksto.setIdStockSize(uploadProductComponent.getSizenum().get(indexsize).getId());
+				}
 				checksto.setStockQty(Integer.parseInt(addProduct.getTextFieldQuantity().getText()));
 				try {
 					productService.addstockproperty(checksto);
-					String data1[] = {a1,b1,c1};
+					String data1[] = {a,b,c};
 					DefaultTableModel model1 = (DefaultTableModel) addProduct.getTable().getModel();
 					model1.addRow(data1);
 					addProduct.getTextFieldQuantity().setText("");
 				} catch (Myexception e1) {
 					JOptionPane.showMessageDialog(f, e1);
 				}
-				
-				
-				
-			}
-		});
-		addProduct.getButtonAdd1().addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String a2 = (String) addProduct.getcomboBoxSize1().getSelectedItem();
-				String b2 = (String) addProduct.getcomboBoxColor1().getSelectedItem();
-				String c2 = (String) addProduct.gettextFieldQuantity1().getText();
-				
-				Checkstockproperty checksto = new Checkstockproperty();
-				checksto.setIdStockColor(addProduct.getcomboBoxSize1().getSelectedIndex());
-				checksto.setIdStockSize(addProduct.getcomboBoxColor1().getSelectedIndex());
-				checksto.setStockQty(Integer.parseInt(addProduct.gettextFieldQuantity1().getText()));
-				try {
-					productService.addstockproperty(checksto);
-					String data2[] = {a2,b2,c2};
-					DefaultTableModel model2 = (DefaultTableModel) addProduct.getTable_1().getModel();
-					model2.addRow(data2);
-					addProduct.gettextFieldQuantity1().setText("");
-				} catch (Myexception e1) {
-					JOptionPane.showMessageDialog(f, e1);
-				}
-				
 				
 			}
 		});

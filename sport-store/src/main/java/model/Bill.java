@@ -16,6 +16,9 @@ public class Bill implements java.io.Serializable {
 	private Date createDate;
 	private String description;
 	private Set billdetails = new HashSet(0);
+	private int billStatus;
+
+
 
 	public Bill() {
 	}
@@ -83,5 +86,11 @@ public class Bill implements java.io.Serializable {
 	public void setBilldetails(Set billdetails) {
 		this.billdetails = billdetails;
 	}
+	public int getBillStatus() {
+		return billStatus;
+	}
 
+	public void setBillStatus(int billStatus) {
+		this.billStatus = billStatus;
+	}
 }

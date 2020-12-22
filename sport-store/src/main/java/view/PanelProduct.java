@@ -20,12 +20,12 @@ public class PanelProduct extends JPanel {
 	private JLabel LabelPage;
 	private JLabel LabelSortOption;
 	private JTable table;
-	private JLabel LabelExample;
 	private JScrollPane scrollPane;
 	private JButton ButtonAddData;
 	private JButton ButtonDelete;
 	private JButton ButtonView;
 	private JButton ButtonRefreshData;
+	private JButton ButtonEdit;
 	public PanelProduct() {
 		setLayout(null);
 		
@@ -76,20 +76,20 @@ public class PanelProduct extends JPanel {
 		add(ButtonAddData);
 		
 		ButtonDelete = new JButton("DELETE");
-		ButtonDelete.setBounds(67, 208, 89, 23);
+		ButtonDelete.setBounds(77, 184, 89, 23);
 		add(ButtonDelete);
 		
-		LabelExample = new JLabel("New label");
-		LabelExample.setBounds(27, 305, 186, 36);
-		add(LabelExample);
-		
 		ButtonView = new JButton("VIEW");
-		ButtonView.setBounds(63, 243, 93, 25);
+		ButtonView.setBounds(67, 211, 93, 25);
 		add(ButtonView);
 		
 		ButtonRefreshData = new JButton("Refresh");
 		ButtonRefreshData.setBounds(593, 340, 89, 23);
 		add(ButtonRefreshData);
+		
+		ButtonEdit = new JButton("Edit");
+		ButtonEdit.setBounds(49, 246, 117, 25);
+		add(ButtonEdit);
 	}
 //	public JScrollPane getScrollPane() {
 //		return scrollPane;
@@ -118,14 +118,13 @@ public class PanelProduct extends JPanel {
 	public JButton getButtonDelete() {
 		return ButtonDelete;
 	}
-	public JLabel getLabelExample() {
-		return LabelExample;
-	}
 	public JButton getButtonView() {
 		return ButtonView;
 	}
 	public JButton getButtonRefreshData() {
-		System.out.println(5);
 		return ButtonRefreshData;
+	}
+	public JButton getButtonEdit() {
+		return ButtonEdit;
 	}
 }

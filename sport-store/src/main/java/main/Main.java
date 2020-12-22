@@ -12,15 +12,14 @@ public class Main {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-//					Login frame = new Login();
-//					frame.setVisible(true);
-//					ControllerLogin c = new ControllerLogin(frame);
-//					c.ActionButtonLogin();
-//					c.ActionButtonReset();
-					
-					MainView frame = new MainView();
+					Login frame = new Login();
 					frame.setVisible(true);
-					ControllerMainView controllermainview = new ControllerMainView(frame);
+					ControllerLogin c = new ControllerLogin(frame);
+					c.ActionButtonLogin();
+					c.ActionButtonReset();
+//					MainView frame = new MainView();
+//					frame.setVisible(true);
+//					ControllerMainView controllermainview = new ControllerMainView(frame);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

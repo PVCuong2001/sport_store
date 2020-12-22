@@ -22,9 +22,5 @@
         <mapping resource="model/mapping/Size.hbm.xml"/>
         <mapping resource="model/mapping/Stock.hbm.xml"/>
         <mapping resource="model/mapping/User.hbm.xml"/>
-        <mapping resource="model/mapping/UserRole.hbm.xml"/>
-		<mapping resource="model/mapping/Role.hbm.xml"/>
-		<mapping resource="model/mapping/Staff.hbm.xml"/>
-		<mapping resource="model/mapping/Admin.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>

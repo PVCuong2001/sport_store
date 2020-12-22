@@ -10,7 +10,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 public class BaseDAOImpl<E> implements BaseDAO<E> {
-	SessionFactory sessionFactory=new Configuration().configure().buildSessionFactory();
+	protected static SessionFactory sessionFactory=new Configuration().configure().buildSessionFactory();
 	
 	protected E obj;
 	 

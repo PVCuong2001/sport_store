@@ -11,6 +11,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JTextField;
+import javax.swing.JButton;
 
 public class ViewProduct extends JFrame {
 
@@ -22,6 +23,7 @@ public class ViewProduct extends JFrame {
 	private JTextField textFieldCate;
 	private JTextField textFieldPrice;
 	private JTextField textFieldDes;
+	private JButton ButtonCancel;
 
 	/**
 	 * Launch the application.
@@ -117,6 +119,10 @@ public class ViewProduct extends JFrame {
 		textFieldDes.setBounds(133, 78, 114, 19);
 		contentPane.add(textFieldDes);
 		textFieldDes.setColumns(10);
+		
+		ButtonCancel = new JButton("Cancel");
+		ButtonCancel.setBounds(156, 226, 117, 25);
+		contentPane.add(ButtonCancel);
 	}
 
 	public JPanel getContentPane() {
@@ -151,4 +157,7 @@ public class ViewProduct extends JFrame {
 		return textFieldDes;
 	}
 	
+	public JButton getButtonCancel() {
+		return ButtonCancel;
+	}
 }

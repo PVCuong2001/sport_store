@@ -13,6 +13,15 @@ public class Category implements java.io.Serializable {
 	private String name;
 	private String measureUnit;
 	private Set branchCategories = new HashSet(0);
+	private int groupsize;
+
+	public int getGroupsize() {
+		return groupsize;
+	}
+
+	public void setGroupsize(int groupsize) {
+		this.groupsize = groupsize;
+	}
 
 	@Override
 	public String toString() {
@@ -27,8 +36,9 @@ public class Category implements java.io.Serializable {
 		this.measureUnit = measureUnit;
 	}
 
-	public Category(String name, String measureUnit, Set branchCategories) {
+	public Category(String name, String measureUnit, Set branchCategories,int groupsize) {
 		this.name = name;
+		this.groupsize=groupsize;
 		this.measureUnit = measureUnit;
 		this.branchCategories = branchCategories;
 	}

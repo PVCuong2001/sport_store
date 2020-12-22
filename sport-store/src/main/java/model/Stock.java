@@ -78,6 +78,8 @@ public class Stock implements java.io.Serializable {
 		this.stockQuantity = stockQuantity;
 	}
 
+
+
 	public Set getBilldetails() {
 		return this.billdetails;
 	}

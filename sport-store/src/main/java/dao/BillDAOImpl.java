@@ -40,7 +40,23 @@ public class BillDAOImpl extends BaseDAOImpl<Bill> implements BillDAO{
 		session.close();
 		return results;
 	}
-
+	
+	
+	public List<Object[]>findprintedbill(){
+		List<Object[]>result=new ArrayList<Object[]>();
+		Session session=sessionFactory.openSession();
+		session.beginTransaction();
+		StringBuilder stringquery=new StringBuilder();
+		stringquery.append("SELECT bill_code,sum(billdetail_quantity)as totalqty,sum(billdetail_quantity*billdetail_price) as totalvalue,bill_status  from bill")
+					.append(" join billdetail on id_bill=id_billdetail_bill")
+					.append(" group by bill_code")
+					.append(" having bill_status=0")
+					.append(" order by totalqty asc");
+		result=session.createSQLQuery(stringquery.toString()).list();
+		session.flush();
+		session.close();
+		return result;
+	}
 	@Override
 	public List<Object[]> findbilldetail(int billid) {
 		List<Object[]>results=new ArrayList<>();

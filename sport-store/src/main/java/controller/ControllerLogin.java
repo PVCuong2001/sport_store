@@ -10,23 +10,24 @@ import javax.swing.JOptionPane;
 
 import config.Injector;
 import dao.UserDAO;
+import dao.UserDAOImpl;
 import model.User;
-import service.ProductService;
-import service.UserService;
+import service.ProductServiceImpl;
+import service.UserServiceImpl;
 import validate.Myexception;
 import view.Login;
 import view.MainView;
 
 public class ControllerLogin {
 	public static User storeuser=null;
-	private UserDAO<User> userDAO;
+	private UserDAOImpl userDAOImpl;
 	private Login login;
-	private ProductService productService;
+	private ProductServiceImpl productService;
 	private JFrame f;
 	@SuppressWarnings("unchecked")
 	public ControllerLogin(Login l) throws InstanceNotFoundException {
 		login = l;
-		userDAO = (UserDAO<User>) Injector.getInstance("UserDAOImpl");
+		userDAOImpl=new UserDAOImpl(User.class);
 		f=new JFrame();
 	}
 	
@@ -35,7 +36,7 @@ public class ControllerLogin {
 			public void actionPerformed(ActionEvent e) {
 				String code=login.getTextFieldCode().getText();
 				String password=login.getTextFieldPassword().getText();
-				UserService userService=new UserService();
+				UserServiceImpl userService=new UserServiceImpl();
 				try {
 					userService.checkuser(code, password);
 					MainView frame=new MainView();

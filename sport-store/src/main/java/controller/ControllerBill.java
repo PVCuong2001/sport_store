@@ -16,21 +16,17 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 
 import service.BillService;
+import service.BillServiceImpl;
 import validate.Myexception;
 import view.PanelBill;
 import view.ViewBill;
 public class ControllerBill {
 	
 	private PanelBill panelBill;
-	private BillService billService;
+	private BillServiceImpl billServiceImpl;
 	private JFrame f;
-	public ControllerBill(PanelBill p) {
-		try {
-			billService = new BillService();
-		} catch (InstanceNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public ControllerBill(PanelBill p,BillServiceImpl billServiceImpl) {
+		this.billServiceImpl = billServiceImpl;
 		panelBill = p;
 		f=new JFrame();
 		ActionButtonOk(); 
@@ -46,7 +42,7 @@ public class ControllerBill {
 				String maxdate = df2.format(panelBill.getDateChooserEnd().getDate());
 				int minTotal = Integer.parseInt(panelBill.getTextFieldMinTotal().getText());
 				int maxTotal = Integer.parseInt(panelBill.getTextFieldMaxTotal().getText());
-				Object[][] data = billService.showbill(minTotal, maxTotal,mindate, maxdate);
+				Object[][] data = billServiceImpl.showbill(minTotal, maxTotal,mindate, maxdate);
 				String[] col = {"#","Code","Usercode","Total Quantity","Total Price" ,"Create Date"};
 				DefaultTableModel model = (DefaultTableModel) panelBill.getTabelBill().getModel();
 				model.setDataVector(data, col);
@@ -67,7 +63,7 @@ public class ControllerBill {
 				if(a==JOptionPane.YES_OPTION)
 				{
 					try {
-						billService.deletebill(panelBill.getTabelBill().getSelectedRow());
+						billServiceImpl.deletebill(panelBill.getTabelBill().getSelectedRow());
 					} catch (Myexception e) {
 						JOptionPane.showMessageDialog(f,e,"Alert",JOptionPane.WARNING_MESSAGE);
 					}
@@ -81,11 +77,11 @@ public class ControllerBill {
 			public void actionPerformed(ActionEvent e) {
 				ViewBill viewbill = new ViewBill();
 				int index=panelBill.getTabelBill().getSelectedRow();
-				Object[][] data=billService.showbilldetail(index);
-				List<Object[]>list=billService.getshowbill();
-				viewbill.getBillCode().setText(list.get(index)[0].toString());
-				viewbill.getUserCode().setText(list.get(index)[8].toString());
-				viewbill.getUserName().setText(list.get(index)[7].toString());
+				Object[][] data=billServiceImpl.showbilldetail(index);
+				List<Object[]>list=billServiceImpl.getshowbill();
+				viewbill.getBillCode().setText(list.get(index)[1].toString());
+				viewbill.getUserCode().setText(list.get(index)[9].toString());
+				viewbill.getUserName().setText(list.get(index)[8].toString());
 				viewbill.getCreatedate().setText(list.get(index)[2].toString());
 				viewbill.getDesc().setText(list.get(index)[4].toString());
 				String[] col = {"#","ProductCode","ProductName","Color","Size","Quantity","Price","TotalPrice"};

@@ -4,12 +4,12 @@ import java.io.Serializable;
 import java.util.List;
 
 public interface BaseDAO <E> {
-	public List<E>findall();
-	public E findbyId(Class<E>e,Serializable id);
-	public List<E>findbyproperty(String property,Object value);
-	public void save(E instance);
-	public void update(E instance);
-	public long total();
-	public void delete (E instance );
-	public int nextid(String tablename);
+	 List<E>findall();
+	 E findbyId(Class<E>e,Serializable id);
+	 List<E>findbyproperty(String property,Object value);
+	 void save(E instance);
+	 void update(E instance);
+	 long total();
+	 void delete (E instance );
+	 int nextid(String tablename);
 }

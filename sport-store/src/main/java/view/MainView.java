@@ -24,7 +24,7 @@ public class MainView extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JLayeredPane layeredPane;
-	private JPanel panelUser;
+	private PanelUser panelUser;
 	private PanelProduct panelProduct;
 	private PanelBill panelBill;
 	private JPanel panelInformationUser;
@@ -68,8 +68,8 @@ public class MainView extends JFrame {
 		contentPane.add(layeredPane);
 		layeredPane.setLayout(new CardLayout(0, 0));
 		
-		panelUser = new JPanel();
-		layeredPane.add(panelUser, "name_29185430653000");
+		panelUser = new PanelUser();
+		//layeredPane.add(panelUser, "name_29185430653000");
 		panelUser.setLayout(null);
 		
 		panelProduct = new PanelProduct();
@@ -136,7 +136,7 @@ public class MainView extends JFrame {
 	public JLayeredPane getLayeredPane() {
 		return layeredPane;
 	}
-	public JPanel getpanelUser() {
+	public PanelUser getpanelUser() {
 		return panelUser;
 	}
 	public  PanelProduct getPanelProduct() {

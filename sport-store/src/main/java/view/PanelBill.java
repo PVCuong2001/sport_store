@@ -28,15 +28,16 @@ public class PanelBill extends JPanel {
 	private JTable tableBill;
 	private JDateChooser dateChooserBegin;
 	private JDateChooser dateChooserEnd;
+	private JButton ButtonSpecial;
 	public PanelBill() {
 		setLayout(null);
 		
 		ButtonDeleteBill = new JButton("Delete");
-		ButtonDeleteBill.setBounds(86, 132, 89, 23);
+		ButtonDeleteBill.setBounds(67, 132, 125, 23);
 		add(ButtonDeleteBill);
 		
 		ButtonViewBill = new JButton("View");
-		ButtonViewBill.setBounds(86, 177, 89, 23);
+		ButtonViewBill.setBounds(67, 177, 125, 23);
 		add(ButtonViewBill);
 		
 		LabelPageBill = new JLabel("Page");
@@ -57,7 +58,7 @@ public class PanelBill extends JPanel {
 		scrollPaneBill.setViewportView(tableBill);
 		
 		ButtonAddBill = new JButton("Add");
-		ButtonAddBill.setBounds(86, 224, 89, 23);
+		ButtonAddBill.setBounds(67, 224, 125, 23);
 		add(ButtonAddBill);
 		
 		JLabel LabelTableBill = new JLabel("B\u1EA3ng Bill");
@@ -113,6 +114,10 @@ public class PanelBill extends JPanel {
 		dateChooserEnd = new JDateChooser();
 		dateChooserEnd.setBounds(416, 329, 108, 20);
 		add(dateChooserEnd);
+		
+		ButtonSpecial = new JButton("Special Bill");
+		ButtonSpecial.setBounds(67, 272, 125, 25);
+		add(ButtonSpecial);
 
 	}
 	public JComboBox getComboBoxPageBill() {
@@ -157,5 +162,7 @@ public class PanelBill extends JPanel {
 	public JButton getButtonView() {
 		return ButtonViewBill;
 	}
-
+	public JButton getButtonSpecialBill() {
+		return ButtonSpecial;
+	}
 }

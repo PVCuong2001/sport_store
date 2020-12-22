@@ -16,11 +16,22 @@ public class Checkstockproperty implements java.io.Serializable {
 	public Checkstockproperty() {
 	}
 
-	public Checkstockproperty(int idStock,int idStockPro, int idStockSize, int idStockColor ) {
+	public Checkstockproperty(int idStock, int idStockSize, int idStockColor, int StockQty ) {
 		this.idStockSize = idStockSize;
 		this.idStockColor = idStockColor;
 		this.idStockPro=idStockPro;
 		this.idStock=idStock;
+		this.StockQty=StockQty;
+	}
+	@Override
+	public String toString() {
+		return idStock+" "+idStockColor+" "+idStockSize+" "+StockQty;
+	}
+
+	public Checkstockproperty(int idStockSize, int idStockColor, int StockQty ) {
+		this.idStockSize = idStockSize;
+		this.idStockColor = idStockColor;
+		this.StockQty=StockQty;
 	}
 
 	public int getStockQty() {

@@ -8,7 +8,9 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 
 import model.Checkstockproperty;
+import model.ProductInfo;
 import model.Stock;
+import validate.Myexception;
 
 public class StockDAOImpl extends BaseDAOImpl<Stock> implements StockDAO {
 
@@ -17,42 +19,49 @@ public class StockDAOImpl extends BaseDAOImpl<Stock> implements StockDAO {
 		// TODO Auto-generated constructor stub
 	}
 	@Override
-	public List<Object[]>findbyidpro(int id_pro) {
+	public List<Stock>findbyidpro(int id_pro) {
 		Session session=sessionFactory.openSession();
 		session.beginTransaction();
 		List<Object[]>results=new ArrayList<>();
 		StringBuilder stringquery=new StringBuilder();
-		stringquery.append("select id_stock,id_stock_color,id_stock_size,color.color_name,size.size_name,st.stock_quantity FROM stock st JOIN product_info pro ON st.id_stock_pro = pro.id_pro ")
-					.append("JOIN color ON st.id_stock_color=color.id_color ")
-					.append("JOIN size ON st.id_stock_size=size.id_size ")						
-					.append("where st.id_stock_pro= :id_pro ");
-		Query query=session.createSQLQuery(stringquery.toString()).setParameter("id_pro", id_pro);
+//		stringquery.append("select id_stock,id_stock_color,id_stock_size,color.color_name,size.size_name,st.stock_quantity FROM stock st JOIN product_info pro ON st.id_stock_pro = pro.id_pro ")
+//					.append("JOIN color ON st.id_stock_color=color.id_color ")
+//					.append("JOIN size ON st.id_stock_size=size.id_size ")						
+//					.append("where st.id_stock_pro= :id_pro ");
+		stringquery.append("select st.*,color.*,size.* from stock st JOIN product_info pro ON st.id_stock_pro = pro.id_pro ")
+				.append("JOIN color ON st.id_stock_color=color.id_color ")
+				.append("JOIN size ON st.id_stock_size=size.id_size ")						
+				.append("where st.id_stock_pro= :id_pro");
+		Query query=session.createSQLQuery(stringquery.toString()).addEntity("st",Stock.class).addJoin("co","st.color").addJoin("size","st.size").setParameter("id_pro", id_pro);
 		results=query.list();
+		List<Stock> list=new ArrayList<>();
+		for(Object[] row :results) {
+			Stock sto=(Stock) row[0];
+			list.add(sto);
+		}
 		session.flush();
 		session.close();
-		return results;
+		return list;
 	}
 	@Override
-	public int checkexiststockcompokey(int id_pro, int id_color, int id_size,int qty) {
+	public List<Object[]> findstoinfo(int id_pro) throws Myexception {
 		Session session=sessionFactory.openSession();
 		session.beginTransaction();
-		int result;
+		List<Object[]> result=new ArrayList<Object[]>();
 		StringBuilder stringquery=new StringBuilder();
-		stringquery.append("select id_stock from stock where id_stock_pro = :id_pro && id_stock_color = :id_color && id_stock_size = :id_size && stock_quantity >= :qty && stock_activeflag=1");
+		stringquery.append("select id_stock,color_name,size_name,stock_quantity from stock")
+					.append(" join size on id_size=id_stock_size")
+					.append(" join color on id_color=id_stock_color")
+					.append(" where id_stock_pro = :id_pro && stock_activeflag=1");
 		try {
-			result= (int) session.createSQLQuery(stringquery.toString())
-					.setParameter("id_pro",id_pro)
-					.setParameter("id_color",id_color)
-					.setParameter("id_size",id_size)
-					.setParameter("qty", qty)
-					.uniqueResult();
+			result= session.createSQLQuery(stringquery.toString()).setParameter("id_pro",id_pro).list();
+			return result;
 		}catch(Exception e) {
-			result=0;
+			throw new Myexception("Product is not available in stock");
 		}finally {
 			session.flush();
 			session.close();
 		}
-		return result;
 //		if(result.compareTo(BigInteger.ZERO)>0) return true;
 //		return false;
 	}
@@ -83,7 +92,7 @@ public class StockDAOImpl extends BaseDAOImpl<Stock> implements StockDAO {
 	public void deletestock(int id_pro) {
 		Session session =sessionFactory.openSession();
 		StringBuilder stringquery=new StringBuilder();
-		stringquery.append("delete from stock where id_stock_pro =:id_pro");
+		stringquery.append("Update stock set stock_activeflag=0 ,stock_quantity=0 where id_stock_pro =:id_pro");
 		try {
 			session.beginTransaction();
 			session.createNativeQuery(stringquery.toString())
