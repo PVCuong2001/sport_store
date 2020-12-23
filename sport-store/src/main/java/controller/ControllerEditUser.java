@@ -51,7 +51,7 @@ public class ControllerEditUser {
 				        	editUser.getRadioAdmin().setSelected(true);
 				        }
 				        else {
-				        	editUser.getRadioStaff().setSelected(false);
+				        	editUser.getRadioStaff().setSelected(true);
 				        	
 				        }
 				        ActionButtonSave(editUser);

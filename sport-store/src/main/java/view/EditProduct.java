@@ -67,7 +67,7 @@ public class EditProduct extends JFrame {
         
         JLabel LabelDes = new JLabel("Description");
         LabelDes.setHorizontalAlignment(SwingConstants.CENTER);
-        LabelDes.setBounds(21, 127, 71, 14);
+        LabelDes.setBounds(10, 127, 89, 14);
         contentPane.add(LabelDes);
         
         textAreaDes = new JTextArea();
@@ -77,7 +77,7 @@ public class EditProduct extends JFrame {
         
         JLabel LabelBranch = new JLabel("Branch");
         LabelBranch.setHorizontalAlignment(SwingConstants.CENTER);
-        LabelBranch.setBounds(328, 37, 46, 14);
+        LabelBranch.setBounds(315, 37, 59, 14);
         contentPane.add(LabelBranch);
         
         JLabel LabelCategory = new JLabel("Category");
@@ -87,7 +87,7 @@ public class EditProduct extends JFrame {
         
         JLabel LabelPrice = new JLabel("Price");
         LabelPrice.setHorizontalAlignment(SwingConstants.CENTER);
-        LabelPrice.setBounds(328, 127, 46, 14);
+        LabelPrice.setBounds(315, 127, 59, 14);
         contentPane.add(LabelPrice);
         
         textFieldPrice = new JTextField();
@@ -130,12 +130,12 @@ public class EditProduct extends JFrame {
         contentPane.add(ButtonSave);
         
         buttonAdd = new JButton("Add");
-        buttonAdd.setBounds(485, 204, 71, 23);
+        buttonAdd.setBounds(485, 204, 89, 23);
         contentPane.add(buttonAdd);
         
         buttonRemove = new JButton("Remove");
         buttonRemove.setFont(new Font("Tahoma", Font.PLAIN, 9));
-        buttonRemove.setBounds(485, 238, 71, 23);
+        buttonRemove.setBounds(485, 238, 89, 23);
         contentPane.add(buttonRemove);
         
         JLabel lblNewLabel = new JLabel("Size");

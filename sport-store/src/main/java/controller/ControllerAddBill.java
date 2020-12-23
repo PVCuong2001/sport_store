@@ -18,6 +18,7 @@ import view.PanelBill;
 public class ControllerAddBill {
     private PanelBill panelBill;
     private BillServiceImpl billServiceImpl;
+    private boolean check;
     public ControllerAddBill(PanelBill p1,BillServiceImpl billServiceImpl) {
     	panelBill = p1;
     	this.billServiceImpl = billServiceImpl;
@@ -32,7 +33,7 @@ public class ControllerAddBill {
                 // TODO Auto-generated method stub
                 AddBill addBill = new AddBill();
                 addBill.setVisible(true);
-                ActionButtonFind(addBill);
+                ActionButtonRadio( addBill) ;
                 ActionButtonAdd(addBill);
                 ActionButtonSave(addBill);
     			ActionButtonCancel(addBill);
@@ -40,6 +41,33 @@ public class ControllerAddBill {
             }
         });
     }
+    public void ActionButtonRadio(AddBill addBill) {
+        addBill.getRadioButtonSpecial().addActionListener(new ActionListener() {
+            
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // TODO Auto-generated method stub
+            	check=true;
+                addBill.getButtonFind().setEnabled(true);
+                addBill.getRadioButtonNone().setEnabled(false);
+                ActionButtonFind(addBill);
+            }
+        });
+        addBill.getRadioButtonNone().addActionListener(new ActionListener() {
+            
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // TODO Auto-generated method stub
+            	check=false;
+                addBill.getButtonFind().setEnabled(true);
+                addBill.getRadioButtonSpecial().setEnabled(false);
+                ActionButtonFind(addBill);
+            }
+        });
+    }
+
+
+
     public void ActionButtonSave(AddBill addBill) {
     	addBill.getButtonSave().addActionListener( new ActionListener() {
 			
@@ -119,7 +147,7 @@ public class ControllerAddBill {
                 // TODO Auto-generated method stub
                 String code = addBill.getTextFieldCodeProduct().getText();
                 try {
-					List<Stock>stocks=billServiceImpl.checkprocode(code);
+					List<Stock>stocks=billServiceImpl.checkprocode(code,check);
 					addBill.getComboBoxSizeColor().addItem("");
 		                for(Stock value :stocks) {
 		                	addBill.getComboBoxSizeColor().addItem(value.getColor().getName()+"-"+value.getSize().getName());

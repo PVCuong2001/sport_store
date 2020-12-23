@@ -2,6 +2,7 @@ package view;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JLabel;
@@ -32,6 +33,8 @@ public class AddBill extends JFrame {
     private JTextField textFieldQuantity;
     private JButton ButtonFind;
     private JButton ButtonRemove;
+    private JRadioButton RadioSpecial;
+    private JRadioButton RadioNone;
 
     public AddBill() {
 
@@ -128,6 +131,15 @@ public class AddBill extends JFrame {
         ButtonRemove = new JButton("Remove");
         ButtonRemove.setBounds(637, 219, 89, 25);
         contentPane.add(ButtonRemove);
+        
+         RadioSpecial = new JRadioButton("Print");
+        RadioSpecial.setBounds(38, 152, 81, 23);
+        contentPane.add(RadioSpecial);
+        
+         RadioNone = new JRadioButton("None");
+        RadioNone.setBounds(38, 187, 70, 23);
+        contentPane.add(RadioNone);
+
     }
 
     public JPanel getContentPane() {
@@ -197,6 +209,15 @@ public class AddBill extends JFrame {
     public JButton getButtonRemove() {
     	return ButtonRemove;
     }
+    
+    public JRadioButton getRadioButtonSpecial() {
+        return RadioSpecial;
+    }
+    
+    public JRadioButton getRadioButtonNone() {
+        return RadioNone;
+    }
+
 }
 
 

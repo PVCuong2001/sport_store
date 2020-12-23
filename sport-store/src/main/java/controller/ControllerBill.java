@@ -46,7 +46,7 @@ public class ControllerBill {
 				String[] col = {"#","Code","Usercode","Total Quantity","Total Price" ,"Create Date","Status"};
 				DefaultTableModel model = (DefaultTableModel) panelBill.getTabelBill().getModel();
 				model.setDataVector(data, col);
-//				autoResizeColumn(panelBill.getTabelBill());
+				autoResizeColumn(panelBill.getTabelBill());
 				panelBill.getTextFieldMaxTotal().setText("");
 				panelBill.getTextFieldMinTotal().setText("");
 			}
@@ -88,27 +88,28 @@ public class ControllerBill {
 				DefaultTableModel model = (DefaultTableModel) viewbill.getTable().getModel();
 				model.setDataVector(data, col);
 				viewbill.setVisible(true);
+				autoResizeColumn(viewbill.getTable());
 			}
 		});
 	}
-//	private void autoResizeColumn(JTable jTable1) {
-//        JTableHeader header = jTable1.getTableHeader();
-//        int rowCount = jTable1.getRowCount();
-//
-//        final Enumeration columns = jTable1.getColumnModel().getColumns();
-//        while (columns.hasMoreElements()) {
-//            TableColumn column = (TableColumn) columns.nextElement();
-//            int col = header.getColumnModel().getColumnIndex(column.getIdentifier());
-//            int width = (int) jTable1.getTableHeader().getDefaultRenderer()
-//                    .getTableCellRendererComponent(jTable1, column.getIdentifier(), false, false, -1, col).getPreferredSize().getWidth();
-//
-//            for (int row = 0; row < rowCount; row++) {
-//                int preferedWidth = (int) jTable1.getCellRenderer(row, col).getTableCellRendererComponent(jTable1,
-//                        jTable1.getValueAt(row, col), false, false, row, col).getPreferredSize().getWidth();
-//                width = Math.max(width, preferedWidth);
-//            }
-//            header.setResizingColumn(column); // this line is very important
-//            column.setWidth(width + jTable1.getIntercellSpacing().width);
-//        }
-//    }
+	private void autoResizeColumn(JTable jTable1) {
+        JTableHeader header = jTable1.getTableHeader();
+        int rowCount = jTable1.getRowCount();
+
+        final Enumeration columns = jTable1.getColumnModel().getColumns();
+        while (columns.hasMoreElements()) {
+            TableColumn column = (TableColumn) columns.nextElement();
+            int col = header.getColumnModel().getColumnIndex(column.getIdentifier());
+            int width = (int) jTable1.getTableHeader().getDefaultRenderer()
+                    .getTableCellRendererComponent(jTable1, column.getIdentifier(), false, false, -1, col).getPreferredSize().getWidth();
+
+            for (int row = 0; row < rowCount; row++) {
+                int preferedWidth = (int) jTable1.getCellRenderer(row, col).getTableCellRendererComponent(jTable1,
+                        jTable1.getValueAt(row, col), false, false, row, col).getPreferredSize().getWidth();
+                width = Math.max(width, preferedWidth);
+            }
+            header.setResizingColumn(column); // this line is very important
+            column.setWidth(width + jTable1.getIntercellSpacing().width);
+        }
+    }
 }

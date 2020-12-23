@@ -11,6 +11,7 @@ import service.ProductServiceImpl;
 import service.UserServiceImpl;
 import view.Login;
 import view.MainView;
+import view.PanelInfoUser;
 public class ControllerMainView {
 	
 	private MainView mainview;
@@ -42,6 +43,7 @@ public class ControllerMainView {
 		ActionButtonLogOut();
 		ActionPanelMatHang();
 		ActionPanelBill();
+		ActionPanelInfoUser();
 	}
 	public void ActionButtonNhanVien() {
 		mainview.getButtonNhanVien().addActionListener(new ActionListener() {
@@ -107,10 +109,13 @@ public class ControllerMainView {
 			}
 		});
 	}
+	public void ActionPanelInfoUser() {
+		ControllerPanelInfoUser controllerPanelInfoUser = new ControllerPanelInfoUser(mainview.getPanelInformationUser(), userServiceImpl);
+	}
 	public void ActionPanelUser() {
 		ControllerRefreshPanelUser controllerRefreshPanelUser = new ControllerRefreshPanelUser(mainview.getpanelUser(), userServiceImpl);
 		ControllerEditUser controllerEditUser = new ControllerEditUser(mainview.getpanelUser(), userServiceImpl);
-		ControllerUser controllerUser=new ControllerUser(mainview.getpanelUser(), userServiceImpl);
+		ControllerShowDataUser controllerUser=new ControllerShowDataUser(mainview.getpanelUser(), userServiceImpl);
 		ControllerAddUser controllerAddUser=new ControllerAddUser(mainview.getpanelUser(), userServiceImpl);
 		ControllerDelUser controllerDelUser=new ControllerDelUser(mainview.getpanelUser(), userServiceImpl);
 	}

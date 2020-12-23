@@ -115,7 +115,7 @@ public class MainView extends JFrame {
 		ButtonLogOut = new JButton("LogOut");
 		ButtonLogOut.setBackground(UIManager.getColor("Button.shadow"));
 		ButtonLogOut.setFont(new Font("Tahoma", Font.BOLD, 15));
-		ButtonLogOut.setBounds(901, 29, 89, 42);
+		ButtonLogOut.setBounds(901, 29, 124, 42);
 		contentPane.add(ButtonLogOut);
 		
 	}

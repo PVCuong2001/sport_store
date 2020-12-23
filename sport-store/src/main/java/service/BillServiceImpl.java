@@ -140,14 +140,17 @@ public class BillServiceImpl implements BillService{
 			}		
 		}
 		
-		public List<Stock> checkprocode(String code) throws Myexception {
+		public List<Stock> checkprocode(String code,boolean check) throws Myexception {
 			stocks.clear();
-			List<ProductInfo>products=productDAOImpl.findbyproperty("code", code);
-			if(products.size()!=0 && !products.isEmpty() &&products.get(0).getActiveFlag()==1) {
-				int id_pro=products.get(0).getId();
+			Object[] result=productDAOImpl.findproclothes(code,check);
+			if(result!=null) {
+				int id_pro=(int) result[0];
+				ProductInfo product=new ProductInfo();
+				product.setId(id_pro);
+				product.setCurrentPrice(Long.parseLong(result[1].toString()));
 				stocks=stockDAOImpl.findbyidpro(id_pro, true);
 				for(Stock value :stocks) {
-					value.setProductInfo(products.get(0));
+					value.setProductInfo(product);
 				}
 				return stocks;
 			}else {

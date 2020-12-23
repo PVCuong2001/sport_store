@@ -19,29 +19,20 @@ public class UserServiceImpl implements UserService {
 		userDAOImpl=new UserDAOImpl(User.class);
 		nextid=userDAOImpl.nextid("user");
 	}
-	public static void main(String[] args) throws CloneNotSupportedException {
+	public static void main(String[] args) throws CloneNotSupportedException, Myexception {
 			UserServiceImpl userService=new UserServiceImpl();
 			
 				
 			
-			
-			Object [][] data=userService.showuser();
+			String c="c";
+			Object [][] data=userService.searchuser("c");
 			for(Object[] i :data) {
 				for(Object j :i) {
 					System.out.print(j+"         ");
 				}
 				System.out.println();
 			}
-			User test=new User();
-			User user=userService.userlist.get(0);
-			test=(User) userService.userlist.get(0).clone();
-			System.out.println(userService.userlist.get(0).getName());
-			test.setPassword("leminhloi");
-			List<User>list;
-			if(!user.getPassword().equals(test.getPassword())) {
-				list=userService.userDAOImpl.findbyproperty("password", user.getPassword());
-				if(list.size()!=0) System.out.println("di me may");
-			}
+			
 		
 		/*
 			User user=new User();
@@ -83,22 +74,28 @@ public class UserServiceImpl implements UserService {
 //			UserRole userRole=(UserRole) user.getUserRoles().iterator().next();
 //			userService.userRoleDAOImpl.delete(userRole);
 	}
-	public Object[][] searchuser(String name){
-		List<User>list=userDAOImpl.findbyproperty("name", name);
-		Object[][] result= new Object[list.size()][8];
-		for(int i=0;i<userlist.size();i++) {
-			result[i][0]=i+1;
-			result[i][1]=list.get(i).getCode().toString();
-			result[i][2]=list.get(i).getName().toString();
-			result[i][3]=list.get(i).getPhone().toString();
-			result[i][4]=list.get(i).getGmail().toString();
-			result[i][5]=list.get(i).getGender().toString();
-			if(list.get(i).getActiveFlag()==1) result[i][6]="valid";
-			else result[i][6]="invalid";
-			if(list.get(i).getIsAdmin()==1) result[i][7]="Admin";
-			else  result[i][7]="Staff";
+	public Object[][] searchuser(String name) throws Myexception{
+		List<User> list=null;
+		try {
+			list = userDAOImpl.findbyname(name);
+			Object[][] result= new Object[list.size()][8];
+			for(int i=0;i<list.size();i++) {
+				result[i][0]=i+1;
+				result[i][1]=list.get(i).getCode().toString();
+				result[i][2]=list.get(i).getName().toString();
+				result[i][3]=list.get(i).getPhone().toString();
+				result[i][4]=list.get(i).getGmail().toString();
+				result[i][5]=list.get(i).getGender().toString();
+				if(list.get(i).getActiveFlag()==1) result[i][6]="valid";
+				else result[i][6]="invalid";
+				if(list.get(i).getIsAdmin()==1) result[i][7]="Admin";
+				else  result[i][7]="Staff";
+			}
+			return result;
+		} catch (Myexception e) {
+			throw e;
 		}
-		return result;
+		
 	}
 	public void checkuser(String code ,String password) throws Myexception {
 		if(!code.isEmpty()&&!password.isEmpty()) {

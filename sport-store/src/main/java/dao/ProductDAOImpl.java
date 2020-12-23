@@ -19,7 +19,6 @@ public class ProductDAOImpl extends BaseDAOImpl<ProductInfo> implements ProductD
 		super(aClazz);
 		// TODO Auto-generated constructor stub
 	}
-	SessionFactory sessionfactory=new Configuration().configure().buildSessionFactory();
 	@Override
 	public List<ProductInfo> findbypage(int offsett, int rowcount, int sortoption) {
 		Session session=sessionFactory.openSession();
@@ -37,5 +36,20 @@ public class ProductDAOImpl extends BaseDAOImpl<ProductInfo> implements ProductD
 		session.flush();
 		session.close();
 		return list;
+	}
+	public Object[] findproclothes(String code,boolean check){
+		Session session=sessionFactory.openSession();
+		session.beginTransaction();
+		StringBuilder stringquery=new StringBuilder();
+		Object[]result=null;
+		stringquery.append("select id_pro,pro_current_price from product_info pro ")
+					.append(" join branch_category bracate on pro.id_pro_bracate =bracate.id_bracate ")
+					.append(" join category cate on cate.id_cate=bracate.id_bracate_cate ")
+					.append(" where pro.pro_code=:code and pro.pro_active_flag=1");
+		if(check) stringquery.append(" and cate.cate_code='QuanAo'");
+		result=(Object[]) session.createSQLQuery(stringquery.toString()).setParameter("code",code).uniqueResult();
+		session.flush();
+		session.close();
+		return result;
 	}
 }

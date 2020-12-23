@@ -6,4 +6,5 @@ import model.ProductInfo;
 
 public interface ProductDAO extends BaseDAO<ProductInfo>{
 	 List<ProductInfo> findbypage(int offsett,int rowcount,int sortoption);
+	 Object[] findproclothes(String code,boolean check);
 }

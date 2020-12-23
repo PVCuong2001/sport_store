@@ -10,7 +10,7 @@ import validate.Myexception;
 
 public interface BillService {
 	void savebill(String code,String description,int status ) throws Myexception;
-	List<Stock> checkprocode(String code) throws Myexception;
+	List<Stock> checkprocode(String code,boolean check) throws Myexception;
 	void addproduct(int index,int qty) throws Myexception;
 	Object[][] showbill(int mintotal,int maxtotal,String mindate,String maxdate);
 	Object[][] showbilldetail(int index);

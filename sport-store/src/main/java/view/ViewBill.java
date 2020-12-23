@@ -121,7 +121,7 @@ public class ViewBill extends JFrame {
         lblNewLabel = new JLabel("Bill Detail");
         lblNewLabel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 25));
         lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        lblNewLabel.setBounds(246, 142, 217, 41);
+        lblNewLabel.setBounds(277, 134, 217, 41);
         contentPane.add(lblNewLabel);
     }
     public JTable getTable()

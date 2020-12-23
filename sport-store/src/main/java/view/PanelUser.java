@@ -57,12 +57,12 @@ public class PanelUser extends JPanel {
         add(LabelFindUser);
         
         textFieldName = new JTextField();
-        textFieldName.setBounds(931, 96, 131, 20);
+        textFieldName.setBounds(931, 96, 175, 20);
         add(textFieldName);
         textFieldName.setColumns(10);
         
         ButtonFind = new JButton("Find");
-        ButtonFind.setBounds(954, 140, 89, 23);
+        ButtonFind.setBounds(970, 140, 89, 23);
         add(ButtonFind);
         
         ButtonRefresh = new JButton("Refresh");

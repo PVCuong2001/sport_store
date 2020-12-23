@@ -27,6 +27,7 @@ public class ControllerRefreshPanelUser {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // TODO Auto-generated method stub
+            	panelUser.getTextFieldName().setText("");
                 Object[][] data = userServiceImpl.showuser();
                 String col[] = {"#","CODE","NAME","PHONE","GMAIL","GENDER","STATUS","ROLE"};
                 DefaultTableModel model = (DefaultTableModel) panelUser.getTableUser().getModel();

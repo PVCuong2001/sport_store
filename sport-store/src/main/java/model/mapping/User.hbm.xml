@@ -38,7 +38,7 @@
         </property>
         
         
-           <set embed-xml="true" fetch="select" inverse="true" lazy="false" mutable="true" name="bills" optimistic-lock="true" sort="unsorted" table="bill">
+           <set embed-xml="true" fetch="select" inverse="true" lazy="true" mutable="true" name="bills" optimistic-lock="true" sort="unsorted" table="bill">
             <key on-delete="noaction">
                 <column name="id_bill_user" not-null="true"/>
             </key>
