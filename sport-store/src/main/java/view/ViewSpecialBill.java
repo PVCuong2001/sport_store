@@ -7,7 +7,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
-import com.toedter.calendar.JDateChooser;
 import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JTable;
@@ -61,7 +60,7 @@ public class ViewSpecialBill extends JFrame {
         contentPane.add(ButtonCancel);
         
         JScrollPane scrollPane_1 = new JScrollPane();
-        scrollPane_1.setBounds(58, 105, 348, 193);
+        scrollPane_1.setBounds(52, 105, 348, 193);
         contentPane.add(scrollPane_1);
         
         tableStart = new JTable();
