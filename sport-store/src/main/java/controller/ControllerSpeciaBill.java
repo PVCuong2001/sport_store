@@ -12,7 +12,7 @@ import view.ViewSpecialBill;
 public class ControllerSpeciaBill {
 	private BillServiceImpl billServiceImpl;
 	private PanelBill panelBill;
-	private Object [][] data;
+	private Object [][] data1, data2;
 	public ControllerSpeciaBill(PanelBill panelBill, BillServiceImpl billServiceImpl) {
 		// TODO Auto-generated constructor stub
 		this.panelBill = panelBill;
@@ -28,10 +28,13 @@ public class ControllerSpeciaBill {
 				ViewSpecialBill viewSpecialBill = new ViewSpecialBill();
 				viewSpecialBill.setVisible(true);
 				
-				data = billServiceImpl.findprintedbill();
+				data1 = billServiceImpl.findprintedbill();
 				String[] column = {"Code Bill", "Quantity Clothes", "Value Bill"};
-				DefaultTableModel model = (DefaultTableModel) panelBill.getTabelBill().getModel();
-				model.setDataVector(data, column);
+				DefaultTableModel model1 = (DefaultTableModel) viewSpecialBill.getTable().getModel();
+				model1.setDataVector(data1, column);
+				data2 = billServiceImpl.getprintedlist();
+				DefaultTableModel model2 = (DefaultTableModel) viewSpecialBill.getTableStart().getModel();
+				model2.setDataVector(data2, column);
 				ButtonComplete(viewSpecialBill);
 				ButtonCancel(viewSpecialBill); 
 			}
@@ -42,8 +45,8 @@ public class ControllerSpeciaBill {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				
+				billServiceImpl.completeprintedbill();
+				viewSpecialBill.dispose();
 			}
 		});
 	}

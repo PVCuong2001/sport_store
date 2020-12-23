@@ -30,24 +30,24 @@ public class PanelProduct extends JPanel {
 		setLayout(null);
 		
 		LabelSortOption = new JLabel("Sort Option");
-		LabelSortOption.setBounds(10, 32, 68, 14);
+		LabelSortOption.setBounds(10, 32, 103, 14);
 		LabelSortOption.setFont(new Font("Tahoma", Font.BOLD, 11));
 		LabelSortOption.setHorizontalAlignment(SwingConstants.CENTER);
 		add(LabelSortOption);
 		
 		LabelPage = new JLabel("Page");
-		LabelPage.setBounds(10, 69, 68, 14);
+		LabelPage.setBounds(0, 69, 113, 14);
 		LabelPage.setFont(new Font("Tahoma", Font.BOLD, 11));
 		LabelPage.setHorizontalAlignment(SwingConstants.CENTER);
 		add(LabelPage);
 		
 		comboBoxSort = new JComboBox();
 		comboBoxSort.setModel(new DefaultComboBoxModel(new String[] {"sort by code asc", "sort by code dsc", "sort by name asc", "sort by name dsc", "sort by price asc", "sort by price dsc", "sort by category asc", "sort by category dsc"}));
-		comboBoxSort.setBounds(88, 28, 125, 22);
+		comboBoxSort.setBounds(121, 28, 125, 22);
 		add(comboBoxSort);
 		
 		comboBoxPage = new JComboBox();
-		comboBoxPage.setBounds(88, 65, 125, 22);
+		comboBoxPage.setBounds(121, 65, 125, 22);
 		add(comboBoxPage);
 		
 	
@@ -59,7 +59,7 @@ public class PanelProduct extends JPanel {
 		add(LabelTotalData);
 		
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(270, 68, 723, 248);
+		scrollPane.setBounds(268, 80, 723, 248);
 		add(scrollPane);
 		
 		table = new JTable();
@@ -72,15 +72,15 @@ public class PanelProduct extends JPanel {
 		add(LabelBangMatHang);
 		
 		ButtonAddData = new JButton("ADD");
-		ButtonAddData.setBounds(67, 149, 89, 23);
+		ButtonAddData.setBounds(67, 136, 89, 23);
 		add(ButtonAddData);
 		
 		ButtonDelete = new JButton("DELETE");
-		ButtonDelete.setBounds(77, 184, 89, 23);
+		ButtonDelete.setBounds(67, 184, 89, 23);
 		add(ButtonDelete);
 		
 		ButtonView = new JButton("VIEW");
-		ButtonView.setBounds(67, 211, 93, 25);
+		ButtonView.setBounds(67, 236, 89, 25);
 		add(ButtonView);
 		
 		ButtonRefreshData = new JButton("Refresh");
@@ -88,7 +88,7 @@ public class PanelProduct extends JPanel {
 		add(ButtonRefreshData);
 		
 		ButtonEdit = new JButton("Edit");
-		ButtonEdit.setBounds(49, 246, 117, 25);
+		ButtonEdit.setBounds(67, 291, 89, 25);
 		add(ButtonEdit);
 	}
 //	public JScrollPane getScrollPane() {

@@ -83,6 +83,23 @@ public class UserServiceImpl implements UserService {
 //			UserRole userRole=(UserRole) user.getUserRoles().iterator().next();
 //			userService.userRoleDAOImpl.delete(userRole);
 	}
+	public Object[][] searchuser(String name){
+		List<User>list=userDAOImpl.findbyproperty("name", name);
+		Object[][] result= new Object[list.size()][8];
+		for(int i=0;i<userlist.size();i++) {
+			result[i][0]=i+1;
+			result[i][1]=list.get(i).getCode().toString();
+			result[i][2]=list.get(i).getName().toString();
+			result[i][3]=list.get(i).getPhone().toString();
+			result[i][4]=list.get(i).getGmail().toString();
+			result[i][5]=list.get(i).getGender().toString();
+			if(list.get(i).getActiveFlag()==1) result[i][6]="valid";
+			else result[i][6]="invalid";
+			if(list.get(i).getIsAdmin()==1) result[i][7]="Admin";
+			else  result[i][7]="Staff";
+		}
+		return result;
+	}
 	public void checkuser(String code ,String password) throws Myexception {
 		if(!code.isEmpty()&&!password.isEmpty()) {
 			List<User>result=userDAOImpl.findbyproperty("code",code);
@@ -113,7 +130,6 @@ public class UserServiceImpl implements UserService {
 		return result;
 	} 
 
-	// moi lan save hay lam chi do xong phai clear rolelist di
 	public void adduser(User user) throws Myexception {
 		if(user.getPhone().length()!=10) throw new Myexception("Phone number must be 10 digits");
 		if(userDAOImpl.checkaddinfo(user.getCode(), user.getPassword(), user.getGmail(), user.getPhone())) {
@@ -127,8 +143,7 @@ public class UserServiceImpl implements UserService {
 			}
 		}else {
 			throw new Myexception("Existed Code,Password,Gmail,Phone ");
-		}
-		
+		}	
 	}
 	public void edituser(User user,int index) throws Myexception {
 		User test= userlist.get(index);

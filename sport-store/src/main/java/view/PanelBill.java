@@ -14,13 +14,11 @@ import javax.swing.JTable;
 import com.toedter.calendar.JDateChooser;
 
 public class PanelBill extends JPanel {
-	private JComboBox comboBoxPageBill;
 	private JButton ButtonDeleteBill;
 	private JButton ButtonViewBill;
 	private JButton ButtonOkBill;
 	private JButton ButtonAddBill;
 	private JLabel LabelTotalBill;
-	private JLabel LabelPageBill;
 	private JScrollPane scrollPaneBill;
 	private JLabel LabelStartDate;
 	private JTextField textFieldminTotal;
@@ -33,22 +31,12 @@ public class PanelBill extends JPanel {
 		setLayout(null);
 		
 		ButtonDeleteBill = new JButton("Delete");
-		ButtonDeleteBill.setBounds(67, 132, 125, 23);
+		ButtonDeleteBill.setBounds(67, 94, 125, 23);
 		add(ButtonDeleteBill);
 		
 		ButtonViewBill = new JButton("View");
 		ButtonViewBill.setBounds(67, 177, 125, 23);
 		add(ButtonViewBill);
-		
-		LabelPageBill = new JLabel("Page");
-		LabelPageBill.setFont(new Font("Tahoma", Font.BOLD, 11));
-		LabelPageBill.setHorizontalAlignment(SwingConstants.CENTER);
-		LabelPageBill.setBounds(10, 45, 68, 14);
-		add(LabelPageBill);
-		
-		comboBoxPageBill = new JComboBox();
-		comboBoxPageBill.setBounds(88, 41, 125, 22);
-		add(comboBoxPageBill);
 		
 		scrollPaneBill = new JScrollPane();
 		scrollPaneBill.setBounds(270, 68, 723, 248);
@@ -80,7 +68,7 @@ public class PanelBill extends JPanel {
 		
 		JLabel LabelEndDate = new JLabel("to date");
 		LabelEndDate.setHorizontalAlignment(SwingConstants.CENTER);
-		LabelEndDate.setBounds(353, 333, 75, 14);
+		LabelEndDate.setBounds(383, 331, 75, 14);
 		add(LabelEndDate);
 		
 		JLabel LabelMaxTotal = new JLabel("Min total");
@@ -95,16 +83,16 @@ public class PanelBill extends JPanel {
 		
 		JLabel LabelMinTotal = new JLabel("Max total");
 		LabelMinTotal.setHorizontalAlignment(SwingConstants.CENTER);
-		LabelMinTotal.setBounds(353, 373, 75, 14);
+		LabelMinTotal.setBounds(383, 373, 75, 14);
 		add(LabelMinTotal);
 		
 		textFieldmaxTotal = new JTextField();
-		textFieldmaxTotal.setBounds(416, 370, 108, 20);
+		textFieldmaxTotal.setBounds(462, 371, 108, 20);
 		add(textFieldmaxTotal);
 		textFieldmaxTotal.setColumns(10);
 		
 		ButtonOkBill = new JButton("Ok");
-		ButtonOkBill.setBounds(534, 348, 89, 23);
+		ButtonOkBill.setBounds(577, 348, 89, 23);
 		add(ButtonOkBill);
 		
 		dateChooserBegin = new JDateChooser();
@@ -112,16 +100,13 @@ public class PanelBill extends JPanel {
 		add(dateChooserBegin);
 		
 		dateChooserEnd = new JDateChooser();
-		dateChooserEnd.setBounds(416, 329, 108, 20);
+		dateChooserEnd.setBounds(462, 328, 108, 20);
 		add(dateChooserEnd);
 		
 		ButtonSpecial = new JButton("Special Bill");
 		ButtonSpecial.setBounds(67, 272, 125, 25);
 		add(ButtonSpecial);
 
-	}
-	public JComboBox getComboBoxPageBill() {
-		return comboBoxPageBill;
 	}
 	public JButton getButtonDeleteBill() {
 		return ButtonDeleteBill;
@@ -134,9 +119,6 @@ public class PanelBill extends JPanel {
 	}
 	public JLabel getLabelTotalBill() {
 		return LabelTotalBill;
-	}
-	public JLabel getLabelPageBill() {
-		return LabelPageBill;
 	}
 	public JScrollPane getScrollPaneBill() {
 		return scrollPaneBill;

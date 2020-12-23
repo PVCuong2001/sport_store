@@ -10,12 +10,20 @@ public class Algorithm {
 	public Algorithm(int []qty,int []value) {
 		Time=new double[qty.length];
 		Value=new int[qty.length];
-//		Billcode[0]="";Time[0]=0;Value[0]=0;
 		for(int  i=1;i<qty.length;i++) {
 			Time[i]=qty[i]*0.25;
 			Value[i]=value[i];
 		}
 		A=new double[qty.length][33];
+	}
+	public static void main(String[] args) {
+		int []qty= {0,6,8,10,14,16};
+		int []Value= {0,100,120,150,170,200};
+		Algorithm al=new Algorithm(qty, Value);
+		List<Integer>list=al.cal();
+		for(Integer data :list) {
+			System.out.println(qty[data]+" "+Value[data]);
+		}
 	}
 	public List<Integer> cal(){
 		for(int i = 0 ; i <Time.length ; i++) {

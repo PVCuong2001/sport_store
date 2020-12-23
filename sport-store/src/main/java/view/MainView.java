@@ -27,7 +27,7 @@ public class MainView extends JFrame {
 	private PanelUser panelUser;
 	private PanelProduct panelProduct;
 	private PanelBill panelBill;
-	private JPanel panelInformationUser;
+	private PanelInfoUser panelInformationUser;
 	private JButton ButtonNhanVien;
 	private JButton ButtonMatHang;
 	private JButton ButtonInforUser;
@@ -81,11 +81,17 @@ public class MainView extends JFrame {
 		JLabel lblNewLabel_2 = new JLabel("Panel Ho\u00E1 \u0111\u01A1n");
 		panelBill.add(lblNewLabel_2);
 		
-		panelInformationUser = new JPanel();
+		panelInformationUser = new PanelInfoUser();
 		layeredPane.add(panelInformationUser, "name_29268846766800");
 		
 		JLabel lblNewLabel_3 = new JLabel("Panel Th\u00F4ng tin ng\u01B0\u1EDDi d\u00F9ng");
 		panelInformationUser.add(lblNewLabel_3);
+		
+		ButtonInforUser = new JButton("Information User");
+		ButtonInforUser.setBackground(UIManager.getColor("Button.shadow"));
+		ButtonInforUser.setFont(new Font("Tahoma", Font.BOLD, 14));
+		ButtonInforUser.setBounds(672, 29, 168, 43);
+		contentPane.add(ButtonInforUser);
 		
 		ButtonNhanVien = new JButton("Nh\u00E2n vi\u00EAn");
 		ButtonNhanVien.setBackground(UIManager.getColor("Button.shadow"));
@@ -105,11 +111,6 @@ public class MainView extends JFrame {
 		ButtonHoaDon.setBounds(489, 29, 111, 42);
 		contentPane.add(ButtonHoaDon);
 		
-		ButtonInforUser = new JButton("Information User");
-		ButtonInforUser.setBackground(UIManager.getColor("Button.shadow"));
-		ButtonInforUser.setFont(new Font("Tahoma", Font.BOLD, 14));
-		ButtonInforUser.setBounds(672, 29, 168, 43);
-		contentPane.add(ButtonInforUser);
 		
 		ButtonLogOut = new JButton("LogOut");
 		ButtonLogOut.setBackground(UIManager.getColor("Button.shadow"));
@@ -142,7 +143,7 @@ public class MainView extends JFrame {
 	public  PanelProduct getPanelProduct() {
 		return panelProduct;
 	}
-	public JPanel getPanelInformationUser() {
+	public PanelInfoUser getPanelInformationUser() {
 		return panelInformationUser;
 	}
 	public PanelBill getpanelBill() {

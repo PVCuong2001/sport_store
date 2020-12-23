@@ -35,15 +35,17 @@ public class BillServiceImpl implements BillService{
 	private static BillDAOImpl billDAOImpl;
 	private static StockDAOImpl stockDAOImpl;
 	private static ProductDAOImpl productDAOImpl;
-	private static List<Object[]> showlist=new ArrayList<Object[]>();
+	private static List<Object[]> showlist;
 	private List<Stock>stocks;
-	private Set<Billdetail> billdetails;
+	private List<Integer>listcal;
+	private List<Billdetail> billdetails;
+	private List<Object[]> printedlist;
 	@SuppressWarnings("unchecked")
 	public BillServiceImpl() {
 		billDAOImpl=new BillDAOImpl(Bill.class);
 		stockDAOImpl=new StockDAOImpl(Stock.class);
 		productDAOImpl=new ProductDAOImpl(ProductInfo.class);
-		billdetails=new HashSet<Billdetail>();
+		billdetails=new ArrayList<Billdetail>();
 		stocks=new ArrayList<Stock>();
 	}
 	public static void main(String[] args) {
@@ -123,41 +125,29 @@ public class BillServiceImpl implements BillService{
 				User user=UserServiceImpl.storeuser;
 			//	user.setId(UserService.storeuser.getId());
 				// code vs des lay tu view.gettext
+				Set<Billdetail>result=new HashSet<Billdetail>(billdetails);
 				bill.setCode(code);
 				bill.setBillStatus(status);
 				bill.setId(nextidbill);
 				bill.setCreateDate(new Date());
 				bill.setUser(user);
 				bill.setDescription(description);
-				bill.setBilldetails(billdetails);
+				bill.setBilldetails(result);
 				BillServiceImpl.billDAOImpl.save(bill);
+				billdetails.clear();
 			}else {
 				throw new Myexception("Bill code has already existed! \n");
 			}		
 		}
-		public List<Stock>getstocks(){
-			return stocks;
-		}
+		
 		public List<Stock> checkprocode(String code) throws Myexception {
+			stocks.clear();
 			List<ProductInfo>products=productDAOImpl.findbyproperty("code", code);
 			if(products.size()!=0 && !products.isEmpty() &&products.get(0).getActiveFlag()==1) {
 				int id_pro=products.get(0).getId();
-				List<Object[]>result=stockDAOImpl.findstoinfo(id_pro);
-				for(int i=0;i<result.size();i++) {
-					Color color=new Color();
-					Size size=new Size();
-					Stock stock=new Stock();
-					color.setName(result.get(i)[1].toString());
-					size.setName(result.get(i)[2].toString());
-					stock.setProductInfo(products.get(0));
-					stock.setIdStock(Integer.parseInt(result.get(i)[0].toString()));
-					stock.setStockQuantity(Integer.parseInt(result.get(i)[3].toString()));
-					stock.setColor(color);
-					stock.setSize(size);
-					stocks.add(stock);
-				}
+				stocks=stockDAOImpl.findbyidpro(id_pro, true);
 				for(Stock value :stocks) {
-					System.out.println(value.getColor().getName()+" "+value.getSize().getName()+" "+value.getIdStock());
+					value.setProductInfo(products.get(0));
 				}
 				return stocks;
 			}else {
@@ -180,17 +170,18 @@ public class BillServiceImpl implements BillService{
 					billdetailId.setIdBilldetailStock(stocks.get(index).getIdStock());
 					billdetail.setId(billdetailId);
 					billdetails.add(billdetail);
-					stocks.clear();
+	//				stocks.clear();
 				}else {
 					throw new Myexception("Product is not avalable in stock or your request quantity is too much \n");
 				}
-			
 		}
-		
-		
+		public void removeproduct(int index) {
+			billdetails.remove(index);
+		}
+
 		public Object[][] showbill(int mintotal,int maxtotal,String mindate,String maxdate) {
 			showlist =billDAOImpl.findbytotal(mintotal,maxtotal,mindate,maxdate);
-			Object [][] result= new Object[showlist.size()][6];
+			Object [][] result= new Object[showlist.size()][7];
 			for(int i=0;i<showlist.size();i++) {
 				result[i][0]=i+1;
 				result[i][1]=showlist.get(i)[1].toString();
@@ -198,6 +189,8 @@ public class BillServiceImpl implements BillService{
 				result[i][3]=showlist.get(i)[6].toString();
 				result[i][4]=showlist.get(i)[7].toString();
 				result[i][5]=showlist.get(i)[2].toString();
+				if(showlist.get(i)[5].toString().equals("0")) 	result[i][6]="Incomplete";
+				else result[i][6]="Complete";
 				}
 			return result;
 		}
@@ -219,23 +212,31 @@ public class BillServiceImpl implements BillService{
 		}
 		
 		public Object[][] findprintedbill() {
-			List<Object[]>result=billDAOImpl.findprintedbill();
-			String billcode[]=new String[result.size()+1];
-			int qty[]=new int[result.size()+1],value[]=new int[result.size()+1];
-			for(int i=1;i<=result.size();i++) {
-				billcode[i]=(String) result.get(i-1)[0];
-				qty[i]=Integer.parseInt(result.get(i-1)[1].toString());
-				value[i]=Integer.parseInt(result.get(i-1)[2].toString());
+			printedlist=billDAOImpl.findprintedbill();
+			String billcode[]=new String[printedlist.size()+1];
+			int qty[]=new int[printedlist.size()+1];
+			int value[]=new int[printedlist.size()+1];
+			for(int i=1;i<=printedlist.size();i++) {
+				billcode[i]=(String) printedlist.get(i-1)[0];
+				qty[i]=Integer.parseInt(printedlist.get(i-1)[1].toString());
+				value[i]=Integer.parseInt(printedlist.get(i-1)[2].toString());
 			}
 			Algorithm algorithm=new Algorithm(qty,value);
-			List<Integer>resultlist=algorithm.cal();
-			Object [][]data=new Object[resultlist.size()][3];
-			for(int i=0;i<resultlist.size();i++) {
-				data[i][0]=billcode[resultlist.get(i)];
-				data[i][1]=qty[resultlist.get(i)];
-				data[i][2]=value[resultlist.get(i)];
+			listcal=algorithm.cal();
+			Object [][]data=new Object[listcal.size()][3];
+			for(int i=0;i<listcal.size();i++) {
+				data[i][0]=billcode[listcal.get(i)];
+				data[i][1]=qty[listcal.get(i)];
+				data[i][2]=value[listcal.get(i)];
 			}
 			return data;
+		}
+		public void completeprintedbill() {
+			List<String>listbillcode=new ArrayList<String>();
+			for(Integer index :listcal) {
+				listbillcode.add((String) printedlist.get(index-1)[0]);
+			}
+			billDAOImpl.updateprinted(listbillcode);
 		}
 		
 		public void deletebill(int index) throws Myexception {
@@ -246,7 +247,22 @@ public class BillServiceImpl implements BillService{
 			}catch(Exception e) {
 				throw new Myexception("Error while deleting Bill!");
 			}
-			
+		}
+		
+		public Object[][] getprintedlist(){
+			Object[][]data =new Object[printedlist.size()][3];
+			for(int i=0;i<printedlist.size();i++) {
+				data[i][0]=printedlist.get(i)[0];
+				data[i][1]=printedlist.get(i)[1];
+				data[i][2]=printedlist.get(i)[2];
+			}
+			return data;
+		}
+		public List<Billdetail>getbilldetails(){
+			return billdetails;
+		}
+		public List<Stock>getstocks(){
+			return stocks;
 		}
 		public  List<Object[]> getshowbill(){
 			return showlist;

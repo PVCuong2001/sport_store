@@ -4,6 +4,7 @@ import model.User;
 import validate.Myexception;
 
 public interface UserService {
+	 Object[][] searchuser(String name);
 	 void checkuser(String code ,String password) throws Myexception;
 	 Object[][] showuser();
 	 void adduser(User user) throws Myexception;

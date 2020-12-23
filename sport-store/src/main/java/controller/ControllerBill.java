@@ -43,10 +43,10 @@ public class ControllerBill {
 				int minTotal = Integer.parseInt(panelBill.getTextFieldMinTotal().getText());
 				int maxTotal = Integer.parseInt(panelBill.getTextFieldMaxTotal().getText());
 				Object[][] data = billServiceImpl.showbill(minTotal, maxTotal,mindate, maxdate);
-				String[] col = {"#","Code","Usercode","Total Quantity","Total Price" ,"Create Date"};
+				String[] col = {"#","Code","Usercode","Total Quantity","Total Price" ,"Create Date","Status"};
 				DefaultTableModel model = (DefaultTableModel) panelBill.getTabelBill().getModel();
 				model.setDataVector(data, col);
-				autoResizeColumn(panelBill.getTabelBill());
+//				autoResizeColumn(panelBill.getTabelBill());
 				panelBill.getTextFieldMaxTotal().setText("");
 				panelBill.getTextFieldMinTotal().setText("");
 			}
@@ -79,11 +79,11 @@ public class ControllerBill {
 				int index=panelBill.getTabelBill().getSelectedRow();
 				Object[][] data=billServiceImpl.showbilldetail(index);
 				List<Object[]>list=billServiceImpl.getshowbill();
-				viewbill.getBillCode().setText(list.get(index)[1].toString());
-				viewbill.getUserCode().setText(list.get(index)[9].toString());
-				viewbill.getUserName().setText(list.get(index)[8].toString());
-				viewbill.getCreatedate().setText(list.get(index)[2].toString());
-				viewbill.getDesc().setText(list.get(index)[4].toString());
+				viewbill.getTextFieldCode().setText(list.get(index)[1].toString());
+				viewbill.getTextFieldUserCode().setText(list.get(index)[9].toString());
+				viewbill.getTextFieldUserName().setText(list.get(index)[8].toString());
+				viewbill.getTextFieldCreateDate().setText(list.get(index)[2].toString());
+				viewbill.getTextAreaDes().setText(list.get(index)[4].toString());
 				String[] col = {"#","ProductCode","ProductName","Color","Size","Quantity","Price","TotalPrice"};
 				DefaultTableModel model = (DefaultTableModel) viewbill.getTable().getModel();
 				model.setDataVector(data, col);
@@ -91,24 +91,24 @@ public class ControllerBill {
 			}
 		});
 	}
-	private void autoResizeColumn(JTable jTable1) {
-        JTableHeader header = jTable1.getTableHeader();
-        int rowCount = jTable1.getRowCount();
-
-        final Enumeration columns = jTable1.getColumnModel().getColumns();
-        while (columns.hasMoreElements()) {
-            TableColumn column = (TableColumn) columns.nextElement();
-            int col = header.getColumnModel().getColumnIndex(column.getIdentifier());
-            int width = (int) jTable1.getTableHeader().getDefaultRenderer()
-                    .getTableCellRendererComponent(jTable1, column.getIdentifier(), false, false, -1, col).getPreferredSize().getWidth();
-
-            for (int row = 0; row < rowCount; row++) {
-                int preferedWidth = (int) jTable1.getCellRenderer(row, col).getTableCellRendererComponent(jTable1,
-                        jTable1.getValueAt(row, col), false, false, row, col).getPreferredSize().getWidth();
-                width = Math.max(width, preferedWidth);
-            }
-            header.setResizingColumn(column); // this line is very important
-            column.setWidth(width + jTable1.getIntercellSpacing().width);
-        }
-    }
+//	private void autoResizeColumn(JTable jTable1) {
+//        JTableHeader header = jTable1.getTableHeader();
+//        int rowCount = jTable1.getRowCount();
+//
+//        final Enumeration columns = jTable1.getColumnModel().getColumns();
+//        while (columns.hasMoreElements()) {
+//            TableColumn column = (TableColumn) columns.nextElement();
+//            int col = header.getColumnModel().getColumnIndex(column.getIdentifier());
+//            int width = (int) jTable1.getTableHeader().getDefaultRenderer()
+//                    .getTableCellRendererComponent(jTable1, column.getIdentifier(), false, false, -1, col).getPreferredSize().getWidth();
+//
+//            for (int row = 0; row < rowCount; row++) {
+//                int preferedWidth = (int) jTable1.getCellRenderer(row, col).getTableCellRendererComponent(jTable1,
+//                        jTable1.getValueAt(row, col), false, false, row, col).getPreferredSize().getWidth();
+//                width = Math.max(width, preferedWidth);
+//            }
+//            header.setResizingColumn(column); // this line is very important
+//            column.setWidth(width + jTable1.getIntercellSpacing().width);
+//        }
+//    }
 }

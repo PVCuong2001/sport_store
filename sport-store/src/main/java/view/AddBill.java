@@ -31,6 +31,7 @@ public class AddBill extends JFrame {
     private JLabel LabelQuantity;
     private JTextField textFieldQuantity;
     private JButton ButtonFind;
+    private JButton ButtonRemove;
 
     public AddBill() {
 
@@ -123,6 +124,10 @@ public class AddBill extends JFrame {
         ButtonFind = new JButton("Find");
         ButtonFind.setBounds(263, 42, 57, 23);
         contentPane.add(ButtonFind);
+        
+        ButtonRemove = new JButton("Remove");
+        ButtonRemove.setBounds(637, 219, 89, 25);
+        contentPane.add(ButtonRemove);
     }
 
     public JPanel getContentPane() {
@@ -189,7 +194,9 @@ public class AddBill extends JFrame {
         return ButtonFind;
     }
     
-    
+    public JButton getButtonRemove() {
+    	return ButtonRemove;
+    }
 }
 
 

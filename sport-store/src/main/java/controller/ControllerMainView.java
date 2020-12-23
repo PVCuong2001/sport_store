@@ -36,10 +36,10 @@ public class ControllerMainView {
 			ActionButtonNhanVien();
 			ActionPanelUser();
 		}
+		ActionButtonInfor();
 		ActionButtonMatHang();	
 		ActionButtonHoaDon();
 		ActionButtonLogOut();
-		ActionButtonInfor();
 		ActionPanelMatHang();
 		ActionPanelBill();
 	}

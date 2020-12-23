@@ -6,4 +6,5 @@ public interface BillDAO extends BaseDAO<Bill> {
 	 List<Object[]> findbytotal(int mintotal,int maxtotal,String mindate,String maxdate);
 	 List<Object[]> findbilldetail(int billid);
 	 List<Object[]>findprintedbill();
+	 void updateprinted(List<String>listbillcode);
 }

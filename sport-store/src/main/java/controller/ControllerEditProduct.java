@@ -34,42 +34,47 @@ public class ControllerEditProduct {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // TODO Auto-generated method stub
-                productInf=productService.getprolist().get(panelProduct.getTable().getSelectedRow());       
-                Object[][] data = productService.showdetail(panelProduct.getTable().getSelectedRow());
-                EditProduct editProduct = new EditProduct();
-                editProduct.setVisible(true);
-                editProduct.getTextFieldBranch().setText(productInf.getBranchCategory().getBranch().getName());
-                   editProduct.getTextFieldCategory().setText(productInf.getBranchCategory().getCategory().getName());
-                   editProduct.getTextFieldCode().setText(productInf.getCode());
-                   editProduct.getTextAreaDes().setText(productInf.getDescription());
-                   editProduct.getTextFieldName().setText(productInf.getName());
-                   editProduct.getTextFieldPrice().setText(String.valueOf(productInf.getCurrentPrice()));
-                   String[] col = {"Color","Size","Quantity"};
-                   DefaultTableModel mod = (DefaultTableModel) editProduct.getTable().getModel();
-                   mod.setDataVector(data, col);
-                   List<Size> data_size =null;
-                   if(productInf.getBranchCategory().getCategory().getGroupsize()==0)
-                   {
-                       data_size = uploadProductComponent.getSizechar();
-                       flagsize=0;
-                   }
-                   else  if(productInf.getBranchCategory().getCategory().getGroupsize()==1) {
-                       data_size =uploadProductComponent.getSizenum();
-                       flagsize=1;
-                   }
-                   editProduct.getComboBoxSize().addItem("");
-                   for(Size d : data_size) {
-                       editProduct.getComboBoxSize().addItem(d.getName());
-                   }
-                   List<Color> data_color = uploadProductComponent.getColor();
-                   editProduct.getComboBoxColor().addItem("");
-                   for( Color c : data_color) {
-                       editProduct.getComboBoxColor().addItem(c.getName());
-                   }
-                   ActionButtonAdd(editProduct);
-                   ActionButtonRemove(editProduct);
-                   ActionButtonSave(editProduct);
-                   ActionButtonCancel( editProduct);
+            	int index=panelProduct.getTable().getSelectedRow();
+                try {
+					productInf=(ProductInfo) productService.getprolist().get(index).clone();
+					Object[][] data = productService.showdetail(panelProduct.getTable().getSelectedRow());
+	                EditProduct editProduct = new EditProduct();
+	                editProduct.setVisible(true);
+	                editProduct.getTextFieldBranch().setText(productInf.getBranchCategory().getBranch().getName());
+	                   editProduct.getTextFieldCategory().setText(productInf.getBranchCategory().getCategory().getName());
+	                   editProduct.getTextFieldCode().setText(productInf.getCode());
+	                   editProduct.getTextAreaDes().setText(productInf.getDescription());
+	                   editProduct.getTextFieldName().setText(productInf.getName());
+	                   editProduct.getTextFieldPrice().setText(String.valueOf(productInf.getCurrentPrice()));
+	                   String[] col = {"Color","Size","Quantity"};
+	                   DefaultTableModel mod = (DefaultTableModel) editProduct.getTable().getModel();
+	                   mod.setDataVector(data, col);
+	                   List<Size> data_size =null;
+	                   if(productInf.getBranchCategory().getCategory().getGroupsize()==0)
+	                   {
+	                       data_size = uploadProductComponent.getSizechar();
+	                       flagsize=0;
+	                   }
+	                   else  if(productInf.getBranchCategory().getCategory().getGroupsize()==1) {
+	                       data_size =uploadProductComponent.getSizenum();
+	                       flagsize=1;
+	                   }
+	                   editProduct.getComboBoxSize().addItem("");
+	                   for(Size d : data_size) {
+	                       editProduct.getComboBoxSize().addItem(d.getName());
+	                   }
+	                   List<Color> data_color = uploadProductComponent.getColor();
+	                   editProduct.getComboBoxColor().addItem("");
+	                   for( Color c : data_color) {
+	                       editProduct.getComboBoxColor().addItem(c.getName());
+	                   }
+	                   ActionButtonAdd(editProduct);
+	                   ActionButtonRemove(editProduct);
+	                   ActionButtonSave(editProduct);
+	                   ActionButtonCancel( editProduct);
+				} catch (CloneNotSupportedException e1) {
+					e1.printStackTrace();
+				}               
                }});
     }
     public void ActionButtonAdd(EditProduct editProduct) {

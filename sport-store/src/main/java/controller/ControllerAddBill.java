@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.management.InstanceNotFoundException;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 import model.Stock;
@@ -35,6 +36,7 @@ public class ControllerAddBill {
                 ActionButtonAdd(addBill);
                 ActionButtonSave(addBill);
     			ActionButtonCancel(addBill);
+    			ActionButtonRemove( addBill) ;
             }
         });
     }
@@ -48,6 +50,7 @@ public class ControllerAddBill {
 				String description = addBill.getTextAreaDescription().getText();
 				try {
 					billServiceImpl.savebill(codebill, description, 1);
+					billServiceImpl.getstocks().clear();
 					addBill.dispose();
 				} catch (Myexception e) {
 					System.out.println(e);
@@ -73,13 +76,27 @@ public class ControllerAddBill {
 					addBill.getTextFieldQuantity().setText("");
 					((DefaultComboBoxModel)addBill.getComboBoxSizeColor().getModel()).removeAllElements();		    
 				} catch (Myexception e) {
-					
+					JOptionPane.showMessageDialog(panelBill, e);
 				}
 			}
 		});
     	
     }
-    
+    public void ActionButtonRemove(AddBill addBill) {
+    	addBill.getButtonRemove().addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				DefaultTableModel model = (DefaultTableModel) addBill.getTable().getModel();
+				int index=addBill.getTable().getSelectedRow() ;
+				if(index!= -1) {
+						billServiceImpl.removeproduct(index);
+						model.removeRow(index);	
+				}
+			}
+		});
+    }
     public void ActionButtonCancel(AddBill addBill) {
 		addBill.getButtonCancel().addActionListener(new ActionListener() {
 			
@@ -87,6 +104,7 @@ public class ControllerAddBill {
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				billServiceImpl.getstocks().clear();
+				billServiceImpl.getbilldetails().clear();
 				addBill.dispose();
 			}
 		});

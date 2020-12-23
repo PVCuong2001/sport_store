@@ -16,4 +16,5 @@ public interface BillService {
 	Object[][] showbilldetail(int index);
 	Object[][] findprintedbill();
 	void deletebill(int index) throws Myexception ;
+	void removeproduct(int index);
 }

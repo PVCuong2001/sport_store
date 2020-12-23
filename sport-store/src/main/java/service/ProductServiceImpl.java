@@ -208,7 +208,7 @@ public class ProductServiceImpl implements ProductService{
 			String colorname,sizename;
 			int id_stock,id_color,id_size,qty,activeflag,i=0;
 			int id_pro=prolist.get(index).getId();
-			List<Stock> prodetails=stockDAOImpl.findbyidpro(id_pro);
+			List<Stock> prodetails=stockDAOImpl.findbyidpro(id_pro,false);
 			List list=new ArrayList<>();
 			
 			for( Stock value :prodetails) {
