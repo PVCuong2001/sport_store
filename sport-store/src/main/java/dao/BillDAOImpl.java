@@ -84,7 +84,7 @@ public class BillDAOImpl extends BaseDAOImpl<Bill> implements BillDAO{
 	public void updateprinted(List<String> listbillcode) {
 		Session session=null;
 		StringBuilder stringquery=new StringBuilder();
-		stringquery.append("update bill set bill.bill_status =1 where bill_code=:code");
+		stringquery.append("update bill set bill_status =1 ,bill_description='Done' where bill_code=:code");
 		try {
 			session=sessionFactory.openSession();
 			session.beginTransaction();

@@ -6,8 +6,8 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
+import mix.Myexception;
 import model.User;
-import validate.Myexception;
 public class UserDAOImpl extends BaseDAOImpl<User> implements UserDAO{
 
 	public UserDAOImpl(Class<User> aClazz) {

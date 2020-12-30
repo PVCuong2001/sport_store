@@ -7,16 +7,19 @@
             <generator class="identity"/>
         </id>
         <property generated="never" lazy="false" name="code" optimistic-lock="true" type="string" unique="false">
-            <column length="45" name="bra_code"/>
+            <column length="45" name="bra_code" not-null="true" />
         </property>
         <property generated="never" lazy="false" name="name" optimistic-lock="true" type="string" unique="false">
-            <column length="45" name="bra_name"/>
+            <column length="45" name="bra_name" not-null="true" />
         </property>
         <property generated="never" lazy="false" name="description" optimistic-lock="true" type="string" unique="false">
             <column length="200" name="bra_description"/>
         </property>
+         <property generated="never" lazy="false" name="activeFlag" optimistic-lock="true" type="int" unique="false">
+            <column name="bra_activeflag" not-null="true"/>
+        </property>
         
-        <set embed-xml="true" fetch="select" inverse="true" lazy="false" mutable="true" name="branchCategories" optimistic-lock="true" sort="unsorted" table="branch_category">
+        <set embed-xml="true" fetch="join" inverse="true" lazy="false" mutable="true" name="branchCategories" optimistic-lock="true" sort="unsorted" table="branch_category">
             <key on-delete="noaction">
                 <column name="id_bracate_bra" not-null="true"/>
             </key>

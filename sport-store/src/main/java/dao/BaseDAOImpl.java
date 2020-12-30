@@ -129,14 +129,19 @@ public class BaseDAOImpl<E> implements BaseDAO<E> {
 
 	@Override
 	public int nextid(String tablename) {
-		BigInteger result=BigInteger.valueOf(0);
 		Session session=sessionFactory.openSession();
 		session.beginTransaction();
-		StringBuilder stringquery=new StringBuilder();
-		stringquery.append("call nextid(:tablename)");
-		result=(BigInteger) session.createSQLQuery(stringquery.toString()).setParameter("tablename", tablename).uniqueResult();
+		Object[]result=null;
+		BigInteger num;
+		StringBuilder stringquery1=new StringBuilder();
+		StringBuilder stringquery2=new StringBuilder();
+		stringquery1.append("SET @@SESSION.information_schema_stats_expiry = 0");
+		stringquery2.append("SHOW TABLE STATUS LIKE :tablename");
+		session.createSQLQuery(stringquery1.toString()).executeUpdate();
+		result=(Object[]) session.createSQLQuery(stringquery2.toString()).setParameter("tablename", tablename).uniqueResult();
+		num=(BigInteger) result[10];
 		session.flush();
 		session.close();
-		return result.intValue();
+		return num.intValue();
 	}
 }

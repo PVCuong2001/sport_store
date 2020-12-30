@@ -27,25 +27,7 @@ public class EditUser extends JFrame {
     private JRadioButton radioMale;
     private JRadioButton RadioAdmin;
     private JRadioButton RadioStaff;
-    /**
-     * Launch the application.
-     */
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    EditUser frame = new EditUser();
-                    frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
-
-    /**
-     * Create the frame.
-     */
+    
     public EditUser() {
         setTitle("Edit user");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -73,7 +55,7 @@ public class EditUser extends JFrame {
         
         JLabel lblNewLabel_2 = new JLabel("Password");
         lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-        lblNewLabel_2.setBounds(58, 130, 46, 14);
+        lblNewLabel_2.setBounds(41, 130, 77, 14);
         contentPane.add(lblNewLabel_2);
         
         JLabel lblNewLabel_3 = new JLabel("Phone");
@@ -102,21 +84,21 @@ public class EditUser extends JFrame {
         contentPane.add(lblNewLabel_4);
         
         textFieldGmail = new JTextField();
-        textFieldGmail.setBounds(390, 30, 138, 20);
+        textFieldGmail.setBounds(390, 30, 188, 20);
         contentPane.add(textFieldGmail);
         textFieldGmail.setColumns(10);
         
         JLabel lblNewLabel_5 = new JLabel("Gender");
         lblNewLabel_5.setHorizontalAlignment(SwingConstants.CENTER);
-        lblNewLabel_5.setBounds(324, 85, 46, 14);
+        lblNewLabel_5.setBounds(307, 85, 74, 14);
         contentPane.add(lblNewLabel_5);
         
         radioMale = new JRadioButton("Male");
-        radioMale.setBounds(390, 81, 57, 23);
+        radioMale.setBounds(390, 81, 77, 23);
         contentPane.add(radioMale);
         
         radioFemale = new JRadioButton("Female");
-        radioFemale.setBounds(454, 81, 63, 23);
+        radioFemale.setBounds(473, 81, 84, 23);
         contentPane.add(radioFemale);
         
         JLabel lblNewLabel_6 = new JLabel("Role");

@@ -18,9 +18,6 @@
         <property generated="never" lazy="false" name="code" optimistic-lock="true" type="string" unique="false">
             <column length="45" name="pro_code" not-null="true" unique="true"/>
         </property>
-        <property generated="never" lazy="false" name="imgUrl" optimistic-lock="true" type="string" unique="false">
-            <column length="45" name="pro_img_url"/>
-        </property>
         <property generated="never" lazy="false" name="currentPrice" optimistic-lock="true" type="long" unique="false">
             <column name="pro_current_price" not-null="true"/>
         </property>

@@ -18,7 +18,6 @@ public class PanelBill extends JPanel {
 	private JButton ButtonViewBill;
 	private JButton ButtonOkBill;
 	private JButton ButtonAddBill;
-	private JLabel LabelTotalBill;
 	private JScrollPane scrollPaneBill;
 	private JLabel LabelStartDate;
 	private JTextField textFieldminTotal;
@@ -35,7 +34,7 @@ public class PanelBill extends JPanel {
 		add(ButtonDeleteBill);
 		
 		ButtonViewBill = new JButton("View");
-		ButtonViewBill.setBounds(67, 177, 125, 23);
+		ButtonViewBill.setBounds(67, 149, 125, 23);
 		add(ButtonViewBill);
 		
 		scrollPaneBill = new JScrollPane();
@@ -46,20 +45,14 @@ public class PanelBill extends JPanel {
 		scrollPaneBill.setViewportView(tableBill);
 		
 		ButtonAddBill = new JButton("Add");
-		ButtonAddBill.setBounds(67, 224, 125, 23);
+		ButtonAddBill.setBounds(67, 207, 125, 23);
 		add(ButtonAddBill);
 		
-		JLabel LabelTableBill = new JLabel("B\u1EA3ng Bill");
+		JLabel LabelTableBill = new JLabel("Table Bill");
 		LabelTableBill.setFont(new Font("Tahoma", Font.BOLD, 20));
 		LabelTableBill.setHorizontalAlignment(SwingConstants.CENTER);
 		LabelTableBill.setBounds(516, 13, 218, 44);
-		add(LabelTableBill);
-		
-		LabelTotalBill = new JLabel("Total Data");
-		LabelTotalBill.setFont(new Font("Tahoma", Font.BOLD, 15));
-		LabelTotalBill.setHorizontalAlignment(SwingConstants.CENTER);
-		LabelTotalBill.setBounds(811, 327, 145, 22);;
-		add(LabelTotalBill);
+		add(LabelTableBill);;
 		
 		LabelStartDate = new JLabel("From date");
 		LabelStartDate.setHorizontalAlignment(SwingConstants.CENTER);
@@ -68,7 +61,7 @@ public class PanelBill extends JPanel {
 		
 		JLabel LabelEndDate = new JLabel("to date");
 		LabelEndDate.setHorizontalAlignment(SwingConstants.CENTER);
-		LabelEndDate.setBounds(383, 331, 75, 14);
+		LabelEndDate.setBounds(412, 335, 75, 14);
 		add(LabelEndDate);
 		
 		JLabel LabelMaxTotal = new JLabel("Min total");
@@ -77,34 +70,34 @@ public class PanelBill extends JPanel {
 		add(LabelMaxTotal);
 		
 		textFieldminTotal = new JTextField();
-		textFieldminTotal.setBounds(257, 370, 108, 20);
+		textFieldminTotal.setBounds(257, 370, 134, 20);
 		add(textFieldminTotal);
 		textFieldminTotal.setColumns(10);
 		
 		JLabel LabelMinTotal = new JLabel("Max total");
 		LabelMinTotal.setHorizontalAlignment(SwingConstants.CENTER);
-		LabelMinTotal.setBounds(383, 373, 75, 14);
+		LabelMinTotal.setBounds(402, 373, 75, 14);
 		add(LabelMinTotal);
 		
 		textFieldmaxTotal = new JTextField();
-		textFieldmaxTotal.setBounds(462, 371, 108, 20);
+		textFieldmaxTotal.setBounds(495, 371, 134, 20);
 		add(textFieldmaxTotal);
 		textFieldmaxTotal.setColumns(10);
 		
 		ButtonOkBill = new JButton("Ok");
-		ButtonOkBill.setBounds(577, 348, 89, 23);
+		ButtonOkBill.setBounds(645, 350, 89, 23);
 		add(ButtonOkBill);
 		
 		dateChooserBegin = new JDateChooser();
-		dateChooserBegin.setBounds(257, 327, 108, 20);
+		dateChooserBegin.setBounds(257, 327, 134, 20);
 		add(dateChooserBegin);
 		
 		dateChooserEnd = new JDateChooser();
-		dateChooserEnd.setBounds(462, 328, 108, 20);
+		dateChooserEnd.setBounds(495, 329, 134, 20);
 		add(dateChooserEnd);
 		
 		ButtonSpecial = new JButton("Special Bill");
-		ButtonSpecial.setBounds(67, 272, 125, 25);
+		ButtonSpecial.setBounds(67, 262, 125, 25);
 		add(ButtonSpecial);
 
 	}
@@ -117,9 +110,7 @@ public class PanelBill extends JPanel {
 	public JButton getButtonAddBill() {
 		return ButtonAddBill;
 	}
-	public JLabel getLabelTotalBill() {
-		return LabelTotalBill;
-	}
+
 	public JScrollPane getScrollPaneBill() {
 		return scrollPaneBill;
 	}

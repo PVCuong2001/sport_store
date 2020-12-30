@@ -1,7 +1,7 @@
 package service;
 
+import mix.Myexception;
 import model.User;
-import validate.Myexception;
 
 public interface UserService {
 	 Object[][] searchuser(String name) throws Myexception;

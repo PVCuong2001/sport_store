@@ -52,7 +52,7 @@ public class AddBill extends JFrame {
         
         JLabel LabelDescription = new JLabel("Description");
         LabelDescription.setHorizontalAlignment(SwingConstants.CENTER);
-        LabelDescription.setBounds(10, 89, 70, 15);
+        LabelDescription.setBounds(10, 89, 109, 15);
         contentPane.add(LabelDescription);
         
         scrollPane = new JScrollPane();
@@ -82,7 +82,7 @@ public class AddBill extends JFrame {
         contentPane.add(textAreaDescription);
         
         ButtonAdd = new JButton("ADD");
-        ButtonAdd.setBounds(637, 65, 89, 23);
+        ButtonAdd.setBounds(752, 64, 89, 23);
         contentPane.add(ButtonAdd);
         
         textFieldCodeProduct = new JTextField();
@@ -92,11 +92,11 @@ public class AddBill extends JFrame {
         
         LabelBillCode = new JLabel("Bill Code");
         LabelBillCode.setHorizontalAlignment(SwingConstants.CENTER);
-        LabelBillCode.setBounds(10, 246, 46, 14);
+        LabelBillCode.setBounds(10, 246, 81, 14);
         contentPane.add(LabelBillCode);
         
         textFieldCodeBill = new JTextField();
-        textFieldCodeBill.setBounds(66, 246, 103, 20);
+        textFieldCodeBill.setBounds(85, 244, 103, 20);
         contentPane.add(textFieldCodeBill);
         textFieldCodeBill.setColumns(10);
         
@@ -107,11 +107,11 @@ public class AddBill extends JFrame {
         
         LabelColorSize = new JLabel("Color - Size");
         LabelColorSize.setHorizontalAlignment(SwingConstants.CENTER);
-        LabelColorSize.setBounds(376, 46, 70, 14);
+        LabelColorSize.setBounds(376, 46, 97, 14);
         contentPane.add(LabelColorSize);
         
         comboBoxSizeColor = new JComboBox();
-        comboBoxSizeColor.setBounds(473, 42, 127, 22);
+        comboBoxSizeColor.setBounds(473, 42, 224, 22);
         contentPane.add(comboBoxSizeColor);
         
         LabelQuantity = new JLabel("Quantity");
@@ -125,11 +125,11 @@ public class AddBill extends JFrame {
         textFieldQuantity.setColumns(10);
         
         ButtonFind = new JButton("Find");
-        ButtonFind.setBounds(263, 42, 57, 23);
+        ButtonFind.setBounds(263, 42, 89, 23);
         contentPane.add(ButtonFind);
         
         ButtonRemove = new JButton("Remove");
-        ButtonRemove.setBounds(637, 219, 89, 25);
+        ButtonRemove.setBounds(752, 216, 89, 25);
         contentPane.add(ButtonRemove);
         
          RadioSpecial = new JRadioButton("Print");

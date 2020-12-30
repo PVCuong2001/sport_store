@@ -17,9 +17,6 @@ public class Main {
 					ControllerLogin c = new ControllerLogin(frame);
 					c.ActionButtonLogin();
 					c.ActionButtonReset();
-//					MainView frame = new MainView();
-//					frame.setVisible(true);
-//					ControllerMainView controllermainview = new ControllerMainView(frame);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

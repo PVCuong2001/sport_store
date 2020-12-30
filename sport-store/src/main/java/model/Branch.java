@@ -13,6 +13,7 @@ public class Branch implements java.io.Serializable {
 	private String code;
 	private String name;
 	private String description;
+	private int activeFlag;
 	private Set branchCategories = new HashSet(0);
 
 	public Branch() {
@@ -68,6 +69,13 @@ public class Branch implements java.io.Serializable {
 
 	public void setBranchCategories(Set branchCategories) {
 		this.branchCategories = branchCategories;
+	}
+	public int getActiveFlag() {
+		return activeFlag;
+	}
+
+	public void setActiveFlag(int activeFlag) {
+		this.activeFlag = activeFlag;
 	}
 
 }

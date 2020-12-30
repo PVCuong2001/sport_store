@@ -39,19 +39,6 @@ public class MainView extends JFrame {
 	private JComboBox comboBoxSort;
 	private JComboBox comboBoxPage;
 	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MainView frame = new MainView();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
 	public MainView() {
 		setTitle("       C\u1EECA H\u00C0NG B\u00D3NG \u0110\u00C1 C\u01AF\u1EDCNG L\u1EE2I");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -15,7 +15,7 @@
        <property generated="never" lazy="false" name="groupsize" optimistic-lock="true" type="int" unique="false">
             <column name="cate_groupsize" not-null="true"/>
         </property>
-        <set embed-xml="true" fetch="select" inverse="true" lazy="false" mutable="true" name="branchCategories" optimistic-lock="true" sort="unsorted" table="branch_category">
+        <set embed-xml="true" fetch="join" inverse="true" lazy="false" mutable="true" name="branchCategories" optimistic-lock="true" sort="unsorted" table="branch_category">
             <key on-delete="noaction">
                 <column name="id_bracate_cate" not-null="true"/>
             </key>

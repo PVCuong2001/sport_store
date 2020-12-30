@@ -5,6 +5,19 @@ import java.awt.event.ActionListener;
 import javax.management.InstanceNotFoundException;
 import javax.swing.JOptionPane;
 
+import controller.controllerBill.ControllerAddBill;
+import controller.controllerBill.ControllerBill;
+import controller.controllerBill.ControllerSpeciaBill;
+import controller.controllerInfoUser.ControllerPanelInfoUser;
+import controller.controllerProduct.ControllerAddProduct;
+import controller.controllerProduct.ControllerDelProduct;
+import controller.controllerProduct.ControllerEditProduct;
+import controller.controllerProduct.ControllerPagination;
+import controller.controllerUser.ControllerAddUser;
+import controller.controllerUser.ControllerDelUser;
+import controller.controllerUser.ControllerEditUser;
+import controller.controllerUser.ControllerRefreshPanelUser;
+import controller.controllerUser.ControllerShowDataUser;
 import model.User;
 import service.BillServiceImpl;
 import service.ProductServiceImpl;
@@ -79,7 +92,6 @@ public class ControllerMainView {
 		mainview.getButtonLogOut().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int a = JOptionPane.showConfirmDialog(mainview, "Are you sure?");
-                // JOptionPane.setRootFrame(null);
                 if (a == JOptionPane.YES_OPTION) {
                     mainview.dispose();
                     Login obj = new Login();

@@ -16,7 +16,6 @@ import java.awt.event.ActionEvent;
 public class PanelProduct extends JPanel {
 	private JComboBox comboBoxSort;
 	private JComboBox comboBoxPage;
-	private JLabel LabelTotalData;
 	private JLabel LabelPage;
 	private JLabel LabelSortOption;
 	private JTable table;
@@ -50,16 +49,8 @@ public class PanelProduct extends JPanel {
 		comboBoxPage.setBounds(121, 65, 125, 22);
 		add(comboBoxPage);
 		
-	
-		
-		LabelTotalData = new JLabel("TotalData");
-		LabelTotalData.setHorizontalAlignment(SwingConstants.CENTER);
-		LabelTotalData.setBounds(811, 327, 145, 22);
-		LabelTotalData.setFont(new Font("Tahoma", Font.BOLD, 15));
-		add(LabelTotalData);
-		
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(268, 80, 723, 248);
+		scrollPane.setBounds(268, 80, 861, 248);
 		add(scrollPane);
 		
 		table = new JTable();
@@ -99,9 +90,6 @@ public class PanelProduct extends JPanel {
 	}
 	public JComboBox getComboBoxPage() {
 		return comboBoxPage;
-	}
-	public JLabel getLabelTotalData() {
-		return LabelTotalData;
 	}
 	public JLabel getLabelPage() {
 		return LabelPage;

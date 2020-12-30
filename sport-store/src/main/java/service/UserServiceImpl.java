@@ -3,92 +3,34 @@ package service;
 
 import dao.BaseDAOImpl;
 import dao.UserDAOImpl;
+import mix.Myexception;
 import model.Bill;
 import model.Checkstockproperty;
 import model.User;
-import validate.Myexception;
 
 import java.util.*;
 
 public class UserServiceImpl implements UserService {
 	public static User storeuser=null;
 	private UserDAOImpl userDAOImpl;
-	private int nextid;
 	private List<User>userlist;
 	public UserServiceImpl() {
 		userDAOImpl=new UserDAOImpl(User.class);
-		nextid=userDAOImpl.nextid("user");
-	}
-	public static void main(String[] args) throws CloneNotSupportedException, Myexception {
-			UserServiceImpl userService=new UserServiceImpl();
-			
-				
-			
-			String c="c";
-			Object [][] data=userService.searchuser("c");
-			for(Object[] i :data) {
-				for(Object j :i) {
-					System.out.print(j+"         ");
-				}
-				System.out.println();
-			}
-			
-		
-		/*
-			User user=new User();
-			user.setName("cuongpro");
-			user.setCode("pro001");
-			user.setGender("Nam");
-			user.setGmail("procuong");
-			user.setPassword("procuong001");
-			user.setPhone("09320302302");
-			user.setCreateDate(new Date());
-			user.setId(12);
-			List<Role> roles=new ArrayList<Role>();
-			Role role1=new Role();
-			Role role2=new Role();
-			Role role1=new Role();
-			role2.setIdrole(1);
-			roles.add(role2);
-			roles.add(role1);
-			System.out.println(userService.addrole(roles, role2));
-			userService.removerole(roles, role2);
-			System.out.println(roles.size());
-			userService.deleteuser(user);*/
-			
-//			User user =userService.userDAOImpl.findbyId(User.class,12);
-//			user.setCode("alko");
-//			Role role1=new Role();
-//			Role role2=new Role();
-//			role1.setIdrole(2);
-//			role2.setIdrole(1);
-//			userService.addrole(role1);
-//			userService.addrole(role2);
-			
-			
-//			try {
-//				userService.edituser(user);
-//			} catch (Myexception e) {
-//				System.out.println(e);
-//			}
-//			UserRole userRole=(UserRole) user.getUserRoles().iterator().next();
-//			userService.userRoleDAOImpl.delete(userRole);
 	}
 	public Object[][] searchuser(String name) throws Myexception{
-		List<User> list=null;
 		try {
-			list = userDAOImpl.findbyname(name);
-			Object[][] result= new Object[list.size()][8];
-			for(int i=0;i<list.size();i++) {
+			userlist = userDAOImpl.findbyname(name);
+			Object[][] result= new Object[userlist.size()][8];
+			for(int i=0;i<userlist.size();i++) {
 				result[i][0]=i+1;
-				result[i][1]=list.get(i).getCode().toString();
-				result[i][2]=list.get(i).getName().toString();
-				result[i][3]=list.get(i).getPhone().toString();
-				result[i][4]=list.get(i).getGmail().toString();
-				result[i][5]=list.get(i).getGender().toString();
-				if(list.get(i).getActiveFlag()==1) result[i][6]="valid";
+				result[i][1]=userlist.get(i).getCode().toString();
+				result[i][2]=userlist.get(i).getName().toString();
+				result[i][3]=userlist.get(i).getPhone().toString();
+				result[i][4]=userlist.get(i).getGmail().toString();
+				result[i][5]=userlist.get(i).getGender().toString();
+				if(userlist.get(i).getActiveFlag()==1) result[i][6]="valid";
 				else result[i][6]="invalid";
-				if(list.get(i).getIsAdmin()==1) result[i][7]="Admin";
+				if(userlist.get(i).getIsAdmin()==1) result[i][7]="Admin";
 				else  result[i][7]="Staff";
 			}
 			return result;
@@ -100,7 +42,7 @@ public class UserServiceImpl implements UserService {
 	public void checkuser(String code ,String password) throws Myexception {
 		if(!code.isEmpty()&&!password.isEmpty()) {
 			List<User>result=userDAOImpl.findbyproperty("code",code);
-			if(result.size()!=0&&result.get(0).getPassword().equals(password)) {
+			if(result.size()!=0&&result.get(0).getPassword().equals(password)&&result.get(0).getActiveFlag()==1) {
 			storeuser=result.get(0);
 			}else {
 				throw new Myexception("		Code or Password is wrong\n Please check your Code and Password");
@@ -129,6 +71,8 @@ public class UserServiceImpl implements UserService {
 
 	public void adduser(User user) throws Myexception {
 		if(user.getPhone().length()!=10) throw new Myexception("Phone number must be 10 digits");
+		if(user.getName().isBlank() || user.getPassword().isBlank() || user.getGmail().isBlank() ||user.getGender().isBlank() || (user.getIsAdmin()!=0&&user.getIsAdmin()!=1))
+			throw new Myexception("Please enter full information!");
 		if(userDAOImpl.checkaddinfo(user.getCode(), user.getPassword(), user.getGmail(), user.getPhone())) {
 			user.setActiveFlag(1);
 			user.setCreateDate(new Date());

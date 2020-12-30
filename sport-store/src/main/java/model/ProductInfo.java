@@ -15,7 +15,6 @@ public class ProductInfo implements java.io.Serializable,Cloneable {
 	private String name;
 	private String description;
 	private String code;
-	private String imgUrl;
 	private long currentPrice;
 	private Date createDate;
 	private Date updateDate;
@@ -39,14 +38,13 @@ public class ProductInfo implements java.io.Serializable,Cloneable {
 	}
 
 	public ProductInfo(int id, BranchCategory branchCategory, String name, String description, String code,
-			String imgUrl, long currentPrice, Date createDate, Date updateDate, int activeFlag, Set stocks)
+			 long currentPrice, Date createDate, Date updateDate, int activeFlag, Set stocks)
 			 {
 		this.id = id;
 		this.branchCategory = branchCategory;
 		this.name = name;
 		this.description = description;
 		this.code = code;
-		this.imgUrl = imgUrl;
 		this.currentPrice = currentPrice;
 		this.createDate = createDate;
 		this.updateDate = updateDate;
@@ -92,14 +90,6 @@ public class ProductInfo implements java.io.Serializable,Cloneable {
 
 	public void setCode(String code) {
 		this.code = code;
-	}
-
-	public String getImgUrl() {
-		return this.imgUrl;
-	}
-
-	public void setImgUrl(String imgUrl) {
-		this.imgUrl = imgUrl;
 	}
 
 	public long getCurrentPrice() {

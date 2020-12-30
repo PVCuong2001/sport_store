@@ -29,25 +29,7 @@ public class AddUser extends JFrame {
     private JRadioButton radioAdmin;
     private JRadioButton radioStaff;
     
-    /**
-     * Launch the application.
-     */
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    AddUser frame = new AddUser();
-                    frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
-
-    /**
-     * Create the frame.
-     */
+    
     public AddUser() {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 527, 414);
@@ -68,7 +50,7 @@ public class AddUser extends JFrame {
         
         JLabel lblNewLabel_2 = new JLabel("Password");
         lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-        lblNewLabel_2.setBounds(34, 154, 46, 14);
+        lblNewLabel_2.setBounds(12, 154, 89, 14);
         contentPane.add(lblNewLabel_2);
         
         textFieldCode = new JTextField();
@@ -103,7 +85,7 @@ public class AddUser extends JFrame {
         
         JLabel lblNewLabel_5 = new JLabel("Gender");
         lblNewLabel_5.setHorizontalAlignment(SwingConstants.CENTER);
-        lblNewLabel_5.setBounds(257, 96, 46, 14);
+        lblNewLabel_5.setBounds(249, 96, 65, 14);
         contentPane.add(lblNewLabel_5);
         
         JLabel lblNewLabel_6 = new JLabel("Role");
@@ -112,16 +94,16 @@ public class AddUser extends JFrame {
         contentPane.add(lblNewLabel_6);
         
         textFieldGmail = new JTextField();
-        textFieldGmail.setBounds(313, 31, 141, 20);
+        textFieldGmail.setBounds(313, 31, 172, 20);
         contentPane.add(textFieldGmail);
         textFieldGmail.setColumns(10);
         
         radioButtonMale = new JRadioButton("Male");
-        radioButtonMale.setBounds(309, 92, 52, 23);
+        radioButtonMale.setBounds(309, 92, 69, 23);
         contentPane.add(radioButtonMale);
         
         radioButtonFemale = new JRadioButton("Female");
-        radioButtonFemale.setBounds(382, 92, 72, 23);
+        radioButtonFemale.setBounds(382, 92, 84, 23);
         contentPane.add(radioButtonFemale);
         
         ButtonSave = new JButton("Save");

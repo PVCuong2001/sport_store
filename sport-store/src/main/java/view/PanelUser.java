@@ -20,9 +20,7 @@ public class PanelUser extends JPanel {
     private JScrollPane scrollPaneUser;
     private JButton ButtonFind;
     private JButton ButtonRefresh;
-    /**
-     * Create the panel.
-     */
+   
     public PanelUser() {
         setLayout(null);
         
@@ -51,9 +49,9 @@ public class PanelUser extends JPanel {
         LabelTableUser.setBounds(454, 38, 142, 33);
         add(LabelTableUser);
         
-        JLabel LabelFindUser = new JLabel("Search");
+        JLabel LabelFindUser = new JLabel("Search name");
         LabelFindUser.setHorizontalAlignment(SwingConstants.CENTER);
-        LabelFindUser.setBounds(841, 98, 72, 20);
+        LabelFindUser.setBounds(830, 98, 100, 20);
         add(LabelFindUser);
         
         textFieldName = new JTextField();

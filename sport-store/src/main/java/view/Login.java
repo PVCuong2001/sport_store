@@ -21,18 +21,6 @@ public class Login extends JFrame {
 	private JButton buttonLogin;
 	private JButton buttonReset;
 	
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					Login frame = new Login();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
 
 	public Login() {
 		setBackground(new Color(95, 158, 160));
@@ -47,7 +35,7 @@ public class Login extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel ImageLogin = new JLabel("");
-		ImageLogin.setIcon(new ImageIcon("D:\\\u1EA2NH\\iconlogin.jpg"));
+		ImageLogin.setIcon(new ImageIcon("/home/cuong/git/java/iconlogin.jpg"));
 		ImageLogin.setBounds(22, 39, 225, 225);
 		contentPane.add(ImageLogin);
 		

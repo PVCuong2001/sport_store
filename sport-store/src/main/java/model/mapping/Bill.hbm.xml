@@ -16,7 +16,7 @@
             <column length="10" name="bill_createdate" not-null="true"/>
         </property>
         <property generated="never" lazy="false" name="description" optimistic-lock="true" type="string" unique="false">
-            <column length="100" name="bill_description"/>
+            <column length="200" name="bill_description"/>
         </property>
         <property generated="never" lazy="false" name="billStatus" optimistic-lock="true" type="int" unique="false">
             <column name="bill_status" not-null="true"/>

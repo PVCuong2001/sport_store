@@ -14,6 +14,9 @@ import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 import java.awt.Font;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ViewBill extends JFrame {
 
@@ -25,29 +28,10 @@ public class ViewBill extends JFrame {
     private JTextField textFieldUserName;
     private JTextArea textAreaDes;
     private JLabel lblNewLabel;
-    /**
-     * Launch the application.
-     */
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    ViewBill frame = new ViewBill();
-                    frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
-
-    /**
-     * Create the frame.
-     */
     public ViewBill() {
         setTitle("Bill Detail");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setBounds(100, 100, 785, 454);
+        setBounds(100, 100, 785, 485);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
@@ -91,7 +75,7 @@ public class ViewBill extends JFrame {
         
         textFieldCode = new JTextField();
         textFieldCode.setEditable(false);
-        textFieldCode.setBounds(145, 20, 119, 20);
+        textFieldCode.setBounds(96, 20, 168, 20);
         contentPane.add(textFieldCode);
         textFieldCode.setColumns(10);
         
@@ -103,19 +87,19 @@ public class ViewBill extends JFrame {
         
         textFieldUserCode = new JTextField();
         textFieldUserCode.setEditable(false);
-        textFieldUserCode.setBounds(375, 20, 119, 20);
+        textFieldUserCode.setBounds(365, 20, 129, 20);
         contentPane.add(textFieldUserCode);
         textFieldUserCode.setColumns(10);
         
         textFieldUserName = new JTextField();
         textFieldUserName.setEditable(false);
-        textFieldUserName.setBounds(628, 20, 134, 20);
+        textFieldUserName.setBounds(604, 20, 158, 20);
         contentPane.add(textFieldUserName);
         textFieldUserName.setColumns(10);
         
         textAreaDes = new JTextArea();
         textAreaDes.setEditable(false);
-        textAreaDes.setBounds(467, 71, 295, 51);
+        textAreaDes.setBounds(451, 71, 311, 51);
         contentPane.add(textAreaDes);
         
         lblNewLabel = new JLabel("Bill Detail");
@@ -151,8 +135,6 @@ public class ViewBill extends JFrame {
     public JTextArea getTextAreaDes() {
         return textAreaDes;
     }
-    
-
 }
 
 

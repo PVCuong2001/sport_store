@@ -8,13 +8,12 @@ import javax.management.InstanceNotFoundException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-import config.Injector;
 import dao.UserDAO;
 import dao.UserDAOImpl;
+import mix.Myexception;
 import model.User;
 import service.ProductServiceImpl;
 import service.UserServiceImpl;
-import validate.Myexception;
 import view.Login;
 import view.MainView;
 
@@ -23,12 +22,10 @@ public class ControllerLogin {
 	private UserDAOImpl userDAOImpl;
 	private Login login;
 	private ProductServiceImpl productService;
-	private JFrame f;
 	@SuppressWarnings("unchecked")
 	public ControllerLogin(Login l) throws InstanceNotFoundException {
 		login = l;
 		userDAOImpl=new UserDAOImpl(User.class);
-		f=new JFrame();
 	}
 	
 	public void ActionButtonLogin() {
@@ -41,10 +38,10 @@ public class ControllerLogin {
 					userService.checkuser(code, password);
 					MainView frame=new MainView();
 					frame.setVisible(true);
-					ControllerMainView controllerMainView=new ControllerMainView(frame);
+					ControllerMainView controllerMainView = new ControllerMainView(frame);
 					login.dispose();
 				}catch (Myexception e1) {
-					JOptionPane.showMessageDialog(f, e1,"Alert",JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(login, e1,"Alert",JOptionPane.WARNING_MESSAGE);
 					login.getTextFieldCode().setText("");
 					login.getTextFieldPassword().setText("");
 				}

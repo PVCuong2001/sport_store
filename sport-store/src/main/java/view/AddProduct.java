@@ -14,6 +14,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.JTextArea;
 
 public class AddProduct extends JFrame {
 
@@ -32,27 +33,8 @@ public class AddProduct extends JFrame {
 	private JButton ButtonSave;
 	private JButton ButtonCancel;
 	private PanelProduct panelProduct;
-	
+	private JTextArea textArea;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					AddProduct frame = new AddProduct();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
 	public AddProduct() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 659, 484);
@@ -163,6 +145,14 @@ public class AddProduct extends JFrame {
 		lblNewLabel_7.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_7.setBounds(48, 165, 70, 15);
 		contentPane.add(lblNewLabel_7);
+		
+		JLabel lblDescription = new JLabel("Description");
+		lblDescription.setBounds(31, 243, 109, 15);
+		contentPane.add(lblDescription);
+		
+		textArea = new JTextArea();
+		textArea.setBounds(12, 271, 136, 142);
+		contentPane.add(textArea);
 	}
 	public PanelProduct getPanelProduct() {
 		return panelProduct;
@@ -219,8 +209,10 @@ public class AddProduct extends JFrame {
 		return ButtonSave;
 	}
 
+	public JTextArea getTextDes() {
+		return textArea;
+	}
 	public JButton getButtonCancel() {
 		return ButtonCancel;
 	}
-	
 }

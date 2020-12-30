@@ -7,7 +7,7 @@
             <generator class="identity"/>
         </id>
         <property generated="never" lazy="false" name="name" optimistic-lock="true" type="string" unique="false">
-            <column length="45" name="size_name" unique="true"/>
+            <column length="45" name="size_name" unique="true" not-null="true" />
         </property>
         <set cascade="save-update ,delete" embed-xml="true" fetch="select" inverse="true" lazy="true" mutable="true" name="stocks" optimistic-lock="true" sort="unsorted" table="stock">
             <key on-delete="noaction">

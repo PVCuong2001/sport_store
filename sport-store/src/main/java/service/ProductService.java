@@ -1,9 +1,9 @@
 package service;
 
+import mix.Myexception;
 import model.Checkstockproperty;
 import model.ProductInfo;
 import model.UploadProductComponent;
-import validate.Myexception;
 
 public interface ProductService {
 	Object[][] showproduct(int page,int rowcount,int sortoption);
@@ -15,5 +15,4 @@ public interface ProductService {
 	void editproduct(ProductInfo productInfo) throws Myexception ;
 	void deleteproduct(int index) throws Myexception ;
 	Integer[] listpage() ;
-	long totaldata();
 }

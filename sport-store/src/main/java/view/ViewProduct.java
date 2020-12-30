@@ -84,7 +84,7 @@ public class ViewProduct extends JFrame {
         
         textFieldCode = new JTextField();
         textFieldCode.setEditable(false);
-        textFieldCode.setBounds(102, 9, 114, 19);
+        textFieldCode.setBounds(102, 9, 177, 19);
         contentPane.add(textFieldCode);
         textFieldCode.setColumns(10);
         
@@ -96,7 +96,7 @@ public class ViewProduct extends JFrame {
         
         textFieldName = new JTextField();
         textFieldName.setEditable(false);
-        textFieldName.setBounds(102, 40, 158, 19);
+        textFieldName.setBounds(102, 40, 174, 19);
         contentPane.add(textFieldName);
         textFieldName.setColumns(10);
         

@@ -14,9 +14,6 @@ public class PanelInfoUser extends JPanel {
     private JTextField textFieldPassword;
     private JTextField textFieldRole;
 
-    /**
-     * Create the panel.
-     */
     public PanelInfoUser() {
         setLayout(null);
         
